@@ -18,15 +18,18 @@
     <ClCompile Include="main.c">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="ecdsaKeyPair.c">
+    <ClCompile Include="myEcdsa.c">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="rsaKeyPair.c">
+    <ClCompile Include="myRsa.c">
       <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="myEcdsa.h">
+      <Filter>標頭檔</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="mykeypair.h">
+    <ClInclude Include="myRsa.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
