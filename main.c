@@ -1,8 +1,12 @@
-
+﻿
 #include "stdio.h"
 #include "string.h"
 #include "myEcdsa.h"
 
+
+// Visual Studio 有BUG，從Github上下載本專案後會無法編譯
+// 解決方法：畚箕Windows偵錯工具右邊有個下拉選單，選擇cavpCrypto偵錯屬性，把C語言標準調成比較新的，就可以編譯了
+// 很奇怪的是，如果你編譯成功後，再把C語言標準調回原本的，再編譯一次，也會成功 (很奇怪吧😶😶😶😶😶)
 
 int main()
 {
