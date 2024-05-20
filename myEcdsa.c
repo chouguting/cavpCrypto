@@ -1,6 +1,6 @@
 #include <tomcrypt.h>
 #include <tommath.h>
-
+#include "myEcdsa.h"
 
 const int ECDSA_CURVE_P256 = 1;
 const int ECDSA_CURVE_P384 = 2;
