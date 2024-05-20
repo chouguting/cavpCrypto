@@ -1,4 +1,4 @@
-#include <tommath.h>
+ï»¿#include <tommath.h>
 #include "stdio.h"
 #include "string.h"
 
@@ -28,7 +28,7 @@ void computeAProbablePrimeFactorBasedOnAuxiliaryPrimes(
 	char primeOutResult[1025];
 
 
-	//r =  ((r2^(-1) mod (2*r1)) * r2) ¡V (((2*r1)^(¡V1) mod r2) * (2*r1))
+	//r =  ((r2^(-1) mod (2*r1)) * r2) â€“ (((2*r1)^(â€“1) mod r2) * (2*r1))
 	//calculate the modular inverse of 2*r1(mod r2) and r2(mod 2*r1) first
 
 
@@ -40,9 +40,9 @@ void computeAProbablePrimeFactorBasedOnAuxiliaryPrimes(
 
 
 	mp_init(&inverseOf2R1ModR2);
-	mp_invmod(&twoR1, r2, &inverseOf2R1ModR2); //inverseOf2R1ModR2 = (2*r1)^(¡V1) mod r2
+	mp_invmod(&twoR1, r2, &inverseOf2R1ModR2); //inverseOf2R1ModR2 = (2*r1)^(â€“1) mod r2
 
-	//r =  ((r2^(-1) mod (2*r1)) * r2) ¡V (((2*r1)^(¡V1) mod r2) * (2*r1))
+	//r =  ((r2^(-1) mod (2*r1)) * r2) â€“ (((2*r1)^(â€“1) mod r2) * (2*r1))
 	mp_init(&r);
 	mp_copy(r2, &r);
 	mp_mul(&r, &inverseOfR2Mod2R1, &r);
@@ -52,8 +52,8 @@ void computeAProbablePrimeFactorBasedOnAuxiliaryPrimes(
 	mp_clear(&inverseOfR2Mod2R1);
 	mp_clear(&inverseOf2R1ModR2);
 
-	//y = x + ((r ¡V x) mod (2*r1*r2))
-	//prime_out = y = x + ((r ¡V x) mod (2*r1*r2))
+	//y = x + ((r â€“ x) mod (2*r1*r2))
+	//prime_out = y = x + ((r â€“ x) mod (2*r1*r2))
 	mp_init(&twoR1R2);
 	mp_mul(r1, r2, &twoR1R2);
 	mp_mul_2(&twoR1R2, &twoR1R2);
@@ -63,12 +63,12 @@ void computeAProbablePrimeFactorBasedOnAuxiliaryPrimes(
 	mp_clear(&r);
 
 
-	//regenerate y until (GCD(Y¡V1, e) = 1) and y is a probable prime
-	//if (GCD(Y¡V1, e) = 1) and y is a probable prime, then return y
+	//regenerate y until (GCD(Yâ€“1, e) = 1) and y is a probable prime
+	//if (GCD(Yâ€“1, e) = 1) and y is a probable prime, then return y
 	mp_init(&yMinus1);
 	mp_sub_d(prime_out, 1, &yMinus1); //yMinus1 = y - 1 = prime_out - 1
 	mp_init(&gcd);
-	mp_gcd(&yMinus1, e, &gcd); //gcd = GCD(Y¡V1, e)
+	mp_gcd(&yMinus1, e, &gcd); //gcd = GCD(Yâ€“1, e)
 
 	mp_prime_is_prime(prime_out, 100, &isPrime);
 
@@ -80,15 +80,15 @@ void computeAProbablePrimeFactorBasedOnAuxiliaryPrimes(
 	mp_to_radix(&yMinus1, yMinusOneResult, sizeof(yMinusOneResult), NULL, 10);
 	mp_to_radix(prime_out, primeOutResult, sizeof(primeOutResult), NULL, 10);
 
-	printf("GCD(Y¡V1, e) before loop: %s\n", gcdResult);
-	printf("Y¡V1 before loop: %s\n", yMinusOneResult);
+	printf("GCD(Yâ€“1, e) before loop: %s\n", gcdResult);
+	printf("Yâ€“1 before loop: %s\n", yMinusOneResult);
 	printf("prime_out before loop: %s\n", primeOutResult);
 
 	while (mp_cmp_d(&gcd, 1) != MP_EQ || !isPrime) {
 		mp_add_d(&loopCounter, 1, &loopCounter);
 		mp_add(prime_out, &twoR1R2, prime_out); //y = y + 2*r1*r2 (prime_out = prime_out + 2*r1*r2)
 		mp_sub_d(prime_out, 1, &yMinus1); //yMinus1 = y - 1
-		mp_gcd(&yMinus1, e, &gcd); //gcd = GCD(Y¡V1, e)
+		mp_gcd(&yMinus1, e, &gcd); //gcd = GCD(Yâ€“1, e)
 		mp_prime_is_prime(prime_out, 1, &isPrime); //check if y is a probable prime
 
 		mp_to_radix(&yMinus1, yMinusOneResult, sizeof(yMinusOneResult), NULL, 10);
@@ -97,8 +97,8 @@ void computeAProbablePrimeFactorBasedOnAuxiliaryPrimes(
 		mp_to_radix(prime_out, primeOutResult, sizeof(primeOutResult), NULL, 10);
 
 
-		printf("Loop: %s, GCD(Y¡V1, e): %s\n", loopResult, gcdResult);
-		//printf("Y¡V1: %s\n", yMinusOneResult);
+		printf("Loop: %s, GCD(Yâ€“1, e): %s\n", loopResult, gcdResult);
+		//printf("Yâ€“1: %s\n", yMinusOneResult);
 		printf("y: %s\n\n", primeOutResult);
 
 	}

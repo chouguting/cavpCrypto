@@ -1,6 +1,8 @@
-#include <tomcrypt.h>
+ï»¿#include <tomcrypt.h>
 #include <tommath.h>
 #include "myEcdsa.h"
+
+
 
 const int ECDSA_CURVE_P256 = 1;
 const int ECDSA_CURVE_P384 = 2;
@@ -24,7 +26,7 @@ void ecdsaKeyPair(int keypairCurve)
 
 
 	int i;
-	crypt_mp_init("ltm"); //¨Ï¥Îlibtommath
+	crypt_mp_init("ltm"); //ä½¿ç”¨libtommath
 
 	
 	/* register yarrow */
@@ -32,14 +34,14 @@ void ecdsaKeyPair(int keypairCurve)
 		printf("Error registering Yarrow\n");
 		return-1;
 	}
-	/* ³]©wPRNG */
+	/* è¨­å®šPRNG */
 	if ((err = rng_make_prng(128, find_prng("yarrow"), &prng, NULL))
 		!= CRYPT_OK) {
 		printf("Error setting up PRNG, %s\n", error_to_string(err));
 		return-1;
 	}
 
-	// Àò¨úP - 256¦±½u
+	// ç²å–P - 256æ›²ç·š
 	if (keypairCurve == ECDSA_CURVE_P256)
 	{
 		if ((err = ecc_find_curve("P-256", &curve)) != CRYPT_OK) {
@@ -47,14 +49,14 @@ void ecdsaKeyPair(int keypairCurve)
 			return -1;
 		}
 	}
-	else if (keypairCurve == ECDSA_CURVE_P384) // Àò¨úP - 384¦±½u
+	else if (keypairCurve == ECDSA_CURVE_P384) // ç²å–P - 384æ›²ç·š
 	{
 		if ((err = ecc_find_curve("P-384", &curve)) != CRYPT_OK) {
 			printf("Error finding P-384 curve: %s\n", error_to_string(err));
 			return -1;
 		}
 	}
-	else if (keypairCurve == ECDSA_CURVE_P521) // Àò¨úP - 521¦±½u
+	else if (keypairCurve == ECDSA_CURVE_P521) // ç²å–P - 521æ›²ç·š
 	{
 		if ((err = ecc_find_curve("P-521", &curve)) != CRYPT_OK) {
 			printf("Error finding P-521 curve: %s\n", error_to_string(err));
@@ -68,7 +70,7 @@ void ecdsaKeyPair(int keypairCurve)
 	}
 	
 
-	/* ²£¥ÍECC key */
+	/* ç”¢ç”ŸECC key */
 	if ((err = ecc_make_key_ex(&prng, find_prng("yarrow"), &mykey, curve)) != CRYPT_OK) {
 		printf("Error generating ECC keypair: %s\n", error_to_string(err));
 		return -1;
@@ -76,13 +78,13 @@ void ecdsaKeyPair(int keypairCurve)
 
 
 
-	// Àò¨ú¤½Æ_ªºqx¡Bqy©M¨pÆ_d
+	// ç²å–å…¬é‘°çš„qxã€qyå’Œç§é‘°d
     
     ltc_mp.unsigned_write(mykey.pubkey.x, qx);
     ltc_mp.unsigned_write(mykey.pubkey.y, qy);
     ltc_mp.unsigned_write(mykey.k, d);
 
-    // ¦L¥Xqx¡Bqy©Md
+    // å°å‡ºqxã€qyå’Œd
 	printf("qx:");
     for (i = 0; i < keysize; i++) printf("%02X", qx[i]);
     printf("\n");
@@ -93,7 +95,7 @@ void ecdsaKeyPair(int keypairCurve)
     for (i = 0; i < keysize; i++) printf("%02X", d[i]);
     printf("\n");
 
-    // ÄÀ©ñkey
+    // é‡‹æ”¾key
     ecc_free(&mykey);
 	free(qx);
 	free(qy);
@@ -109,12 +111,12 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 
 
 
-	crypt_mp_init("ltm"); //¨Ï¥Îlibtommath
+	crypt_mp_init("ltm"); //ä½¿ç”¨libtommath
 	mp_init(&x);
 	mp_init(&y);
 
 
-	// ®Ú¾ÚkeypairCurve¿ï¾Ü¹ïÀ³ªº¦±½u
+	// æ ¹æ“škeypairCurveé¸æ“‡å°æ‡‰çš„æ›²ç·š
 	if (keypairCurve == ECDSA_CURVE_P256) {
 		if ((err = ecc_find_curve("P-256", &curve)) != CRYPT_OK) {
 			printf("Error finding P-256 curve: %s\n", error_to_string(err));
@@ -138,7 +140,7 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 		return false;
 	}
 
-	// ±Nqx©Mqy±q¦r¦êÂà´«¬°¤j¼Æ
+	// å°‡qxå’Œqyå¾å­—ä¸²è½‰æ›ç‚ºå¤§æ•¸
 	
 	if ((err = mp_read_radix(&x, qx, 16)) != CRYPT_OK || (err = mp_read_radix(&y, qy, 16)) != CRYPT_OK) {
 		printf("Error reading qx and qy: %s\n", error_to_string(err));
@@ -146,7 +148,7 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 		return false;
 	}
 
-	// ÅçÃÒ¤½Æ_: §Q¥Î¤½¦¡ y^2 = x^3 + ax + b (mod p) ÅçÃÒ¤½Æ_¬O§_¦b¦±½u¤W
+	// é©—è­‰å…¬é‘°: åˆ©ç”¨å…¬å¼ y^2 = x^3 + ax + b (mod p) é©—è­‰å…¬é‘°æ˜¯å¦åœ¨æ›²ç·šä¸Š
 	mp_int a,  b,  p,  lhs,  rhs;
 
 	mp_init(&a);
@@ -155,23 +157,23 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 	mp_init(&lhs);
 	mp_init(&rhs);
 
-	// Åª¨ú¦±½u°Ñ¼Æ
+	// è®€å–æ›²ç·šåƒæ•¸
 	mp_read_radix(&a, curve->A, 16);
 	mp_read_radix(&b, curve->B, 16);
 	mp_read_radix(&p, curve->prime, 16);
 
-	// ­pºâ¥ª°¼ y^2 (mod p)
+	// è¨ˆç®—å·¦å´ y^2 (mod p)
 	mp_sqr(&y, &lhs); // y^2
 	mp_mod(&lhs, &p, &lhs); // y^2 (mod p)
 
-	// ­pºâ¥k°¼ x^3 + ax + b (mod p)
+	// è¨ˆç®—å³å´ x^3 + ax + b (mod p)
 	mp_sqr(&x, &rhs); // x^2
 	mp_mulmod(&rhs, &x, &p, &rhs); // x^3 (mod p)
 	mp_mulmod(&a, &x, &p, &x); // ax (mod p)
 	mp_addmod(&rhs, &x, &p, &rhs); // x^3 + ax (mod p)
 	mp_addmod(&rhs, &b, &p, &rhs); // x^3 + ax + b (mod p)
 
-	// ¤ñ¸û¥ª°¼©M¥k°¼
+	// æ¯”è¼ƒå·¦å´å’Œå³å´
 	if (mp_cmp(&lhs, &rhs) != LTC_MP_EQ) {
 		printf("Invalid public key\n");
 		//mp_clear_multi(&x, &y, &a, &b, &p, &lhs, &rhs, NULL);
