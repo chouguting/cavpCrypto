@@ -199,4 +199,404 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 	
 }
 
+const int ECDSA_HASH_SHA2_256 = 1;
+const int ECDSA_HASH_SHA2_384 = 2;
+const int ECDSA_HASH_SHA2_512 = 3;
+const int ECDSA_HASH_SHA3_256 = 4;
+const int ECDSA_HASH_SHA3_384 = 5;
+const int ECDSA_HASH_SHA3_512 = 6;
+const int ECDSA_HASH_SHAKE128 = 7;
+const int ECDSA_HASH_SHAKE256 = 8;
 
+void hex_to_bytes(const char* hex, unsigned char* outBytes, unsigned long* outBytesLen) {
+	*outBytesLen = strlen(hex) / 2;
+	for (unsigned long i = 0; i < *outBytesLen; i++) {
+		sscanf_s(hex + 2 * i, "%02hhx", &outBytes[i]);
+	}
+}
+
+void bytes_to_hex(unsigned char* bytes, unsigned long bytesLen, char* hex) {
+	for (unsigned long i = 0; i < bytesLen; i++) {
+		sprintf_s(hex + 2 * i, 3 ,"%02X", bytes[i]);
+	}
+	hex[2 * bytesLen] = '\0';
+}
+
+
+void hash_message(char* message, unsigned long messageLen, int hashAlgorithm, unsigned char* out, unsigned long* outlen) {
+	int err;
+	hash_state md;
+
+	switch (hashAlgorithm) {
+	case 1:  //ECDSA_HASH_SHA2_256
+		sha256_init(&md);
+		if ((err = sha256_process(&md, message, messageLen)) != CRYPT_OK) {
+			printf("Error hashing message: %s\n", error_to_string(err));
+			return;
+		}
+
+		if ((err = sha256_done(&md, out)) != CRYPT_OK) {
+			printf("Error finishing hash: %s\n", error_to_string(err));
+			return;
+		}
+		*outlen = 256 / 8;
+		break; 
+	case 2: //ECDSA_HASH_SHA2_384
+		sha384_init(&md);
+		if ((err = sha384_process(&md, message, messageLen)) != CRYPT_OK) {
+			printf("Error hashing message: %s\n", error_to_string(err));
+			return;
+		}
+		if ((err = sha384_done(&md, out)) != CRYPT_OK) {
+			printf("Error finishing hash: %s\n", error_to_string(err));
+			return;
+		}
+		*outlen = 384 / 8;
+		break;
+	case 3: //ECDSA_HASH_SHA2_512
+		sha512_init(&md);
+		if ((err = sha512_process(&md, message, messageLen)) != CRYPT_OK) {
+			printf("Error hashing message: %s\n", error_to_string(err));
+			return;
+		}
+		if ((err = sha512_done(&md, out)) != CRYPT_OK) {
+			printf("Error finishing hash: %s\n", error_to_string(err));
+			return;
+		}
+		*outlen = 512 / 8;
+		break;
+	case 4: //ECDSA_HASH_SHA3_256
+		sha3_256_init(&md);
+		if ((err = sha3_process(&md, message, messageLen)) != CRYPT_OK) {
+			printf("Error hashing message: %s\n", error_to_string(err));
+			return;
+		}
+		if ((err = sha3_done(&md, out)) != CRYPT_OK) {
+			printf("Error finishing hash: %s\n", error_to_string(err));
+			return;
+		}
+		*outlen = 256 / 8;
+		break;
+	case 5: //ECDSA_HASH_SHA3_384
+		sha3_384_init(&md);
+		if ((err = sha3_process(&md, message, messageLen)) != CRYPT_OK) {
+			printf("Error hashing message: %s\n", error_to_string(err));
+			return;
+		}
+		if ((err = sha3_done(&md, out)) != CRYPT_OK) {
+			printf("Error finishing hash: %s\n", error_to_string(err));
+			return;
+		}
+		*outlen = 384 / 8;
+		break;
+	case 6: //ECDSA_HASH_SHA3_512
+		sha3_512_init(&md);
+		if ((err = sha3_process(&md, message, messageLen)) != CRYPT_OK) {
+			printf("Error hashing message: %s\n", error_to_string(err));
+			return;
+		}
+		if ((err = sha3_done(&md, out)) != CRYPT_OK) {
+			printf("Error finishing hash: %s\n", error_to_string(err));
+			return;
+		}
+		*outlen = 512 / 8;
+		break;
+	case 7: //ECDSA_HASH_SHAKE128
+		//sha3_shake_init(&md,128);
+		if ((err = sha3_shake_init(&md, 128)) != CRYPT_OK) {
+			printf("Could not init SHAKE128 (%s)\n", error_to_string(err));
+			return EXIT_FAILURE;
+		}
+		if ((err = sha3_shake_process(&md, message, messageLen)) != CRYPT_OK) {
+			printf("Error hashing message: %s\n", error_to_string(err));
+			return;
+		}
+		if ((err = sha3_shake_done(&md, out, 128/8)) != CRYPT_OK) {
+			printf("Error finishing hash: %s\n", error_to_string(err));
+			return;
+		}
+		*outlen = 128 / 8;
+		break;
+	case 8: //ECDSA_HASH_SHAKE256
+		sha3_shake_init(&md, 256);
+		if ((err = sha3_shake_process(&md, message, messageLen)) != CRYPT_OK) {
+			printf("Error hashing message: %s\n", error_to_string(err));
+			return;
+		}
+		if ((err = sha3_shake_done(&md, out, 256/8)) != CRYPT_OK) {
+			printf("Error finishing hash: %s\n", error_to_string(err));
+			return;
+		}
+		*outlen = 256 / 8;
+		break;
+
+	default:
+		printf("Unsupported hash algorithm\n");
+		return;
+	}
+
+	
+}
+
+void ecdsaSignatureGenerate(int keypairCurve, int hashAlgorithm, char* d, char* message) {
+	crypt_mp_init("ltm"); //使用libtommath
+	
+	int err;
+	ecc_key key;
+	prng_state prng;
+	const ltc_ecc_curve* curve;
+	//key的長度
+	int keysize = (keypairCurve == ECDSA_CURVE_P256) ? 32 : (keypairCurve == ECDSA_CURVE_P384) ? 48 : (keypairCurve == ECDSA_CURVE_P521) ? 66 : 0;
+	unsigned long outlen; // message digest的長度
+	unsigned char out[256]; // message digest
+	unsigned char hash[512 / 8]; // 計算出的hash (最大是512 bits)
+	unsigned long hashlen; // hash的長度
+	unsigned char* dBytes; // d的byte陣列
+	unsigned long dBytesLen; // d的byte陣列的長度
+	unsigned char* messageBytes; // message的byte陣列
+	unsigned long messageBytesLen; // message的byte陣列的長度
+
+	dBytes = (unsigned char*)malloc(strlen(d)/2);
+	messageBytes = (unsigned char*)malloc(strlen(message) / 2);
+
+
+	/* 把d轉成byte陣列 */
+	hex_to_bytes(d, dBytes, &dBytesLen);
+	/* 把message轉成byte陣列 */
+	hex_to_bytes(message, messageBytes, &messageBytesLen);
+
+	/* register yarrow */
+	if (register_prng(&yarrow_desc) == -1) {
+		printf("Error registering Yarrow\n");
+		return;
+	}
+	/* 設定PRNG */
+	if ((err = rng_make_prng(128, find_prng("yarrow"), &prng, NULL))
+		!= CRYPT_OK) {
+		printf("Error setting up PRNG, %s\n", error_to_string(err));
+		return;
+	}
+
+
+	// 獲取P - 256曲線
+	if (keypairCurve == ECDSA_CURVE_P256)
+	{
+		if ((err = ecc_find_curve("P-256", &curve)) != CRYPT_OK) {
+			printf("Error finding P-256 curve: %s\n", error_to_string(err));
+			return -1;
+		}
+	}
+	else if (keypairCurve == ECDSA_CURVE_P384) // 獲取P - 384曲線
+	{
+		if ((err = ecc_find_curve("P-384", &curve)) != CRYPT_OK) {
+			printf("Error finding P-384 curve: %s\n", error_to_string(err));
+			return -1;
+		}
+	}
+	else if (keypairCurve == ECDSA_CURVE_P521) // 獲取P - 521曲線
+	{
+		if ((err = ecc_find_curve("P-521", &curve)) != CRYPT_OK) {
+			printf("Error finding P-521 curve: %s\n", error_to_string(err));
+			return -1;
+		}
+	}
+	else
+	{
+		printf("Error finding curve: %s\n", error_to_string(err));
+		return -1;
+	}
+
+
+	/* 產生ECC key */
+	if ((err = ecc_make_key_ex(&prng, find_prng("yarrow"), &key, curve)) != CRYPT_OK) {
+		printf("Error generating ECC keypair: %s\n", error_to_string(err));
+		return -1;
+	}
+
+	//直接把key裡面的private key設定為d (private key)
+	ltc_mp.unsigned_read(key.k, dBytes, dBytesLen);
+
+
+	/* 計算訊息的 hash */
+	hash_message(messageBytes, messageBytesLen, hashAlgorithm, hash, &hashlen);
+
+	printf("Hash: ");
+	for (int i = 0; i < hashlen; i++)
+	{
+		printf("%02X", hash[i]);
+	}
+	printf("\n");
+
+	/* 生成簽名 */
+	if ((err = ecc_sign_hash(hash, hashlen, out, &outlen, &prng, find_prng("yarrow"), &key)) != CRYPT_OK) {
+		printf("Error signing message, %s\n", error_to_string(err));
+		return;
+	}
+
+	/* 輸出簽名 */
+	unsigned char* sig = (unsigned char*)malloc(2 * outlen + 1);
+	bytes_to_hex(out, outlen, sig);
+	printf("Signature: %s\n", sig);
+	
+
+	/* 解碼簽名 */
+	ltc_asn1_list sig_list[2];
+	mp_int r, s;
+
+	/* 初始化 r 和 s */
+	if ((err = mp_init_multi(&r, &s, NULL)) != CRYPT_OK) {
+		printf("Error initializing r and s, %s\n", error_to_string(err));
+		return;
+	}
+
+	/* 設定 ASN.1 列表 */
+	sig_list[0].type = LTC_ASN1_INTEGER;
+	sig_list[0].data = &r;
+	sig_list[1].type = LTC_ASN1_INTEGER;
+	sig_list[1].data = &s;
+
+	/* 解碼簽名 */
+	if ((err = der_decode_sequence(out, outlen, sig_list, 2)) != CRYPT_OK) {
+		printf("Error decoding signature, %s\n", error_to_string(err));
+		return;
+	}
+
+	/* 輸出 r 和 s */
+	char r_str[512], s_str[512];
+	mp_to_radix(&r, r_str, sizeof(r_str), NULL, 16);
+	mp_to_radix(&s, s_str, sizeof(s_str), NULL, 16);
+	printf("r: %s\n", r_str);
+	printf("s: %s\n", s_str);
+
+	/* 清理 */
+	mp_clear_multi(&r, &s, NULL);
+
+	/* 清理 */
+	
+	ecc_free(&key);
+	free(dBytes);
+	free(sig);
+	sig = NULL;
+}
+
+//🚧🚧🚧 施工中 🚧🚧🚧
+void ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* qy, char* r, char* s, char* message) {
+	crypt_mp_init("ltm"); //使用libtommath
+
+	int err;
+	ecc_key key;
+	prng_state prng;
+	const ltc_ecc_curve* curve;
+	//key的長度
+	int keysize = (keypairCurve == ECDSA_CURVE_P256) ? 32 : (keypairCurve == ECDSA_CURVE_P384) ? 48 : (keypairCurve == ECDSA_CURVE_P521) ? 66 : 0;
+	unsigned long outlen; // message digest的長度
+	unsigned char out[256]; // message digest
+	unsigned char hash[512 / 8]; // 計算出的hash (最大是512 bits)
+	unsigned long hashlen; // hash的長度
+	unsigned char* messageBytes; // message的byte陣列
+	unsigned long messageBytesLen; // message的byte陣列的長度
+
+	messageBytes = (unsigned char*)malloc(strlen(message) / 2);
+
+	/*把r,s轉成mp_int*/
+	mp_int r_mp_int, s_mp_int;
+	mp_init_multi(&r_mp_int, &s_mp_int, NULL);
+
+	mp_read_radix(&r_mp_int, r, 16);
+	mp_read_radix(&s_mp_int, s, 16);
+
+	/*嘗試利用r,s組回sig*/
+	unsigned char sig[512];
+	unsigned long siglen;
+
+	
+
+	/* 組合 r 和 s */
+	ltc_asn1_list sig_list[2];
+	sig_list[0].type = LTC_ASN1_INTEGER;
+	sig_list[0].data = &r_mp_int;
+	sig_list[1].type = LTC_ASN1_INTEGER;
+	sig_list[1].data = &s_mp_int;
+	/* 編碼簽名 */
+	if ((err = der_encode_sequence(sig_list, 2, sig, &siglen)) != CRYPT_OK) {
+		printf("Error encoding signature, %s\n", error_to_string(err));
+		return;
+	}
+
+	/* 輸出簽名 */
+	unsigned char* sig_hex = (unsigned char*)malloc(2 * siglen + 1);
+	bytes_to_hex(sig, siglen, sig_hex);
+	printf("Rwcovered Signature: %s\n", sig_hex);
+	free(sig_hex);
+
+
+	
+	/* 把message轉成byte陣列 */
+	hex_to_bytes(message, messageBytes, &messageBytesLen);
+
+	/* register yarrow */
+	if (register_prng(&yarrow_desc) == -1) {
+		printf("Error registering Yarrow\n");
+		return;
+	}
+	/* 設定PRNG */
+	if ((err = rng_make_prng(128, find_prng("yarrow"), &prng, NULL))
+		!= CRYPT_OK) {
+		printf("Error setting up PRNG, %s\n", error_to_string(err));
+		return;
+	}
+
+
+	// 獲取P - 256曲線
+	if (keypairCurve == ECDSA_CURVE_P256)
+	{
+		if ((err = ecc_find_curve("P-256", &curve)) != CRYPT_OK) {
+			printf("Error finding P-256 curve: %s\n", error_to_string(err));
+			return -1;
+		}
+	}
+	else if (keypairCurve == ECDSA_CURVE_P384) // 獲取P - 384曲線
+	{
+		if ((err = ecc_find_curve("P-384", &curve)) != CRYPT_OK) {
+			printf("Error finding P-384 curve: %s\n", error_to_string(err));
+			return -1;
+		}
+	}
+	else if (keypairCurve == ECDSA_CURVE_P521) // 獲取P - 521曲線
+	{
+		if ((err = ecc_find_curve("P-521", &curve)) != CRYPT_OK) {
+			printf("Error finding P-521 curve: %s\n", error_to_string(err));
+			return -1;
+		}
+	}
+	else
+	{
+		printf("Error finding curve: %s\n", error_to_string(err));
+		return -1;
+	}
+
+
+	/* 產生ECC key */
+	if ((err = ecc_make_key_ex(&prng, find_prng("yarrow"), &key, curve)) != CRYPT_OK) {
+		printf("Error generating ECC keypair: %s\n", error_to_string(err));
+		return -1;
+	}
+
+	//直接把key裡面的private key設定為d (private key)
+	//ltc_mp.unsigned_read(key.k, dBytes, dBytesLen);
+
+
+	/* 計算訊息的 hash */
+	hash_message(messageBytes, messageBytesLen, hashAlgorithm, hash, &hashlen);
+
+	printf("Hash: ");
+	for (int i = 0; i < hashlen; i++)
+	{
+		printf("%02X", hash[i]);
+	}
+	printf("\n");
+
+	/* 清理 */
+	mp_clear_multi(&r_mp_int, &s_mp_int, NULL);
+	
+}
