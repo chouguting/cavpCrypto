@@ -1,7 +1,7 @@
 ﻿#include <tomcrypt.h>
 #include <tommath.h>
 #include "myEcdsa.h"
-
+#include "utils.h"
 
 
 const int ECDSA_CURVE_P256 = 1;
@@ -208,19 +208,7 @@ const int ECDSA_HASH_SHA3_512 = 6;
 const int ECDSA_HASH_SHAKE128 = 7;
 const int ECDSA_HASH_SHAKE256 = 8;
 
-void hex_to_bytes(const char* hex, unsigned char* outBytes, unsigned long* outBytesLen) {
-	*outBytesLen = strlen(hex) / 2;
-	for (unsigned long i = 0; i < *outBytesLen; i++) {
-		sscanf_s(hex + 2 * i, "%02hhx", &outBytes[i]);
-	}
-}
 
-void bytes_to_hex(unsigned char* bytes, unsigned long bytesLen, char* hex) {
-	for (unsigned long i = 0; i < bytesLen; i++) {
-		sprintf_s(hex + 2 * i, 3 ,"%02X", bytes[i]);
-	}
-	hex[2 * bytesLen] = '\0';
-}
 
 
 void hash_message(char* message, unsigned long messageLen, int hashAlgorithm, unsigned char* out, unsigned long* outlen) {
@@ -474,13 +462,14 @@ void ecdsaSignatureGenerate(int keypairCurve, int hashAlgorithm, char* d, char* 
 	/* 清理 */
 	
 	ecc_free(&key);
+	free(messageBytes);
 	free(dBytes);
 	free(sig);
 	sig = NULL;
 }
 
-//🚧🚧🚧 施工中 🚧🚧🚧
-void ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* qy, char* r, char* s, char* message) {
+
+int ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* qy, char* r, char* s, char* message) {
 	crypt_mp_init("ltm"); //使用libtommath
 
 	int err;
@@ -495,6 +484,14 @@ void ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* q
 	unsigned long hashlen; // hash的長度
 	unsigned char* messageBytes; // message的byte陣列
 	unsigned long messageBytesLen; // message的byte陣列的長度
+
+	char* qxBytes = (char*)malloc(strlen(qx) / 2); // qx的byte陣列
+	char* qyBytes = (char*)malloc(strlen(qy) / 2); // qy的byte陣列
+	int qxBytesLen, qyBytesLen; // qx和qy的byte陣列的長度
+
+
+	hex_to_bytes(qx, qxBytes, &qxBytesLen);
+	hex_to_bytes(qy, qyBytes, &qyBytesLen);
 
 	messageBytes = (unsigned char*)malloc(strlen(message) / 2);
 
@@ -520,15 +517,13 @@ void ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* q
 	/* 編碼簽名 */
 	if ((err = der_encode_sequence(sig_list, 2, sig, &siglen)) != CRYPT_OK) {
 		printf("Error encoding signature, %s\n", error_to_string(err));
-		return;
+		return 0;
 	}
 
 	/* 輸出簽名 */
 	unsigned char* sig_hex = (unsigned char*)malloc(2 * siglen + 1);
 	bytes_to_hex(sig, siglen, sig_hex);
 	printf("Rwcovered Signature: %s\n", sig_hex);
-	free(sig_hex);
-
 
 	
 	/* 把message轉成byte陣列 */
@@ -537,13 +532,13 @@ void ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* q
 	/* register yarrow */
 	if (register_prng(&yarrow_desc) == -1) {
 		printf("Error registering Yarrow\n");
-		return;
+		return 0;
 	}
 	/* 設定PRNG */
 	if ((err = rng_make_prng(128, find_prng("yarrow"), &prng, NULL))
 		!= CRYPT_OK) {
 		printf("Error setting up PRNG, %s\n", error_to_string(err));
-		return;
+		return 0;
 	}
 
 
@@ -552,39 +547,39 @@ void ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* q
 	{
 		if ((err = ecc_find_curve("P-256", &curve)) != CRYPT_OK) {
 			printf("Error finding P-256 curve: %s\n", error_to_string(err));
-			return -1;
+			return 0;
 		}
 	}
 	else if (keypairCurve == ECDSA_CURVE_P384) // 獲取P - 384曲線
 	{
 		if ((err = ecc_find_curve("P-384", &curve)) != CRYPT_OK) {
 			printf("Error finding P-384 curve: %s\n", error_to_string(err));
-			return -1;
+			return 0;
 		}
 	}
 	else if (keypairCurve == ECDSA_CURVE_P521) // 獲取P - 521曲線
 	{
 		if ((err = ecc_find_curve("P-521", &curve)) != CRYPT_OK) {
 			printf("Error finding P-521 curve: %s\n", error_to_string(err));
-			return -1;
+			return 0;
 		}
 	}
 	else
 	{
 		printf("Error finding curve: %s\n", error_to_string(err));
-		return -1;
+		return 0;
 	}
 
 
 	/* 產生ECC key */
 	if ((err = ecc_make_key_ex(&prng, find_prng("yarrow"), &key, curve)) != CRYPT_OK) {
 		printf("Error generating ECC keypair: %s\n", error_to_string(err));
-		return -1;
+		return 0;
 	}
 
-	//直接把key裡面的private key設定為d (private key)
-	//ltc_mp.unsigned_read(key.k, dBytes, dBytesLen);
-
+	//直接把key裡面的public key 設定為qx, qy
+	ltc_mp.unsigned_read(key.pubkey.x, qxBytes, qxBytesLen);
+	ltc_mp.unsigned_read(key.pubkey.y, qyBytes, qyBytesLen);
 
 	/* 計算訊息的 hash */
 	hash_message(messageBytes, messageBytesLen, hashAlgorithm, hash, &hashlen);
@@ -596,7 +591,21 @@ void ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* q
 	}
 	printf("\n");
 
+	/* 驗證簽名 */
+	int verifyStatus;
+	if ((err = ecc_verify_hash(sig, siglen, hash, hashlen,&verifyStatus, &key)) != CRYPT_OK) {
+		printf("Error verifying signature, %s\n", error_to_string(err));
+		return 0;
+	}
+
+	printf("Verify Status: %d\n", verifyStatus);
+
 	/* 清理 */
 	mp_clear_multi(&r_mp_int, &s_mp_int, NULL);
+	free(sig_hex);
+	free(qxBytes);
+	free(qyBytes);
+	free(messageBytes);
+	return verifyStatus;
 	
 }

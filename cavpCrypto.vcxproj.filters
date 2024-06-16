@@ -27,9 +27,21 @@
     <ClCompile Include="myEcdsa.h">
       <Filter>標頭檔</Filter>
     </ClCompile>
+    <ClCompile Include="mySha.c">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.c">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myRsa.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="mySha.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
