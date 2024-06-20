@@ -134,11 +134,13 @@
     <ClCompile Include="myEcdsa.h" />
     <ClCompile Include="myRsa.c" />
     <ClCompile Include="mySha.c" />
+    <ClCompile Include="myShake.c" />
     <ClCompile Include="utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myRsa.h" />
     <ClInclude Include="mySha.h" />
+    <ClInclude Include="myShake.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

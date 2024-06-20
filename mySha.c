@@ -66,6 +66,42 @@ void shaHash(const int hashAlgorithm, const char* message,  char* outHash, int* 
 			}
 			hashLen = 512 / 8; // 512 bits
 			break;
+		case 4: // SHA3-256
+			sha3_256_init(&md);
+			if ((err = sha3_process(&md, messageBytes, messageBytesLen)) != CRYPT_OK) {
+				printf("Error hashing message: %s\n", error_to_string(err));
+				return;
+			}
+			if ((err = sha3_done(&md, hash)) != CRYPT_OK) {
+				printf("Error finishing hash: %s\n", error_to_string(err));
+				return;
+			}
+			hashLen = 256 / 8; // 256 bits
+			break;
+		case 5: // SHA3-384
+			sha3_384_init(&md);
+			if ((err = sha3_process(&md, messageBytes, messageBytesLen)) != CRYPT_OK) {
+				printf("Error hashing message: %s\n", error_to_string(err));
+				return;
+			}
+			if ((err = sha3_done(&md, hash)) != CRYPT_OK) {
+				printf("Error finishing hash: %s\n", error_to_string(err));
+				return;
+			}
+			hashLen = 384 / 8; // 384 bits
+			break;
+		case 6: // SHA3-512
+			sha3_512_init(&md);
+			if ((err = sha3_process(&md, messageBytes, messageBytesLen)) != CRYPT_OK) {
+				printf("Error hashing message: %s\n", error_to_string(err));
+				return;
+			}
+			if ((err = sha3_done(&md, hash)) != CRYPT_OK) {
+				printf("Error finishing hash: %s\n", error_to_string(err));
+				return;
+			}
+			hashLen = 512 / 8; // 512 bits
+			break;
 	default:
 		break;
 	}
