@@ -14,3 +14,9 @@ void bytes_to_hex(unsigned char* bytes, unsigned long bytesLen, char* hex) {
 	}
 	hex[2 * bytesLen] = '\0';
 }
+
+void copy_bytes(unsigned char* src, unsigned char* dest, unsigned long length) {
+	for (unsigned long i = 0; i < length; i++) {
+		dest[i] = src[i];
+	}
+}

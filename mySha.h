@@ -7,3 +7,6 @@ extern const int SHA3_384;
 extern const int SHA3_512;
 
 void shaHash(const int hashAlgorithm, const char* message, char* outHash, int* outHashLength);
+
+void sha2MCTHash(const int hashAlgorithm, const char* initialSeedString);
+void sha3MCTHash(const int hashAlgorithm, const char* initialSeedString);
