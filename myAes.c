@@ -433,3 +433,143 @@ int aesDecrypt(int mode, int keySize, char* keyString, char* ciphertextString, c
 	return 0;
 }
 
+
+
+//Monte Carlo Test
+void aesEcbMCTEncrypt(int mode, int keySize, char * plaintextString, char * keyString) {
+	int plaintextStringLength = strlen(plaintextString);
+	int keyStringLength = strlen(keyString);
+
+	char* lastKeyString = malloc(keyStringLength+1);
+	char* lastPlaintextString = malloc(plaintextStringLength + 1);
+
+	strcpy_s(lastKeyString, keyStringLength+1,keyString);
+	strcpy_s(lastPlaintextString, plaintextStringLength + 1,plaintextString);
+
+	for (int i = 0; i < 100; i++) {
+		printf("round %d\n", i);
+		printf("key: %s\n", lastKeyString);
+		printf("plaintext: %s\n", lastPlaintextString);
+
+		char* currentCiphertextString = malloc(plaintextStringLength + 1);
+		strcpy_s(currentCiphertextString, plaintextStringLength + 1, lastPlaintextString);
+		char* lastCiphertextString = malloc(plaintextStringLength + 1);
+		for (int j = 0; j < 1000; j++) {
+			strcpy_s(lastCiphertextString, plaintextStringLength+1,currentCiphertextString);
+			aesEncrypt(mode, keySize, lastKeyString, lastPlaintextString, "", currentCiphertextString);
+			strcpy_s(lastPlaintextString, plaintextStringLength + 1, currentCiphertextString);
+		}
+		printf("ciphertext: %s\n", currentCiphertextString);
+		if (keySize == AES_KEY_SIZE_128) {
+			char* nextKeyString = malloc(keyStringLength + 1);
+			xor_strings(nextKeyString, lastKeyString, currentCiphertextString, keyStringLength);
+			strcpy_s(lastKeyString, keyStringLength + 1, nextKeyString);
+			free(nextKeyString);
+		}
+		else if (keySize == AES_KEY_SIZE_192)
+		{
+			char* nextKeyString = malloc(keyStringLength + 1);
+			char* concattedString = malloc(keyStringLength + 1);
+			//one char in a hex string is 4 bits, in MCT test ciphertext is 128 bits(32 chars)
+			//so to get the last 64 bits of the last ciphertext, we can just point to the 17th char
+			char* last64bitsOfLastCiphertextString = lastCiphertextString + 16;
+			strcpy_s(concattedString, keyStringLength + 1,last64bitsOfLastCiphertextString);
+			strcat_s(concattedString, keyStringLength + 1 ,currentCiphertextString); //concatenate the last 64 bits of the last ciphertext and the current ciphertext (64+128=192 bits)
+			xor_strings(nextKeyString, lastKeyString, concattedString, keyStringLength);
+			strcpy_s(lastKeyString, keyStringLength + 1,nextKeyString);
+			free(nextKeyString);
+			free(concattedString);
+		}
+		else if (keySize == AES_KEY_SIZE_256)
+		{
+			char* nextKeyString = malloc(keyStringLength + 1);
+			char* concattedString = malloc(keyStringLength + 1);
+			strcpy_s(concattedString, keyStringLength + 1,lastCiphertextString);
+			strcat_s(concattedString, keyStringLength + 1,currentCiphertextString); //concatenate the last ciphertext and the current ciphertext (256 bits)
+			xor_strings(nextKeyString, lastKeyString, concattedString, keyStringLength);
+			strcpy_s(lastKeyString, keyStringLength + 1,nextKeyString);
+			free(nextKeyString);
+			free(concattedString);
+		}
+		else
+		{
+			printf("unknown key size\n");
+			return;
+		}
+		strcpy_s(lastPlaintextString, plaintextStringLength + 1, currentCiphertextString);
+		free(currentCiphertextString);
+	}
+	//清理
+	free(lastKeyString);
+	free(lastPlaintextString);
+}
+
+
+
+void aesEcbMCTDecrypt(int mode, int keySize, char* ciphertextString, char* keyString) {
+	int ciphertextStringLength = strlen(ciphertextString);
+	int keyStringLength = strlen(keyString);
+
+	char* lastKeyString = malloc(keyStringLength + 1);
+	char* lastCiphertextString = malloc(ciphertextStringLength + 1);
+
+	strcpy_s(lastKeyString, keyStringLength + 1, keyString);
+	strcpy_s(lastCiphertextString, ciphertextStringLength + 1, ciphertextString);
+
+	for (int i = 0; i < 100; i++) {
+		printf("round %d\n", i);
+		printf("key: %s\n", lastKeyString);
+		printf("ciphertext: %s\n", lastCiphertextString);
+
+		char* currentPlaintextString = malloc(ciphertextStringLength + 1);
+		strcpy_s(currentPlaintextString, ciphertextStringLength + 1, lastCiphertextString);
+		char* lastPlaintextString = malloc(ciphertextStringLength + 1);
+		for (int j = 0; j < 1000; j++) {
+			strcpy_s(lastPlaintextString, ciphertextStringLength + 1, currentPlaintextString);
+			aesDecrypt(mode, keySize, lastKeyString, lastCiphertextString, "", currentPlaintextString);
+			strcpy_s(lastCiphertextString, ciphertextStringLength + 1, currentPlaintextString);
+		}
+		printf("plaintext: %s\n", currentPlaintextString);
+		if (keySize == AES_KEY_SIZE_128) {
+			char* nextKeyString = malloc(keyStringLength + 1);
+			xor_strings(nextKeyString, lastKeyString, currentPlaintextString, keyStringLength);
+			strcpy_s(lastKeyString, keyStringLength + 1, nextKeyString);
+			free(nextKeyString);
+		}
+		else if (keySize == AES_KEY_SIZE_192)
+		{
+			char* nextKeyString = malloc(keyStringLength + 1);
+			char* concattedString = malloc(keyStringLength + 1);
+			//one char in a hex string is 4 bits, in MCT test ciphertext is 128 bits(32 chars)
+			//so to get the last 64 bits of the last ciphertext, we can just point to the 17th char
+			char* last64bitsOfLastCiphertextString = lastPlaintextString + 16;
+			strcpy_s(concattedString, keyStringLength + 1, last64bitsOfLastCiphertextString);
+			strcat_s(concattedString, keyStringLength + 1, currentPlaintextString); //concatenate the last 64 bits of the last ciphertext and the current ciphertext (64+128=192 bits)
+			xor_strings(nextKeyString, lastKeyString, concattedString, keyStringLength);
+			strcpy_s(lastKeyString, keyStringLength + 1, nextKeyString);
+			free(nextKeyString);
+			free(concattedString);
+		}
+		else if (keySize == AES_KEY_SIZE_256)
+		{
+			char* nextKeyString = malloc(keyStringLength + 1);
+			char* concattedString = malloc(keyStringLength + 1);
+			strcpy_s(concattedString, keyStringLength + 1, lastPlaintextString);
+			strcat_s(concattedString, keyStringLength + 1, currentPlaintextString); //concatenate the last ciphertext and the current ciphertext (256 bits)
+			xor_strings(nextKeyString, lastKeyString, concattedString, keyStringLength);
+			strcpy_s(lastKeyString, keyStringLength + 1, nextKeyString);
+			free(nextKeyString);
+			free(concattedString);
+		}
+		else
+		{
+			printf("unknown key size\n");
+			return;
+		}
+		strcpy_s(lastCiphertextString, ciphertextStringLength + 1, currentPlaintextString);
+		free(currentPlaintextString);
+	}
+	//清理
+	free(lastKeyString);
+	free(lastCiphertextString);
+}

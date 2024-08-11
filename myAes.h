@@ -14,3 +14,6 @@ extern const int AES_KEY_SIZE_256;
 int aesEncrypt(int mode, int keySize, char* keyString, char* plaintextString, char* initialVectorString, char* ciphertextString);
 
 int aesDecrypt(int mode, int keySize, char* keyString, char* ciphertextString, char* initialVectorString, char* plaintextString);
+
+void aesEcbMCTEncrypt(int mode, int keySize, char* plaintextString, char* keyString);
+void aesEcbMCTDecrypt(int mode, int keySize, char* ciphertextString, char* keyString);
