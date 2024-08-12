@@ -13,14 +13,13 @@
 
 int main()
 {
-	/*
+	
 	//encrypt
 	printf("encrypt\n");
 	char* plaintext = "3FEB964D7DF5AF8364A263C3D7CFBE37";
 	char* key = "6C35C021B948C7B93BFB016EE31AAEF79741CFD0874CD3913DDE8CA9BE28B9CB";
 	char* initialVector = "B3941A16EF4591E0ABBA7E69E13C1445";
 	char ciphertext[1024];
-	strcpy_s(ciphertext, 512, "");
 	aesEncrypt(AES_MODE_CTR, AES_KEY_SIZE_256, key, plaintext,initialVector, ciphertext);
 	printf("ciphertext: %s\n", ciphertext);
 
@@ -33,7 +32,7 @@ int main()
 	strcpy_s(plaintext2, 512, "");
 	aesDecrypt(AES_MODE_CTR, AES_KEY_SIZE_256, key2, ciphertext2, initialVector2, plaintext2);
 	printf("plaintext: %s\n", plaintext2);
-	*/
+	
 
 
 	//MCT test
@@ -45,8 +44,7 @@ int main()
 
 	char* mctCiphertext = "68B3B62348A202575DAB209CADE5F5F9";
 	char* mctKey2 = "7F56A5039DCA92CFD3D15BA8168EBC99B879EDE1D6F92D70F4C0A01674550A23";
-
-	aesEcbMCTDecrypt(AES_MODE_ECB, AES_KEY_SIZE_256, mctCiphertext, mctKey2);
+	aesEcbMCTDecrypt(AES_KEY_SIZE_256, mctCiphertext, mctKey2);
 	
 	
 }

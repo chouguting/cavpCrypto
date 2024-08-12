@@ -436,7 +436,7 @@ int aesDecrypt(int mode, int keySize, char* keyString, char* ciphertextString, c
 
 
 //Monte Carlo Test
-void aesEcbMCTEncrypt(int mode, int keySize, char * plaintextString, char * keyString) {
+void aesEcbMCTEncrypt(int keySize, char * plaintextString, char * keyString) {
 	int plaintextStringLength = strlen(plaintextString);
 	int keyStringLength = strlen(keyString);
 
@@ -456,7 +456,7 @@ void aesEcbMCTEncrypt(int mode, int keySize, char * plaintextString, char * keyS
 		char* lastCiphertextString = malloc(plaintextStringLength + 1);
 		for (int j = 0; j < 1000; j++) {
 			strcpy_s(lastCiphertextString, plaintextStringLength+1,currentCiphertextString);
-			aesEncrypt(mode, keySize, lastKeyString, lastPlaintextString, "", currentCiphertextString);
+			aesEncrypt(AES_MODE_ECB, keySize, lastKeyString, lastPlaintextString, "", currentCiphertextString);
 			strcpy_s(lastPlaintextString, plaintextStringLength + 1, currentCiphertextString);
 		}
 		printf("ciphertext: %s\n", currentCiphertextString);
@@ -506,7 +506,7 @@ void aesEcbMCTEncrypt(int mode, int keySize, char * plaintextString, char * keyS
 
 
 
-void aesEcbMCTDecrypt(int mode, int keySize, char* ciphertextString, char* keyString) {
+void aesEcbMCTDecrypt(int keySize, char* ciphertextString, char* keyString) {
 	int ciphertextStringLength = strlen(ciphertextString);
 	int keyStringLength = strlen(keyString);
 
@@ -526,7 +526,7 @@ void aesEcbMCTDecrypt(int mode, int keySize, char* ciphertextString, char* keySt
 		char* lastPlaintextString = malloc(ciphertextStringLength + 1);
 		for (int j = 0; j < 1000; j++) {
 			strcpy_s(lastPlaintextString, ciphertextStringLength + 1, currentPlaintextString);
-			aesDecrypt(mode, keySize, lastKeyString, lastCiphertextString, "", currentPlaintextString);
+			aesDecrypt(AES_MODE_ECB, keySize, lastKeyString, lastCiphertextString, "", currentPlaintextString);
 			strcpy_s(lastCiphertextString, ciphertextStringLength + 1, currentPlaintextString);
 		}
 		printf("plaintext: %s\n", currentPlaintextString);
