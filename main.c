@@ -13,7 +13,7 @@
 
 int main()
 {
-	
+	/*
 	//encrypt
 	printf("encrypt\n");
 	char* plaintext = "3FEB964D7DF5AF8364A263C3D7CFBE37";
@@ -32,19 +32,23 @@ int main()
 	strcpy_s(plaintext2, 512, "");
 	aesDecrypt(AES_MODE_CTR, AES_KEY_SIZE_256, key2, ciphertext2, initialVector2, plaintext2);
 	printf("plaintext: %s\n", plaintext2);
-	
+	*/
 
 
 	//MCT test
-	char* mctPlaintext = "3E999BFA92248C700FDA73AACDF6FE3C";
-	char* mctKey = "93D5DFAE5D069713A68CA6003214AE4F97A39767A5A88C95";
+	char* mctPlaintext = "C9";
+	char* mctKey = "C5D36D30F9D33D631FF5367693674949";
+	char* mctInitialVector = "21FB30122A624B7A071BDD763D1F047A";
 
-	//aesEcbMCTEncrypt(AES_MODE_ECB, AES_KEY_SIZE_192, mctPlaintext, mctKey);
+	//aesCfb128MCTEncrypt(AES_KEY_SIZE_192, mctPlaintext, mctKey, mctInitialVector);
+	aesCfb8MCTEncrypt(AES_KEY_SIZE_128, mctPlaintext, mctKey, mctInitialVector);
 
 
-	char* mctCiphertext = "68B3B62348A202575DAB209CADE5F5F9";
-	char* mctKey2 = "7F56A5039DCA92CFD3D15BA8168EBC99B879EDE1D6F92D70F4C0A01674550A23";
-	aesEcbMCTDecrypt(AES_KEY_SIZE_256, mctCiphertext, mctKey2);
+	char* mctCiphertext = "AA4D5E000E28E3856E36110D80732E61";
+	char* mctKey2 = "4AFC928203A640E26DC0752E78484D4349B946334C4C77297EDEA3A8FE3C6519";
+	char * mctInitialVector2 = "3F3BEAC49657F44FBE44B582B4ECEB61";
+
+	//aesCfb128MCTDecrypt(AES_KEY_SIZE_256, mctCiphertext, mctKey2, mctInitialVector2);
 	
 	
 }

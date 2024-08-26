@@ -46,3 +46,10 @@ void xor_strings(char* dest, char* src1, char* src2, int length) {
 	free(src2Byte);
 	free(resultBytes);
 }
+
+
+void getIthByteInHex(char* hex, int i, char*dest) {
+	dest[0] = hex[2 * i];
+	dest[1] = hex[2 * i + 1];
+	dest[2] = '\0';
+}
