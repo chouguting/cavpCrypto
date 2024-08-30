@@ -1,8 +1,9 @@
 ﻿#include <tommath.h>
 #include "stdio.h"
+#include <stdlib.h>
 #include "string.h"
-
-
+#include "mySha.h"
+#include <tomcrypt.h>
 
 void computeAProbablePrimeFactorBasedOnAuxiliaryPrimes(
 	mp_int* prime_out,
@@ -22,7 +23,7 @@ void computeAProbablePrimeFactorBasedOnAuxiliaryPrimes(
 	mp_int loopCounter;
 
 	bool isPrime;
-	char  loopResult[1025];
+	char loopResult[1025];
 	char gcdResult[1025];
 	char yMinusOneResult[1025];
 	char primeOutResult[1025];
@@ -182,7 +183,7 @@ void rsaKeyPair()
 {
 	//support RSA 4096
 	//each byte is 2 hex characters
-	 //maximum 4096 bits, which is 512 bytes, so we need 1025 hex characters to store the number (with null terminator)
+	//maximum 4096 bits, which is 512 bytes, so we need 1025 hex characters to store the number (with null terminator)
 	char xP1Hex[1025];
 	char xP2Hex[1025];
 	char xPHex[1025];
@@ -275,4 +276,31 @@ void rsaKeyPair()
 	mp_clear(&d);
 	return 0;
 }
+
+mp_int* rsaSignMsg(mp_int privateKey_d, const char* message, const int hashAlgo) {
+	unsigned char hash[512 / 8];
+	mp_int* signature = malloc(sizeof(mp_int));
+	int err;
+
+	// Hash the message using SHA-256
+	char shaHashResult[(512 / 8) * 2 + 1];
+	int shaHashResultLen;
+	shaHash(hashAlgo, message, shaHashResult, &shaHashResultLen);
+	mp_read_radix(&signature, shaHashResult, 16);
+
+	// Allocate memory for the signature
+	/*signature = (unsigned char*)malloc(MAX_RSA_SIZE);
+	if (signature == NULL) {
+		perror("Failed to allocate memory for signature");
+		exit(1);
+	}*/
+
+	// Sign the hash with the RSA private key
+	if ((err = rsa_sign_hash_ex(hash, 32, signature, sig_len, LTC_PKCS_1_V1_5, NULL, 0, NULL, find_hash(hashAlgo), 0, privateKey_d)) != CRYPT_OK) {
+		handleError(err);
+	}
+
+	return signature;
+}
+
 
