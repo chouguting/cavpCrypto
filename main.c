@@ -6,6 +6,8 @@
 #include "myShake.h"
 #include "myAes.h"
 #include <string.h>
+#include "myRsa.h"
+#include <tomcrypt.h>
 
 // Visual Studio 有BUG，從Github上下載本專案後會無法編譯
 // 解決方法：Windows偵錯工具右邊有個下拉選單，選擇cavpCrypto偵錯屬性，把C語言標準調成比較新的，就可以編譯了
@@ -36,20 +38,26 @@ int main()
 
 
 	//MCT test
-	char* mctPlaintext = "C9";
+	/*char* mctPlaintext = "C9";
 	char* mctKey = "C5D36D30F9D33D631FF5367693674949";
-	char* mctInitialVector = "21FB30122A624B7A071BDD763D1F047A";
+	char* mctInitialVector = "21FB30122A624B7A071BDD763D1F047A";*/
 
 	//aesCfb128MCTEncrypt(AES_KEY_SIZE_192, mctPlaintext, mctKey, mctInitialVector);
-	aesCfb8MCTEncrypt(AES_KEY_SIZE_128, mctPlaintext, mctKey, mctInitialVector);
+	/*aesCfb8MCTEncrypt(AES_KEY_SIZE_128, mctPlaintext, mctKey, mctInitialVector);
 
 
 	char* mctCiphertext = "AA4D5E000E28E3856E36110D80732E61";
 	char* mctKey2 = "4AFC928203A640E26DC0752E78484D4349B946334C4C77297EDEA3A8FE3C6519";
-	char * mctInitialVector2 = "3F3BEAC49657F44FBE44B582B4ECEB61";
+	char * mctInitialVector2 = "3F3BEAC49657F44FBE44B582B4ECEB61";*/
 
 	//aesCfb128MCTDecrypt(AES_KEY_SIZE_256, mctCiphertext, mctKey2, mctInitialVector2);
-	
-	
+	void* a;
+	int* b;
+	b = 3;
+	a = 4;
+	printf("b = %d\n", b);
+	printf("a = %d\n", a);
+	printf("b = %d\n", &b);
+	printf("a = %d\n", &a);
+	rsa_key key = rsaKeyPair();
 }
-
