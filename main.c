@@ -41,14 +41,13 @@ int main()
 	char* mctInitialVector = "21FB30122A624B7A071BDD763D1F047A";
 
 	//aesCfb128MCTEncrypt(AES_KEY_SIZE_192, mctPlaintext, mctKey, mctInitialVector);
-	aesCfb8MCTEncrypt(AES_KEY_SIZE_128, mctPlaintext, mctKey, mctInitialVector);
+	//aesCfb8MCTEncrypt(AES_KEY_SIZE_128, mctPlaintext, mctKey, mctInitialVector);
 
 
-	char* mctCiphertext = "AA4D5E000E28E3856E36110D80732E61";
-	char* mctKey2 = "4AFC928203A640E26DC0752E78484D4349B946334C4C77297EDEA3A8FE3C6519";
-	char * mctInitialVector2 = "3F3BEAC49657F44FBE44B582B4ECEB61";
-
-	//aesCfb128MCTDecrypt(AES_KEY_SIZE_256, mctCiphertext, mctKey2, mctInitialVector2);
+	char* mctCiphertext = "F9";
+	char* mctKey2 = "99D1507A172C825355434E5CA3EBB971F6658D0D8C9A569FAAE5645D216945CE";
+	char * mctInitialVector2 = "06E91D5B598B74F5AB4EA63BD822F071";
+	aesCfb8MCTDecrypt(AES_KEY_SIZE_256, mctCiphertext, mctKey2, mctInitialVector2);
 	
 	
 }
