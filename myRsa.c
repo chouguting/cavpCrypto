@@ -372,10 +372,10 @@ char* rsaSignMessage_pkcs1_v1_5(const char* message, const int hashAlgo, unsigne
 	printf("\n");
 	printf("\n");
 	/* 生成簽名 */
-	/*if ((err = rsa_sign_hash_ex(hash, hashlen, out, &outlen, &prng, find_prng("yarrow"), &key)) != CRYPT_OK) {
+	if ((err = rsa_sign_hash_ex(hash, hashlen, out, &outlen, LTC_PKCS_1_V1_5, NULL, 0, hashAlgo, 0, &key)) != CRYPT_OK) {
 		printf("Error signing message, %s\n", error_to_string(err));
 		return;
-	}*/
+	}
 
 	/* 輸出簽名 */
 	//unsigned char* sig = (unsigned char*)malloc(2 * outlen + 1);

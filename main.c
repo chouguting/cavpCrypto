@@ -9,6 +9,7 @@
 #include "myRsa.h"
 #include <tomcrypt.h>
 #include <tommath.h>
+#include "utils.h"
 
 // Visual Studio 有BUG，從Github上下載本專案後會無法編譯
 // 解決方法：Windows偵錯工具右邊有個下拉選單，選擇cavpCrypto偵錯屬性，把C語言標準調成比較新的，就可以編譯了
@@ -56,19 +57,49 @@ int main()
 	int err;
 	rsa_key key;
 	prng_state prng;
-	/* register yarrow */
-	if (register_prng(&yarrow_desc) == -1) {
-		printf("Error registering Yarrow\n");
-		return;
-	}
-	/* 設定PRNG */
-	if ((err = rng_make_prng(128, find_prng("yarrow"), &prng, NULL))
-		!= CRYPT_OK) {
-		printf("Error setting up PRNG, %s\n", error_to_string(err));
-		return;
-	}
-	if ((err = rsa_make_key(&prng, find_prng("yarrow"), 2048, 65537, &key)) != CRYPT_OK) {
-		printf("Error generating ECC keypair: %s\n", error_to_string(err));
+	//ltc_mp = tfm_desc;
+	crypt_mp_init("ltm"); //使用libtommath
+	
+	unsigned long* sig_len;
+	//char* message = "0267A8B7429FBBAB3EF24B794E83BB70D9AB3A6DA947EA3585D00CBB7F152FD955A9AEF0DCAFFFCA1F32536F85D1";
+	//char* test = rsaSignMessage_pkcs1_v1_5(message, SHA3_256, &sig_len);
+	
+	/*hash test*/
+	unsigned char hash[2048];      // Buffer to hold the SHA-256 hash (32 bytes for SHA-256)
+	hash_state sha384_state;     // Hash state object
+	const char* message = "ABCD1234";  // Message to hash
+	int messageBytesLen;
+	unsigned char* messageBytes = malloc(strlen(message) / 2);
+	hex_to_bytes(message, messageBytes, &messageBytesLen);
+	// Step 1: Initialize the SHA-256 hash function
+	if ((err = sha384_init(&sha384_state)) != CRYPT_OK) {
+		printf("Error initializing SHA-384: %s\n", error_to_string(err));
 		return -1;
 	}
+
+	// Step 2: Process the message (you can call this function multiple times to process large data)
+	if ((err = sha384_process(&sha384_state, (unsigned char*)messageBytes, messageBytesLen)) != CRYPT_OK) {
+		printf("Error processing SHA-384: %s\n", error_to_string(err));
+		return -1;
+	}
+
+	// Step 3: Finalize the hash (this computes the final hash and stores it in the buffer)
+	if ((err = sha384_done(&sha384_state, hash)) != CRYPT_OK) {
+		printf("Error finalizing SHA-384: %s\n", error_to_string(err));
+		return -1;
+	}
+
+	// Step 4: Print the resulting SHA-256 hash in hexadecimal format
+	printf("SHA-384 hash of '%s':\n", message);
+	for (int i = 0; i < 384/8; i++) {
+		printf("%02x", hash[i]);
+	}
+	printf("\n");
+
+	unsigned char hash2[1025];
+	int* outhashlen;
+	shaHash(SHA2_384, message, hash2, &outhashlen);
+	printf("GORDON-SHA-384 hash of '%s':\n", message);
+	printf("GORDON-SHA-384 hash of '%s':\n", hash2);
+	printf("\n");
 }
