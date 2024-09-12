@@ -1329,7 +1329,215 @@ void aesCfb8MCTEncrypt(int keySize, char* plaintextString, char* keyString, char
 	
 }
 
+void aesCfb8MCTDecrypt(int keySize, char* ciphertextString, char* keyString, char* initailVectorString) {
+	int ciphertextStringLength = strlen(ciphertextString);
+	int keyStringLength = strlen(keyString);
+	int initialVectorStringLength = strlen(initailVectorString);
 
+	char* lastKeyString = malloc(keyStringLength + 1);
+	char* lastCiphertextString = malloc(ciphertextStringLength + 1);
+	char* lastInitialVectorString = malloc(initialVectorStringLength + 1);
+
+	strcpy_s(lastKeyString, keyStringLength + 1, keyString);
+	strcpy_s(lastCiphertextString, ciphertextStringLength + 1, ciphertextString);
+	strcpy_s(lastInitialVectorString, initialVectorStringLength + 1, initailVectorString);
+
+	// 初始化AES
+	if (register_cipher(&aes_desc) == -1) {
+		printf("register AES error\n");
+		return -1;
+	}
+
+	for (int i = 0; i < 100; i++) {
+		printf("round %d\n", i);
+		printf("key: %s\n", lastKeyString);
+		printf("initial vector: %s\n", lastInitialVectorString);
+		printf("ciphertext: %s\n", lastCiphertextString);
+
+		char* currentPlaintextString = malloc(ciphertextStringLength + 1);
+		strcpy_s(currentPlaintextString, ciphertextStringLength + 1, lastCiphertextString);
+		char* lastPlaintextStringsList[32];
+
+		// 初始化lastPlaintextStringsList
+		for (int j = 0; j < 32; j++) {
+			lastPlaintextStringsList[j] = malloc(ciphertextStringLength + 1);
+			strcpy_s(lastPlaintextStringsList[j], ciphertextStringLength + 1, "");
+		}
+
+
+		symmetric_CFB cfb8;
+		int err;
+		unsigned char initialVectorBufferByte[16]; //16byte的buffer
+		unsigned char middleResultByte[16]; //16byte的buffer
+
+		for (int j = 0; j < 1000; j++) {
+			//aesEncrypt(AES_MODE_CBC, keySize, lastKeyString, lastPlaintextString, lastInitialVectorString, currentCiphertextString);
+			//更新lastCiphertextStringsList
+			for (int k = 31; k > 0; k--) {
+				strcpy_s(lastPlaintextStringsList[k], ciphertextStringLength + 1, lastPlaintextStringsList[k - 1]);
+			}
+			strcpy_s(lastPlaintextStringsList[0], ciphertextStringLength + 1, currentPlaintextString);
+
+
+			char* ciphertextByte = malloc(ciphertextStringLength / 2);
+			char* keyByte = malloc(keyStringLength / 2);
+			char* initialVectorByte = malloc(initialVectorStringLength / 2);
+			char* plaintextByte = malloc(ciphertextStringLength / 2); // 輸出的明文(長度和密文一樣)
+
+			int ciphertextByteLength;
+			int keyByteLength;
+			int initialVectorByteLength;
+			hex_to_bytes(lastCiphertextString, ciphertextByte, &ciphertextByteLength);
+			hex_to_bytes(lastKeyString, keyByte, &keyByteLength);
+			hex_to_bytes(lastInitialVectorString, initialVectorByte, &initialVectorByteLength);
+
+
+
+			if (j == 0) {
+				memcpy(initialVectorBufferByte, initialVectorByte, 16); //複製initialVectorByte到initialVectorBufferByte
+				// 初始化key
+				if ((err = ecb_start(find_cipher("aes"), keyByte, keyByteLength, 0, &cfb8)) != CRYPT_OK) {
+					printf("initialize key error: %s\n", error_to_string(err));
+					return -1;
+				}
+			}
+
+
+			// 解密
+			//逐個byte解密
+			for (int i = 0; i < ciphertextByteLength; i++) {
+				//解密
+				if ((err = ecb_encrypt(initialVectorBufferByte, middleResultByte, 16, &cfb8)) != CRYPT_OK) {
+					printf("encryption error: %s\n", error_to_string(err));
+					return -1;
+				}
+				//把middleResultBufferByte的第一個byte存到ciphertextByte
+				plaintextByte[i] = middleResultByte[0] ^ ciphertextByte[i];
+
+				// initialVectorBuffer = { initialVector[1], initialVector[2], ..., initialVector[15], ciphertextByte[i] }
+				//先左移一個byte
+				for (int j = 0; j < 15; j++) {
+					initialVectorBufferByte[j] = initialVectorBufferByte[j + 1];
+				}
+				//把ciphertextByte[i]存到最後一個byte
+				initialVectorBufferByte[15] = ciphertextByte[i];
+
+			}
+
+			if (j == 999) {
+				// 結束AES
+				if ((err = ecb_done(&cfb8)) != CRYPT_OK) {
+					printf("cleaning error: %s\n", error_to_string(err));
+					return -1;
+				}
+			}
+
+			bytes_to_hex(plaintextByte, ciphertextByteLength, currentPlaintextString);
+
+			if (j < 16) {
+				getIthByteInHex(lastInitialVectorString, j, lastCiphertextString);  //j-th byte of initialVector
+			}
+			else {
+				strcpy_s(lastCiphertextString, ciphertextStringLength + 1, lastPlaintextStringsList[15]); //lastPlaintextStringsList[15] is the 16th plaintext
+			}
+
+			//清理
+			free(plaintextByte);
+			free(keyByte);
+			free(initialVectorByte);
+			free(ciphertextByte);
+
+
+		}
+		printf("plaintext: %s\n", currentPlaintextString);
+		if (keySize == AES_KEY_SIZE_128) {
+			char* nextKeyString = malloc(keyStringLength + 1);
+			char* concattedString = malloc(keyStringLength + 1);
+			//Key[i+1] = Key[i] xor (PT[j-15] || PT[j-14] || … || PT[j])
+			//PT[j] 是 currentPlaintextString
+			//PT[j-1] 是 lastPlaintextStringsList[0]
+			//PT[j-15] 是 lastPlaintextStringsList[14]
+			strcpy_s(concattedString, keyStringLength + 1, "");
+			for (int k = 14; k >= 0; k--) {
+				strcat_s(concattedString, keyStringLength + 1, lastPlaintextStringsList[k]);
+			}
+			strcat_s(concattedString, keyStringLength + 1, currentPlaintextString);
+
+			xor_strings(nextKeyString, lastKeyString, concattedString, keyStringLength);
+			strcpy_s(lastKeyString, keyStringLength + 1, nextKeyString);
+			free(nextKeyString);
+			free(concattedString);
+		}
+		else if (keySize == AES_KEY_SIZE_192)
+		{
+			char* nextKeyString = malloc(keyStringLength + 1);
+			char* concattedString = malloc(keyStringLength + 1);
+			//Key[i+1] = Key[i] xor (PT[j-23] || PT[j-22] || … || PT[j])
+			//PT[j] 是 currentPlaintextString
+			//PT[j-1] 是 lastPlaintextStringsList[0]
+			//PT[j-23] 是 lastPlaintextStringsList[22]
+			strcpy_s(concattedString, keyStringLength + 1, "");
+			for (int k = 22; k >= 0; k--) {
+				strcat_s(concattedString, keyStringLength + 1, lastPlaintextStringsList[k]);
+			}
+			strcat_s(concattedString, keyStringLength + 1, currentPlaintextString);
+
+			xor_strings(nextKeyString, lastKeyString, concattedString, keyStringLength);
+			strcpy_s(lastKeyString, keyStringLength + 1, nextKeyString);
+			free(nextKeyString);
+			free(concattedString);
+		}
+		else if (keySize == AES_KEY_SIZE_256)
+		{
+			char* nextKeyString = malloc(keyStringLength + 1);
+			char* concattedString = malloc(keyStringLength + 1);
+
+
+			//Key[i+1] = Key[i] xorKey[i+1] = Key[i] xor (PT[j-31] || PT[j-30] || … || PT[j])
+			//PT[j] 是 currentPlaintextString
+			//PT[j-1] 是 lastPlaintextStringsList[0]
+			//PT[j-31] 是 lastPlaintextStringsList[30]
+			strcpy_s(concattedString, keyStringLength + 1, "");
+			for (int k = 30; k >= 0; k--) {
+				strcat_s(concattedString, keyStringLength + 1, lastPlaintextStringsList[k]);
+			}
+			strcat_s(concattedString, keyStringLength + 1, currentPlaintextString);
+			xor_strings(nextKeyString, lastKeyString, concattedString, keyStringLength);
+			strcpy_s(lastKeyString, keyStringLength + 1, nextKeyString);
+			free(nextKeyString);
+			free(concattedString);
+		}
+		else
+		{
+			printf("unknown key size\n");
+			return;
+		}
+		strcpy_s(lastCiphertextString, ciphertextStringLength + 1, lastPlaintextStringsList[15]);
+
+		//IV[i+1] = (PT[j-15] || PT[j-14]  || … || PT[j])
+		//PT[j] 是 currentPlaintextString
+		//PT[j-1] 是 lastPlaintextStringsList[0]
+		//PT[j-15] 是 lastPlaintextStringsList[14]
+		char* concattedString = malloc(keyStringLength + 1);
+		strcpy_s(concattedString, keyStringLength + 1, "");
+		for (int k = 14; k >= 0; k--) {
+			strcat_s(concattedString, keyStringLength + 1, lastPlaintextStringsList[k]);
+		}
+		strcat_s(concattedString, keyStringLength + 1, currentPlaintextString);
+		strcpy_s(lastInitialVectorString, initialVectorStringLength + 1, concattedString);
+		free(currentPlaintextString);
+		free(concattedString);
+		for (int k = 0; k < 32; k++) {
+			free(lastPlaintextStringsList[k]);
+		}
+	}
+	//清理
+	free(lastKeyString);
+	free(lastCiphertextString);
+	free(lastInitialVectorString);
+
+
+}
 
 
 //Monte Carlo Test: CTR

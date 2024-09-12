@@ -22,6 +22,7 @@ void aesCbcMCTEncrypt(int keySize, char* plaintextString, char* keyString, char*
 void aesCbcMCTDecrypt(int keySize, char* ciphertextString, char* keyString, char* initailVectorString);
 
 void aesCfb8MCTEncrypt(int keySize, char* plaintextString, char* keyString, char* initailVectorString);
+void aesCfb8MCTDecrypt(int keySize, char* ciphertextString, char* keyString, char* initailVectorString);
 
 void aesCfb128MCTEncrypt(int keySize, char* plaintextString, char* keyString, char* initailVectorString);
 void aesCfb128MCTDecrypt(int keySize, char* ciphertextString, char* keyString, char* initailVectorString);
