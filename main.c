@@ -73,8 +73,9 @@ int main()
 	}
 
 	// Generate RSA key
-	if ((err = rsa_make_key(&prng, find_prng("sprng"), 2048 / 8, 65537, &key)) != CRYPT_OK) {
+	/*if ((err = rsa_make_key(&prng, find_prng("sprng"), 2048 / 8, 65537, &key)) != CRYPT_OK) {
 		printf("Error generating ECC keypair: %s\n", error_to_string(err));
 		return -1;
-	}
+	}*/
+	ecdsaKeyPair(3);
 }
