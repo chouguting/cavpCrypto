@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include "string.h"
 #include <tomcrypt.h>
+#include "mySha.h"
+#include "myEcdsa.h"
+#include "utils.h"
 
 void computeAProbablePrimeFactorBasedOnAuxiliaryPrimes(
 	mp_int* prime_out,
@@ -80,9 +83,9 @@ void computeAProbablePrimeFactorBasedOnAuxiliaryPrimes(
 	mp_to_radix(&yMinus1, yMinusOneResult, sizeof(yMinusOneResult), NULL, 10);
 	mp_to_radix(prime_out, primeOutResult, sizeof(primeOutResult), NULL, 10);
 
-	printf("GCD(Y–1, e) before loop: %s\n", gcdResult);
-	printf("Y–1 before loop: %s\n", yMinusOneResult);
-	printf("prime_out before loop: %s\n", primeOutResult);
+	//printf("GCD(Y–1, e) before loop: %s\n", gcdResult);
+	//printf("Y–1 before loop: %s\n", yMinusOneResult);
+	//printf("prime_out before loop: %s\n", primeOutResult);
 
 	while (mp_cmp_d(&gcd, 1) != MP_EQ || !isPrime) {
 		mp_add_d(&loopCounter, 1, &loopCounter);
@@ -97,15 +100,15 @@ void computeAProbablePrimeFactorBasedOnAuxiliaryPrimes(
 		mp_to_radix(prime_out, primeOutResult, sizeof(primeOutResult), NULL, 10);
 
 
-		printf("Loop: %s, GCD(Y–1, e): %s\n", loopResult, gcdResult);
+		//printf("Loop: %s, GCD(Y–1, e): %s\n", loopResult, gcdResult);
 		//printf("Y–1: %s\n", yMinusOneResult);
-		printf("y: %s\n\n", primeOutResult);
+		//printf("y: %s\n\n", primeOutResult);
 
 	}
 
 	// print number of loops
 	mp_to_radix(&loopCounter, loopResult, sizeof(loopResult), NULL, 10);
-	printf("Tatal Number of loops: %s\n\n\n", loopResult);
+	//printf("Tatal Number of loops: %s\n\n\n", loopResult);
 
 	mp_clear(&yMinus1);
 	mp_clear(&gcd);
@@ -141,13 +144,13 @@ void generateKeyPairBasedOnAuxiliaryProbablePrimes(
 	mp_prime_next_prime(xP1, 100, NULL);
 
 	mp_to_radix(xP1, xP1Next, sizeof(xP1Next), NULL, 16);
-	printf("next xP1: %s\n", xP1Next);
+	//printf("next xP1: %s\n", xP1Next);
 
 	//find next prime from xP2
 	mp_prime_next_prime(xP2, 100, NULL);
 
 	mp_to_radix(xP2, xP2Next, sizeof(xP2Next), NULL, 16);
-	printf("next xP2: %s\n", xP2Next);
+	//printf("next xP2: %s\n", xP2Next);
 
 	//helper function to compute a probable prime factor based on auxiliary primes
 	computeAProbablePrimeFactorBasedOnAuxiliaryPrimes(p_out, xP1, xP2, xP, e);
@@ -176,7 +179,22 @@ void generateKeyPairBasedOnAuxiliaryProbablePrimes(
 	mp_invmod(e, &lcm, d_out);
 	mp_clear(&lcm);
 }
+char xP1Hex[1025];
+char xP2Hex[1025];
+char xPHex[1025];
 
+char xQ1Hex[1025];
+char xQ2Hex[1025];
+char xQHex[1025];
+char pHex[1025];
+char qHex[1025];
+char nHex[1025];
+char dHex[1025];
+char eHex[1025];
+
+char dPHex[1025];
+char dQHex[1025];
+char qPHex[1025]; //(qInv)
 
 rsa_key rsaKeyPair()
 {
@@ -184,18 +202,6 @@ rsa_key rsaKeyPair()
 	//support RSA 4096
 	//each byte is 2 hex characters
 	//maximum 4096 bits, which is 512 bytes, so we need 1025 hex characters to store the number (with null terminator)
-	char xP1Hex[1025];
-	char xP2Hex[1025];
-	char xPHex[1025];
-
-	char xQ1Hex[1025];
-	char xQ2Hex[1025];
-	char xQHex[1025];
-	char pHex[1025];
-	char qHex[1025];
-	char nHex[1025];
-	char dHex[1025];
-	char eHex[1025];
 
 	bool result;
 
@@ -222,9 +228,6 @@ rsa_key rsaKeyPair()
 	mp_init(&q);
 	mp_init(&n);
 	mp_init(&d);
-
-
-
 
 	for (int i = 0; i < 1; i++) {
 
@@ -254,20 +257,62 @@ rsa_key rsaKeyPair()
 		mp_to_radix(&q, qHex, sizeof(qHex), NULL, 16);
 		mp_to_radix(&n, nHex, sizeof(nHex), NULL, 16);
 		mp_to_radix(&d, dHex, sizeof(dHex), NULL, 16);
-
-		//print out the result
-		printf("p: %s\n", pHex);
-		printf("q: %s\n", qHex);
-		printf("n: %s\n", nHex);
-		printf("e: %s\n", eHex);
-		printf("d: %s\n", dHex);
+		mp_to_radix(&e, eHex, sizeof(eHex), NULL, 16);
 
 	}
-	/*key.N = nHex;
-	key.e = eHex;
-	key.p = pHex;
-	key.q = qHex;
-	key.d = dHex;*/
+	//return this key with the previous calculation
+	key.type = PK_PRIVATE;
+	key.e = (char*)eHex;
+	key.d = (char*)dHex;
+	key.N = (char*)nHex;
+	key.p = (char*)pHex;
+	key.q = (char*)qHex;
+	
+	//to calculate CRT parameters
+	//calculate dP
+	mp_int tmp;
+	mp_init(&tmp);
+	mp_sub_d(&p, 1, &tmp);	//tmp = p-1
+	mp_int dP;
+	mp_init(&dP);
+	mp_mod(&d, &tmp, &dP);	//dP = d mod (p-1)
+	mp_to_radix(&dP, dPHex, sizeof(dPHex), NULL, 16);
+	key.dP = (char*)dPHex;
+	
+	//calculate dQ
+	mp_int dQ;
+	mp_init(&dQ);
+	mp_sub_d(&q, 1, &tmp);	//tmp = q-1
+	mp_mod(&d, &tmp, &dQ);	//dQ = d mod (q-1)
+	mp_to_radix(&dQ, dQHex, sizeof(dQHex), NULL, 16);
+	key.dQ = (char*)dQHex;
+
+	//calculate qInv
+	mp_int qP;
+	mp_init(&qP);
+	mp_invmod(&q, &p, &qP);	// qP = qInverse = q^(-1) mod p
+	mp_to_radix(&qP, qPHex, sizeof(qPHex), NULL, 16);
+	key.qP = (char*)qPHex;
+
+	printf("key.type = %d", key.type);
+	printf("\n");
+	printf("key.e = %s", key.e);
+	printf("\n");
+	printf("key.d = %s", key.d);
+	printf("\n");
+	printf("key.N = %s", key.N);
+	printf("\n");
+	printf("key.p = %s", key.p);
+	printf("\n");
+	printf("key.q = %s", key.q);
+	printf("\n");
+	printf("dPHex = %s", key.dP);
+	printf("\n");
+	printf("dQHex = %s", key.dQ);
+	printf("\n");
+	printf("qPHex = %s", key.qP);
+	printf("\n");
+
 	mp_clear(&xP1);
 	mp_clear(&xP2);
 	mp_clear(&xP);
@@ -279,11 +324,90 @@ rsa_key rsaKeyPair()
 	mp_clear(&q);
 	mp_clear(&n);
 	mp_clear(&d);
+	mp_clear(&tmp);
+	mp_clear(&dP);
+	mp_clear(&dQ);
+	mp_clear(&qP);
 	return key;
 }
 
-void rsaSignMessage_pkcs1_v1_5(const char* message, const int hashAlgo, unsigned long message_len, unsigned long* sig_len) {
-	 
+char* rsaSignMessage_pkcs1_v1_5(const char* message, const int hashAlgo, unsigned long* sig_len) {
+	//generate rsaKey
+	rsa_key key = rsaKeyPair();
+	printf("key.type = %d", key.type);
+	printf("\n");
+	printf("key.e = %s", key.e);
+	printf("\n");
+	printf("key.d = %s", key.d);
+	printf("\n");
+	printf("key.N = %s", key.N);
+	printf("\n");
+	printf("key.p = %s", key.p);
+	printf("\n");
+	printf("key.q = %s", key.q);
+	printf("\n");
+	printf("dPHex = %s", key.dP);
+	printf("\n");
+	printf("dQHex = %s", key.dQ);
+	printf("\n");
+	printf("qPHex = %s", key.qP);
+	printf("\n");
+	//declare parameter will be used (no need of PRNG for LTC_PKCS_1_V1_5)
+	int err;
+	unsigned long outlen;
+	char out[256];
+	char hash[512 / 8];
+	unsigned long hashlen;
+	char* messageBytes = (char*)malloc(strlen(message) / 2);
+	unsigned long messageBytesLen;
+	char* signature;
+
+	//convert message from hex to binary
+	hex_to_bytes(message, messageBytes, &messageBytesLen);
+	hash_message(messageBytes, messageBytesLen, hashAlgo, hash, &hashlen);
+	printf("Hash: ");
+	for (int i = 0; i < hashlen; i++) {
+		printf("%02X", hash[i]);
+	}
+	printf("\n");
+	printf("\n");
+	/* 生成簽名 */
+	/*if ((err = rsa_sign_hash_ex(hash, hashlen, out, &outlen, &prng, find_prng("yarrow"), &key)) != CRYPT_OK) {
+		printf("Error signing message, %s\n", error_to_string(err));
+		return;
+	}*/
+
+	/* 輸出簽名 */
+	//unsigned char* sig = (unsigned char*)malloc(2 * outlen + 1);
+	//bytes_to_hex(out, outlen, sig);
+	//printf("Signature: %s\n", sig);
+	return "test";
 }
 
+
+/*unsigned char* rsa_sign_message_pkcs1_v1_5(rsa_key* key, const unsigned char* message, unsigned long message_len, unsigned long* sig_len) {
+	unsigned char hash[32];
+	unsigned char* signature;
+	int err;
+
+	// Hash the message using SHA-256
+	hash_state hs;
+	sha256_init(&hs);
+	sha256_process(&hs, message, message_len);
+	sha256_done(&hs, hash);
+
+	// Allocate memory for the signature
+	signature = (unsigned char*)malloc(MAX_RSA_SIZE);
+	if (signature == NULL) {
+		perror("Failed to allocate memory for signature");
+		exit(1);
+	}
+
+	// Sign the hash with the RSA private key using PKCS1 v1.5 padding
+	if ((err = rsa_sign_hash_ex(hash, 32, signature, sig_len, LTC_PKCS_1_V1_5, NULL, 0, NULL, find_hash("sha256"), 0, key)) != CRYPT_OK) {
+		handleError(err);
+	}
+
+	return signature;
+}*/
 
