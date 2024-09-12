@@ -47,18 +47,28 @@ int main()
 	//aesCfb8MCTEncrypt(AES_KEY_SIZE_128, mctPlaintext, mctKey, mctInitialVector);
 
 
-	char* mctCiphertext = "AA4D5E000E28E3856E36110D80732E61";
-	char* mctKey2 = "4AFC928203A640E26DC0752E78484D4349B946334C4C77297EDEA3A8FE3C6519";
-	char * mctInitialVector2 = "3F3BEAC49657F44FBE44B582B4ECEB61";
+	//char* mctCiphertext = "AA4D5E000E28E3856E36110D80732E61";
+	//char* mctKey2 = "4AFC928203A640E26DC0752E78484D4349B946334C4C77297EDEA3A8FE3C6519";
+	//char * mctInitialVector2 = "3F3BEAC49657F44FBE44B582B4ECEB61";
 
 	//aesCfb128MCTDecrypt(AES_KEY_SIZE_256, mctCiphertext, mctKey2, mctInitialVector2);
-	void* a;
-	int* b;
-	b = 3;
-	a = 4;
-	printf("b = %d\n", b);
-	printf("a = %d\n", a);
-	printf("b = %d\n", &b);
-	printf("a = %d\n", &a);
-	rsa_key key = rsaKeyPair();
+	
+	int err;
+	rsa_key key;
+	prng_state prng;
+	/* register yarrow */
+	if (register_prng(&yarrow_desc) == -1) {
+		printf("Error registering Yarrow\n");
+		return;
+	}
+	/* 設定PRNG */
+	if ((err = rng_make_prng(128, find_prng("yarrow"), &prng, NULL))
+		!= CRYPT_OK) {
+		printf("Error setting up PRNG, %s\n", error_to_string(err));
+		return;
+	}
+	if ((err = rsa_make_key(&prng, find_prng("yarrow"), 2048, 65537, &key)) != CRYPT_OK) {
+		printf("Error generating ECC keypair: %s\n", error_to_string(err));
+		return -1;
+	}
 }
