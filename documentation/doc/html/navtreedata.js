@@ -25,7 +25,7 @@
 var NAVTREE =
 [
   [ "CAVP crypto", "index.html", [
-    [ "歡迎使用 CAVP cyypto", "index.html", "index" ],
+    [ "歡迎來到 CAVP crypto Project", "index.html", "index" ],
     [ "演算法列表", "algorithm_list.html", "algorithm_list" ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],

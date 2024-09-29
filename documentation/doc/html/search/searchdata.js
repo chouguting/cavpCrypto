@@ -1,10 +1,10 @@
 var indexSectionsWithContent =
 {
-  0: "abcdeghkmnpqrsuwx加歡每演簡解",
+  0: "abcdeghkmnpqrsuwx加專歡每演簡解",
   1: "amuw",
   2: "abceghrsx",
   3: "adenpqsx",
-  4: "ac歡演簡"
+  4: "acp歡演簡"
 };
 
 var indexSectionNames =
