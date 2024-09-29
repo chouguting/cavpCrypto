@@ -12,4 +12,5 @@ if %errorlevel% neq 0 (
 
 :: 執行 doxygen
 doxygen .\Doxyfile
+echo Document generated. The file is located at .\documentation\doc\html\index.html.
 pause
