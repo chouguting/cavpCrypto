@@ -14,10 +14,19 @@ extern const int ECDSA_HASH_SHAKE128;
 extern const int ECDSA_HASH_SHAKE256;
 
 
-
+/// @brief 產生ECDSA的key pair
+///
+/// 產生ECDSA的key pair，可以選擇不同的curve
+/// @param keypairCurve ECDSA_CURVE_P256, ECDSA_CURVE_P384, ECDSA_CURVE_P521
 void ecdsaKeyPair(int keypairCurve);
 
-
+/// @brief  驗證ECDSA的key pair
+///
+/// 驗證ECDSA的key pair，可以選擇不同的curve
+/// @param keypairCurve 
+/// @param qx 
+/// @param qy 
+/// @return 
 int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy);
 
 
