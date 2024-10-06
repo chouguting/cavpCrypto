@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['cavp_20crypto_20project_0',['歡迎來到 CAVP crypto Project',['../index.html',1,'']]],
-  ['crypto_20project_1',['歡迎來到 CAVP crypto Project',['../index.html',1,'']]]
+  ['3_20簡介_0',['SHA 3 簡介',['../sha3_intro.html',1,'algorithm_list']]]
 ];

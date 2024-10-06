@@ -19,7 +19,9 @@ void shakeHash(const int hashAlgorithm, const char* message, int outHashLength, 
 	int err;
 	hash_state md;
 	unsigned long hashLen;
-	unsigned char hash[512 / 8]; // 計算出的hash (最大是512 bits)
+	//unsigned char hash[512 / 8]; // 計算出的hash (最大是512 bits)
+	unsigned char* hash = malloc(outHashLength / 8); 
+
 
 	//初始化hash
 	switch (hashAlgorithm)
@@ -64,5 +66,6 @@ void shakeHash(const int hashAlgorithm, const char* message, int outHashLength, 
 
 	//清理
 	free(messageBytes);
+	free(hash);
 
 }

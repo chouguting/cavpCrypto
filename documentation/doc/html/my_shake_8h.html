@@ -117,6 +117,7 @@ $(function(){initNavTree('my_shake_8h.html',''); initResizable(true); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a5e41eccdfe067c65aabb53a2f587e75f" id="r_a5e41eccdfe067c65aabb53a2f587e75f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e41eccdfe067c65aabb53a2f587e75f">shakeHash</a> (const int hashAlgorithm, const char *message, int outHashLength, char *outHash)</td></tr>
+<tr class="memdesc:a5e41eccdfe067c65aabb53a2f587e75f"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHAKE 可變長度雜湊函數  <br /></td></tr>
 <tr class="separator:a5e41eccdfe067c65aabb53a2f587e75f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -155,6 +156,27 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>SHAKE 可變長度雜湊函數 </p>
+<p>SHAKE 可變長度雜湊函數 <br  />
+ 此函式的輸入為雜湊演算法、訊息、雜湊值長度 <br  />
+ 此函式的輸出為雜湊值 <br  />
+ 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* message = <span class="stringliteral">&quot;4169C84E8FF3C9B66961646CF18D5654&quot;</span>;</div>
+<div class="line"><span class="keywordtype">char</span> output[(3152/8)*2+1];</div>
+<div class="line"><span class="keywordtype">int</span> outLen = 3152;</div>
+<div class="line"><a class="code hl_function" href="my_shake_8c.html#a5e41eccdfe067c65aabb53a2f587e75f">shakeHash</a>(<a class="code hl_variable" href="my_shake_8c.html#a41cd67d568329f24cdc47ddfea797db7">SHAKE_128</a>, message, outLen, output);</div>
+<div class="line">printf(<span class="stringliteral">&quot;output: %s\n&quot;</span>, output); <span class="comment">//57C08C18DF....CB8A79</span></div>
+<div class="ttc" id="amy_shake_8c_html_a41cd67d568329f24cdc47ddfea797db7"><div class="ttname"><a href="my_shake_8c.html#a41cd67d568329f24cdc47ddfea797db7">SHAKE_128</a></div><div class="ttdeci">const int SHAKE_128</div><div class="ttdef"><b>Definition</b> myShake.c:8</div></div>
+<div class="ttc" id="amy_shake_8c_html_a5e41eccdfe067c65aabb53a2f587e75f"><div class="ttname"><a href="my_shake_8c.html#a5e41eccdfe067c65aabb53a2f587e75f">shakeHash</a></div><div class="ttdeci">void shakeHash(const int hashAlgorithm, const char *message, int outHashLength, char *outHash)</div><div class="ttdoc">SHAKE 可變長度雜湊函數</div><div class="ttdef"><b>Definition</b> myShake.c:13</div></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hashAlgorithm</td><td>使用的雜湊演算法: SHAKE_128, SHAKE_256 </td></tr>
+    <tr><td class="paramname">message</td><td>要雜湊的訊息 </td></tr>
+    <tr><td class="paramname">outHashLength</td><td>希望輸出的雜湊值長度 (bits) </td></tr>
+    <tr><td class="paramname">outHash</td><td>輸出的雜湊值 (利用指標回傳) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

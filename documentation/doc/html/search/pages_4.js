@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['演算法列表_0',['演算法列表',['../algorithm_list.html',1,'']]]
+  ['ecdsa_20簡介_0',['ECDSA 簡介',['../ecdsa_intro.html',1,'algorithm_list']]]
 ];

@@ -243,7 +243,7 @@ void sha2MCTHash(const int hashAlgorithm, const char* initialSeedString) {
 
 
 int sha3MCTHash(const int hashAlgorithm, const char* initialSeedString) {
-	return 3;
+	//return 3;
 	hash_state md;
 	int err;
 	unsigned char* seedBytes = malloc(strlen(initialSeedString) / 2); //§âmessage(¦r¦ê)Âà¦¨bytes

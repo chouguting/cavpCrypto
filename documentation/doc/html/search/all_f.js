@@ -1,4 +1,30 @@
 var searchData=
 [
-  ['welcome_2emd_0',['welcome.md',['../welcome_8md.html',1,'']]]
+  ['sha_202_20簡介_0',['SHA 2 簡介',['../sha2_intro.html',1,'algorithm_list']]],
+  ['sha_203_20簡介_1',['SHA 3 簡介',['../sha3_intro.html',1,'algorithm_list']]],
+  ['sha2一共有三種模式，對應三種訊息摘要長度_2',['SHA2一共有三種模式，對應三種訊息摘要長度',['../sha2_intro.html#autotoc_md18',1,'']]],
+  ['sha2_20mct_20測試函數_3',['SHA2 MCT 測試函數',['../sha2_intro.html#autotoc_md23',1,'']]],
+  ['sha2_5f256_4',['SHA2_256',['../my_sha_8c.html#ab4089ad890525a6aa037aa30983f2f80',1,'SHA2_256:&#160;mySha.c'],['../my_sha_8h.html#ab4089ad890525a6aa037aa30983f2f80',1,'SHA2_256:&#160;mySha.c']]],
+  ['sha2_5f384_5',['SHA2_384',['../my_sha_8c.html#a0f67ad824bbd8c924824a7c19212af25',1,'SHA2_384:&#160;mySha.c'],['../my_sha_8h.html#a0f67ad824bbd8c924824a7c19212af25',1,'SHA2_384:&#160;mySha.c']]],
+  ['sha2_5f512_6',['SHA2_512',['../my_sha_8c.html#a4e60b7b004f7e238510292ee142beb8d',1,'SHA2_512:&#160;mySha.c'],['../my_sha_8h.html#a4e60b7b004f7e238510292ee142beb8d',1,'SHA2_512:&#160;mySha.c']]],
+  ['sha2_5fintro_2emd_7',['sha2_intro.md',['../sha2__intro_8md.html',1,'']]],
+  ['sha2mcthash_8',['sha2MCTHash',['../my_sha_8c.html#a82b76314e7b426764a2ca11e00ac4b83',1,'sha2MCTHash(const int hashAlgorithm, const char *initialSeedString):&#160;mySha.c'],['../my_sha_8h.html#a82b76314e7b426764a2ca11e00ac4b83',1,'sha2MCTHash(const int hashAlgorithm, const char *initialSeedString):&#160;mySha.c']]],
+  ['sha3一共有三種模式，對應三種訊息摘要長度_9',['SHA3一共有三種模式，對應三種訊息摘要長度',['../sha3_intro.html#autotoc_md24',1,'']]],
+  ['sha3_20mct_20測試函數_10',['SHA3 MCT 測試函數',['../sha3_intro.html#autotoc_md29',1,'']]],
+  ['sha3_5f256_11',['SHA3_256',['../my_sha_8c.html#af640ecb8f7fed5f63d5e54ed90b745dc',1,'SHA3_256:&#160;mySha.c'],['../my_sha_8h.html#af640ecb8f7fed5f63d5e54ed90b745dc',1,'SHA3_256:&#160;mySha.c']]],
+  ['sha3_5f384_12',['SHA3_384',['../my_sha_8c.html#ac7f83398795f8763df4bc23f1705b213',1,'SHA3_384:&#160;mySha.c'],['../my_sha_8h.html#ac7f83398795f8763df4bc23f1705b213',1,'SHA3_384:&#160;mySha.c']]],
+  ['sha3_5f512_13',['SHA3_512',['../my_sha_8c.html#a62af4da21e02cecf654bfe279e9325e9',1,'SHA3_512:&#160;mySha.c'],['../my_sha_8h.html#a62af4da21e02cecf654bfe279e9325e9',1,'SHA3_512:&#160;mySha.c']]],
+  ['sha3_5fintro_2emd_14',['sha3_intro.md',['../sha3__intro_8md.html',1,'']]],
+  ['sha3mcthash_15',['sha3MCTHash',['../my_sha_8c.html#a9143d0a8090a75dc04941622fa31410a',1,'sha3MCTHash(const int hashAlgorithm, const char *initialSeedString):&#160;mySha.c'],['../my_sha_8h.html#ac3008eb6f217443d123b3e203255f703',1,'sha3MCTHash(const int hashAlgorithm, const char *initialSeedString):&#160;mySha.c']]],
+  ['shahash_16',['shaHash',['../my_sha_8c.html#a24836509c4d4f7bab82ed9b79f37e3cd',1,'shaHash(const int hashAlgorithm, const char *message, char *outHash, int *outHashLength):&#160;mySha.c'],['../my_sha_8h.html#a24836509c4d4f7bab82ed9b79f37e3cd',1,'shaHash(const int hashAlgorithm, const char *message, char *outHash, int *outHashLength):&#160;mySha.c']]],
+  ['shake有兩種模式，對應兩種訊息摘要長度_17',['SHAKE有兩種模式，對應兩種訊息摘要長度',['../shake_intro.html#autotoc_md30',1,'']]],
+  ['shake_20簡介_18',['SHAKE 簡介',['../shake_intro.html',1,'algorithm_list']]],
+  ['shake_20mct_20測試函數_19',['SHAKE MCT 測試函數',['../shake_intro.html#autotoc_md35',1,'']]],
+  ['shake_20vot_20測試函數_20',['SHAKE VOT 測試函數',['../shake_intro.html#autotoc_md37',1,'']]],
+  ['shake_5f128_21',['SHAKE_128',['../my_shake_8c.html#a41cd67d568329f24cdc47ddfea797db7',1,'SHAKE_128:&#160;myShake.c'],['../my_shake_8h.html#a41cd67d568329f24cdc47ddfea797db7',1,'SHAKE_128:&#160;myShake.c']]],
+  ['shake_5f256_22',['SHAKE_256',['../my_shake_8c.html#a0cf403449749cec17cf3481964c2c78d',1,'SHAKE_256:&#160;myShake.c'],['../my_shake_8h.html#a0cf403449749cec17cf3481964c2c78d',1,'SHAKE_256:&#160;myShake.c']]],
+  ['shake_5fintro_2emd_23',['shake_intro.md',['../shake__intro_8md.html',1,'']]],
+  ['shakehash_24',['shakeHash',['../my_shake_8c.html#a5e41eccdfe067c65aabb53a2f587e75f',1,'shakeHash(const int hashAlgorithm, const char *message, int outHashLength, char *outHash):&#160;myShake.c'],['../my_shake_8h.html#a5e41eccdfe067c65aabb53a2f587e75f',1,'shakeHash(const int hashAlgorithm, const char *message, int outHashLength, char *outHash):&#160;myShake.c']]],
+  ['signature_20generation_25',['Signature Generation',['../ecdsa_intro.html#autotoc_md16',1,'']]],
+  ['signature_20verification_26',['Signature Verification',['../ecdsa_intro.html#autotoc_md17',1,'']]]
 ];

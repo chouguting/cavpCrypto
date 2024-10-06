@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['演算法列表_0',['演算法列表',['../algorithm_list.html',1,'']]]
+  ['專案簡介_0',['專案簡介',['../index.html#main_intro',1,'']]]
 ];

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['generatekeypairbasedonauxiliaryprobableprimes_0',['generateKeyPairBasedOnAuxiliaryProbablePrimes',['../my_rsa_8c.html#a913b6648de49b4e7e28975771099ac4a',1,'myRsa.c']]],
-  ['getithbyteinhex_1',['getIthByteInHex',['../utils_8c.html#a0e5345c80ec54e295361d9fbbfd95692',1,'getIthByteInHex(char *hex, int i, char *dest):&#160;utils.c'],['../utils_8h.html#a0e5345c80ec54e295361d9fbbfd95692',1,'getIthByteInHex(char *hex, int i, char *dest):&#160;utils.c']]]
+  ['dhex_0',['dHex',['../my_rsa_8c.html#ad10d7395c6009a952bc70b0f47029e0d',1,'myRsa.c']]],
+  ['dphex_1',['dPHex',['../my_rsa_8c.html#a288ae07e65083d9acd617e63cd5f746a',1,'myRsa.c']]],
+  ['dqhex_2',['dQHex',['../my_rsa_8c.html#a6550ba5e60b479bb60b647bae2c13f7b',1,'myRsa.c']]]
 ];

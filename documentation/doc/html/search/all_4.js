@@ -1,20 +1,11 @@
 var searchData=
 [
-  ['ecb模式_0',['ECB模式',['../aes_intro.html#autotoc_md7',1,'']]],
-  ['ecdsa_5fcurve_5fp256_1',['ECDSA_CURVE_P256',['../my_ecdsa_8c.html#a7a2fa9dcb619c80a472c74ff3949ef7f',1,'ECDSA_CURVE_P256:&#160;myEcdsa.c'],['../my_ecdsa_8h.html#a7a2fa9dcb619c80a472c74ff3949ef7f',1,'ECDSA_CURVE_P256:&#160;myEcdsa.c']]],
-  ['ecdsa_5fcurve_5fp384_2',['ECDSA_CURVE_P384',['../my_ecdsa_8c.html#a6956a7addd483e25a43e7d3de14860d5',1,'ECDSA_CURVE_P384:&#160;myEcdsa.c'],['../my_ecdsa_8h.html#a6956a7addd483e25a43e7d3de14860d5',1,'ECDSA_CURVE_P384:&#160;myEcdsa.c']]],
-  ['ecdsa_5fcurve_5fp521_3',['ECDSA_CURVE_P521',['../my_ecdsa_8c.html#a3d09cb4e69fccbe498e7f024ae83d4d9',1,'ECDSA_CURVE_P521:&#160;myEcdsa.c'],['../my_ecdsa_8h.html#a3d09cb4e69fccbe498e7f024ae83d4d9',1,'ECDSA_CURVE_P521:&#160;myEcdsa.c']]],
-  ['ecdsa_5fhash_5fsha2_5f256_4',['ECDSA_HASH_SHA2_256',['../my_ecdsa_8c.html#a41709785433d86853ebd636d1cc9582c',1,'ECDSA_HASH_SHA2_256:&#160;myEcdsa.c'],['../my_ecdsa_8h.html#a41709785433d86853ebd636d1cc9582c',1,'ECDSA_HASH_SHA2_256:&#160;myEcdsa.c']]],
-  ['ecdsa_5fhash_5fsha2_5f384_5',['ECDSA_HASH_SHA2_384',['../my_ecdsa_8c.html#a738f04b7345a208635b54b19aa45d69c',1,'ECDSA_HASH_SHA2_384:&#160;myEcdsa.c'],['../my_ecdsa_8h.html#a738f04b7345a208635b54b19aa45d69c',1,'ECDSA_HASH_SHA2_384:&#160;myEcdsa.c']]],
-  ['ecdsa_5fhash_5fsha2_5f512_6',['ECDSA_HASH_SHA2_512',['../my_ecdsa_8c.html#abf17a861a7236ab9ae0c483eae3212d2',1,'ECDSA_HASH_SHA2_512:&#160;myEcdsa.c'],['../my_ecdsa_8h.html#abf17a861a7236ab9ae0c483eae3212d2',1,'ECDSA_HASH_SHA2_512:&#160;myEcdsa.c']]],
-  ['ecdsa_5fhash_5fsha3_5f256_7',['ECDSA_HASH_SHA3_256',['../my_ecdsa_8c.html#ab39101c1ad1779574c3f7ffb6c04e7bb',1,'ECDSA_HASH_SHA3_256:&#160;myEcdsa.c'],['../my_ecdsa_8h.html#ab39101c1ad1779574c3f7ffb6c04e7bb',1,'ECDSA_HASH_SHA3_256:&#160;myEcdsa.c']]],
-  ['ecdsa_5fhash_5fsha3_5f384_8',['ECDSA_HASH_SHA3_384',['../my_ecdsa_8c.html#af7b84bf59240756f7e5a9bb9f167ed94',1,'ECDSA_HASH_SHA3_384:&#160;myEcdsa.c'],['../my_ecdsa_8h.html#af7b84bf59240756f7e5a9bb9f167ed94',1,'ECDSA_HASH_SHA3_384:&#160;myEcdsa.c']]],
-  ['ecdsa_5fhash_5fsha3_5f512_9',['ECDSA_HASH_SHA3_512',['../my_ecdsa_8c.html#a5907907f0a445d97a7874d75f0b2b61d',1,'ECDSA_HASH_SHA3_512:&#160;myEcdsa.c'],['../my_ecdsa_8h.html#a5907907f0a445d97a7874d75f0b2b61d',1,'ECDSA_HASH_SHA3_512:&#160;myEcdsa.c']]],
-  ['ecdsa_5fhash_5fshake128_10',['ECDSA_HASH_SHAKE128',['../my_ecdsa_8c.html#a226a5e07cac2071df7cf41c1972bc324',1,'ECDSA_HASH_SHAKE128:&#160;myEcdsa.c'],['../my_ecdsa_8h.html#a226a5e07cac2071df7cf41c1972bc324',1,'ECDSA_HASH_SHAKE128:&#160;myEcdsa.c']]],
-  ['ecdsa_5fhash_5fshake256_11',['ECDSA_HASH_SHAKE256',['../my_ecdsa_8c.html#afe67406ff081194bd62292e4bde94316',1,'ECDSA_HASH_SHAKE256:&#160;myEcdsa.c'],['../my_ecdsa_8h.html#afe67406ff081194bd62292e4bde94316',1,'ECDSA_HASH_SHAKE256:&#160;myEcdsa.c']]],
-  ['ecdsakeypair_12',['ecdsaKeyPair',['../my_ecdsa_8c.html#ad5e5bb26a3ae80becd2a6f2c754d51fb',1,'ecdsaKeyPair(int keypairCurve):&#160;myEcdsa.c'],['../my_ecdsa_8h.html#ad5e5bb26a3ae80becd2a6f2c754d51fb',1,'ecdsaKeyPair(int keypairCurve):&#160;myEcdsa.c']]],
-  ['ecdsakeyverify_13',['ecdsaKeyVerify',['../my_ecdsa_8c.html#ac4031f67a95231d0cf17a7622d36cf91',1,'ecdsaKeyVerify(int keypairCurve, char *qx, char *qy):&#160;myEcdsa.c'],['../my_ecdsa_8h.html#ac4031f67a95231d0cf17a7622d36cf91',1,'ecdsaKeyVerify(int keypairCurve, char *qx, char *qy):&#160;myEcdsa.c']]],
-  ['ecdsasignaturegenerate_14',['ecdsaSignatureGenerate',['../my_ecdsa_8c.html#a29418cad0fbdc51501d9fd8ec3714057',1,'ecdsaSignatureGenerate(int keypairCurve, int hashAlgorithm, char *d, char *message):&#160;myEcdsa.c'],['../my_ecdsa_8h.html#a29418cad0fbdc51501d9fd8ec3714057',1,'ecdsaSignatureGenerate(int keypairCurve, int hashAlgorithm, char *d, char *message):&#160;myEcdsa.c']]],
-  ['ecdsasignatureverify_15',['ecdsaSignatureVerify',['../my_ecdsa_8c.html#aec274ae1441e23db41a4e11daf17cb9c',1,'ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char *qx, char *qy, char *r, char *s, char *message):&#160;myEcdsa.c'],['../my_ecdsa_8h.html#aec274ae1441e23db41a4e11daf17cb9c',1,'ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char *qx, char *qy, char *r, char *s, char *message):&#160;myEcdsa.c']]],
-  ['ehex_16',['eHex',['../my_rsa_8c.html#ae989fdb1f5a344d580155f20ed23b07d',1,'myRsa.c']]]
+  ['cavp_20crypto_20project_0',['歡迎來到 CAVP crypto Project',['../index.html',1,'']]],
+  ['cbc模式_1',['CBC模式',['../aes_intro.html#autotoc_md8',1,'']]],
+  ['cfb128模式_2',['CFB128模式',['../aes_intro.html#autotoc_md10',1,'']]],
+  ['cfb8模式_3',['CFB8模式',['../aes_intro.html#autotoc_md9',1,'']]],
+  ['computeaprobableprimefactorbasedonauxiliaryprimes_4',['computeAProbablePrimeFactorBasedOnAuxiliaryPrimes',['../my_rsa_8c.html#afa391fdc7fc5359be6bdb04fcf296d55',1,'myRsa.c']]],
+  ['copy_5fbytes_5',['copy_bytes',['../utils_8c.html#a7ec823504a7b42424066c01549fe5af3',1,'copy_bytes(unsigned char *src, unsigned char *dest, unsigned long length):&#160;utils.c'],['../utils_8h.html#a7ec823504a7b42424066c01549fe5af3',1,'copy_bytes(unsigned char *src, unsigned char *dest, unsigned long length):&#160;utils.c']]],
+  ['crypto_20project_6',['歡迎來到 CAVP crypto Project',['../index.html',1,'']]],
+  ['ctr模式_7',['CTR模式',['../aes_intro.html#autotoc_md11',1,'']]]
 ];
