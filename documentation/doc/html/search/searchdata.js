@@ -1,6 +1,6 @@
 var indexSectionsWithContent =
 {
-  0: "23abcdeghkmnpqrsuvwx加專歡每測演簡解雜",
+  0: "23abcdeghkmnpqrsuvwx加專從歡每測演簡解雜",
   1: "aemsuw",
   2: "abceghrsx",
   3: "adenpqsx",
