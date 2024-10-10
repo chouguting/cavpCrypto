@@ -53,3 +53,10 @@ void getIthByteInHex(char* hex, int i, char*dest) {
 	dest[1] = hex[2 * i + 1];
 	dest[2] = '\0';
 }
+
+
+int hexStringToInteger(char* hex) {
+	int result;
+	sscanf_s(hex, "%x", &result);
+	return result;
+}

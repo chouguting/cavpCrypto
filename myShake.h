@@ -21,3 +21,5 @@ extern const int SHAKE_256;
 /// @param outHashLength  希望輸出的雜湊值長度 (bits)
 /// @param outHash  輸出的雜湊值 (利用指標回傳)
 void shakeHash(const int hashAlgorithm, const char* message, int outHashLength, char* outHash);
+
+void shakeMCTHash(const int hashAlgorithm, const char* initialSeedString, int maxOutBitLength, int minOutBitLength);
