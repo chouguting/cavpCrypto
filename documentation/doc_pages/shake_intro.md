@@ -27,7 +27,7 @@ SHA3的MCT測試流程演算法要看[這份文件](https://csrc.nist.gov/CSRC/m
 @remark 和SHA3同一份文件，但流程不同
 
 #### SHAKE MCT 測試函數
-尚未實作  <br>
+@ref shakeMCTHash() "SHAKE的MCT測試函數 shakeMCTHash()"  <br>
 
 ### VOT測試
 VOT測試(Variable Output Test)是測試可變長度輸出的雜湊函數是否正確 <br>

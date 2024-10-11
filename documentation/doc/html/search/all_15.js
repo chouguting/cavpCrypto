@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['專案簡介_0',['專案簡介',['../index.html#main_intro',1,'']]]
+  ['加密函數_0',['加密函數',['../aes_intro.html#autotoc_md4',1,'']]]
 ];

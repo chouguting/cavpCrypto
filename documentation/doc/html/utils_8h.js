@@ -4,5 +4,6 @@ var utils_8h =
     [ "copy_bytes", "utils_8h.html#a7ec823504a7b42424066c01549fe5af3", null ],
     [ "getIthByteInHex", "utils_8h.html#a0e5345c80ec54e295361d9fbbfd95692", null ],
     [ "hex_to_bytes", "utils_8h.html#a0eb8beff81fc6d39382e95444fc09334", null ],
+    [ "hexStringToInteger", "utils_8h.html#a862b260c603c9276ff443f652cb9e229", null ],
     [ "xor_strings", "utils_8h.html#a78319ce18bc6242a105aaf02b70633f2", null ]
 ];

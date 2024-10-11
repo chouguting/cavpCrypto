@@ -119,6 +119,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a5e41eccdfe067c65aabb53a2f587e75f" id="r_a5e41eccdfe067c65aabb53a2f587e75f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e41eccdfe067c65aabb53a2f587e75f">shakeHash</a> (const int hashAlgorithm, const char *message, int outHashLength, char *outHash)</td></tr>
 <tr class="memdesc:a5e41eccdfe067c65aabb53a2f587e75f"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHAKE 可變長度雜湊函數  <br /></td></tr>
 <tr class="separator:a5e41eccdfe067c65aabb53a2f587e75f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6a08c87be252b041cd713450225a3d0" id="r_ab6a08c87be252b041cd713450225a3d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6a08c87be252b041cd713450225a3d0">shakeMCTHash</a> (const int hashAlgorithm, const char *initialSeedString, int maxOutBitLength, int minOutBitLength)</td></tr>
+<tr class="memdesc:ab6a08c87be252b041cd713450225a3d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHAKE 可變長度雜湊函數的Monte Carlo Test.  <br /></td></tr>
+<tr class="separator:ab6a08c87be252b041cd713450225a3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -166,14 +169,64 @@ Variables</h2></td></tr>
 <div class="line"><span class="keywordtype">int</span> outLen = 3152;</div>
 <div class="line"><a class="code hl_function" href="my_shake_8c.html#a5e41eccdfe067c65aabb53a2f587e75f">shakeHash</a>(<a class="code hl_variable" href="my_shake_8c.html#a41cd67d568329f24cdc47ddfea797db7">SHAKE_128</a>, message, outLen, output);</div>
 <div class="line">printf(<span class="stringliteral">&quot;output: %s\n&quot;</span>, output); <span class="comment">//57C08C18DF....CB8A79</span></div>
-<div class="ttc" id="amy_shake_8c_html_a41cd67d568329f24cdc47ddfea797db7"><div class="ttname"><a href="my_shake_8c.html#a41cd67d568329f24cdc47ddfea797db7">SHAKE_128</a></div><div class="ttdeci">const int SHAKE_128</div><div class="ttdef"><b>Definition</b> myShake.c:8</div></div>
-<div class="ttc" id="amy_shake_8c_html_a5e41eccdfe067c65aabb53a2f587e75f"><div class="ttname"><a href="my_shake_8c.html#a5e41eccdfe067c65aabb53a2f587e75f">shakeHash</a></div><div class="ttdeci">void shakeHash(const int hashAlgorithm, const char *message, int outHashLength, char *outHash)</div><div class="ttdoc">SHAKE 可變長度雜湊函數</div><div class="ttdef"><b>Definition</b> myShake.c:13</div></div>
+<div class="ttc" id="amy_shake_8c_html_a41cd67d568329f24cdc47ddfea797db7"><div class="ttname"><a href="my_shake_8c.html#a41cd67d568329f24cdc47ddfea797db7">SHAKE_128</a></div><div class="ttdeci">const int SHAKE_128</div><div class="ttdef"><b>Definition</b> myShake.c:9</div></div>
+<div class="ttc" id="amy_shake_8c_html_a5e41eccdfe067c65aabb53a2f587e75f"><div class="ttname"><a href="my_shake_8c.html#a5e41eccdfe067c65aabb53a2f587e75f">shakeHash</a></div><div class="ttdeci">void shakeHash(const int hashAlgorithm, const char *message, int outHashLength, char *outHash)</div><div class="ttdoc">SHAKE 可變長度雜湊函數</div><div class="ttdef"><b>Definition</b> myShake.c:14</div></div>
 </div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hashAlgorithm</td><td>使用的雜湊演算法: SHAKE_128, SHAKE_256 </td></tr>
     <tr><td class="paramname">message</td><td>要雜湊的訊息 </td></tr>
     <tr><td class="paramname">outHashLength</td><td>希望輸出的雜湊值長度 (bits) </td></tr>
     <tr><td class="paramname">outHash</td><td>輸出的雜湊值 (利用指標回傳) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab6a08c87be252b041cd713450225a3d0" name="ab6a08c87be252b041cd713450225a3d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6a08c87be252b041cd713450225a3d0">&#9670;&#160;</a></span>shakeMCTHash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void shakeMCTHash </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>hashAlgorithm</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>initialSeedString</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxOutBitLength</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>minOutBitLength</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SHAKE 可變長度雜湊函數的Monte Carlo Test. </p>
+<p>SHAKE 可變長度雜湊函數的Monte Carlo Test <br  />
+ 此函式的輸入為雜湊演算法、初始種子字串、最大輸出長度、最小輸出長度 <br  />
+ 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* message = <span class="stringliteral">&quot;B1C0D66C55B27FA3D627939AB6C54619&quot;</span>;</div>
+<div class="line"><span class="keywordtype">int</span> maxLen = 51200;</div>
+<div class="line"><span class="keywordtype">int</span> minLen = 16;</div>
+<div class="line"><a class="code hl_function" href="my_shake_8c.html#ab6a08c87be252b041cd713450225a3d0">shakeMCTHash</a>(<a class="code hl_variable" href="my_shake_8c.html#a0cf403449749cec17cf3481964c2c78d">SHAKE_256</a>, message, maxLen, minLen);</div>
+<div class="ttc" id="amy_shake_8c_html_a0cf403449749cec17cf3481964c2c78d"><div class="ttname"><a href="my_shake_8c.html#a0cf403449749cec17cf3481964c2c78d">SHAKE_256</a></div><div class="ttdeci">const int SHAKE_256</div><div class="ttdef"><b>Definition</b> myShake.c:10</div></div>
+<div class="ttc" id="amy_shake_8c_html_ab6a08c87be252b041cd713450225a3d0"><div class="ttname"><a href="my_shake_8c.html#ab6a08c87be252b041cd713450225a3d0">shakeMCTHash</a></div><div class="ttdeci">void shakeMCTHash(const int hashAlgorithm, const char *initialSeedString, int maxOutBitLength, int minOutBitLength)</div><div class="ttdoc">SHAKE 可變長度雜湊函數的Monte Carlo Test.</div><div class="ttdef"><b>Definition</b> myShake.c:75</div></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hashAlgorithm</td><td>使用的雜湊演算法: SHAKE_128, SHAKE_256 </td></tr>
+    <tr><td class="paramname">initialSeedString</td><td>初始種子字串 </td></tr>
+    <tr><td class="paramname">maxOutBitLength</td><td>最大輸出長度 (MCT測試所需) </td></tr>
+    <tr><td class="paramname">minOutBitLength</td><td>最小輸出長度 (MCT測試所需) </td></tr>
   </table>
   </dd>
 </dl>
