@@ -31,7 +31,9 @@ void ecdsaKeyPair(int keypairCurve);
 /// @code{.c}
 /// char* qx = "B5524388413982F4A4DDF018240EA61270EA0524F4B7675654AF9B9E754AB8F07B10D80CE44722679E35B4A25B64B09C";
 /// char* qy = "F739CF6189E6B750054EA5182E42399780BBB39D1A4BF70DB853857B8E9BA077B77C15D8A8BD0D645D70CDA4D50BF7D5";
-/// ecdsaKeyVerify(ECDSA_CURVE_P384, qx, qy); //1
+/// int result = ecdsaKeyVerify(ECDSA_CURVE_P384, qx, qy); //1
+/// printf("result: %d\n", result);
+/// 
 /// @endcode
 /// @param keypairCurve  ECDSA_CURVE_P256, ECDSA_CURVE_P384, ECDSA_CURVE_P521
 /// @param qx 公鑰的x座標
