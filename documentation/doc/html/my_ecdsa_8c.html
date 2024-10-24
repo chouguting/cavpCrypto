@@ -214,7 +214,8 @@ Variables</h2></td></tr>
 <p>驗證ECDSA的key pair </p>
 <p>驗證ECDSA的key pair，可以選擇不同的curve 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* qx = <span class="stringliteral">&quot;B5524388413982F4A4DDF018240EA61270EA0524F4B7675654AF9B9E754AB8F07B10D80CE44722679E35B4A25B64B09C&quot;</span>;</div>
 <div class="line"><span class="keywordtype">char</span>* qy = <span class="stringliteral">&quot;F739CF6189E6B750054EA5182E42399780BBB39D1A4BF70DB853857B8E9BA077B77C15D8A8BD0D645D70CDA4D50BF7D5&quot;</span>;</div>
-<div class="line"><a class="code hl_function" href="#ac4031f67a95231d0cf17a7622d36cf91">ecdsaKeyVerify</a>(<a class="code hl_variable" href="#a6956a7addd483e25a43e7d3de14860d5">ECDSA_CURVE_P384</a>, qx, qy); <span class="comment">//1</span></div>
+<div class="line"><span class="keywordtype">int</span> result = <a class="code hl_function" href="#ac4031f67a95231d0cf17a7622d36cf91">ecdsaKeyVerify</a>(<a class="code hl_variable" href="#a6956a7addd483e25a43e7d3de14860d5">ECDSA_CURVE_P384</a>, qx, qy); <span class="comment">//1</span></div>
+<div class="line">printf(<span class="stringliteral">&quot;result: %d\n&quot;</span>, result);</div>
 <div class="ttc" id="amy_ecdsa_8c_html_a6956a7addd483e25a43e7d3de14860d5"><div class="ttname"><a href="#a6956a7addd483e25a43e7d3de14860d5">ECDSA_CURVE_P384</a></div><div class="ttdeci">const int ECDSA_CURVE_P384</div><div class="ttdef"><b>Definition</b> myEcdsa.c:8</div></div>
 <div class="ttc" id="amy_ecdsa_8c_html_ac4031f67a95231d0cf17a7622d36cf91"><div class="ttname"><a href="#ac4031f67a95231d0cf17a7622d36cf91">ecdsaKeyVerify</a></div><div class="ttdeci">int ecdsaKeyVerify(int keypairCurve, char *qx, char *qy)</div><div class="ttdoc">驗證ECDSA的key pair</div><div class="ttdef"><b>Definition</b> myEcdsa.c:107</div></div>
 </div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
