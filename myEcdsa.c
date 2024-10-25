@@ -112,9 +112,15 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 
 
 	crypt_mp_init("ltm"); //使用libtommath
-	mp_init(&x);
-	mp_init(&y);
+	
 
+	int keysize = (keypairCurve == ECDSA_CURVE_P256) ? 32 : (keypairCurve == ECDSA_CURVE_P384) ? 48 : (keypairCurve == ECDSA_CURVE_P521) ? 66 : 0;
+
+	//檢查長度
+	if (strlen(qx) != 2 * keysize || strlen(qy) != 2 * keysize) { //1個byte是2個hex
+		printf("Invalid key length\n");
+		return false;
+	}
 
 	// 根據keypairCurve選擇對應的曲線
 	if (keypairCurve == ECDSA_CURVE_P256) {
@@ -140,13 +146,23 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 		return false;
 	}
 
+
+	mp_init(&x);
+	mp_init(&y);
+
 	// 將qx和qy從字串轉換為大數
-	
 	if ((err = mp_read_radix(&x, qx, 16)) != CRYPT_OK || (err = mp_read_radix(&y, qy, 16)) != CRYPT_OK) {
 		printf("Error reading qx and qy: %s\n", error_to_string(err));
 		mp_clear_multi(&x, &y, NULL);
 		return false;
 	}
+
+	// 檢查公鑰是否為無窮遠點
+    if (mp_iszero(&x) && mp_iszero(&y)) {
+        printf("Public key is at infinity\n");
+        mp_clear_multi(&x, &y, NULL);
+        return false;
+    }
 
 	// 驗證公鑰: 利用公式 y^2 = x^3 + ax + b (mod p) 驗證公鑰是否在曲線上
 	mp_int a,  b,  p,  lhs,  rhs;
@@ -156,6 +172,7 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 	mp_init(&p);
 	mp_init(&lhs);
 	mp_init(&rhs);
+
 
 	// 讀取曲線參數
 	mp_read_radix(&a, curve->A, 16);
@@ -184,6 +201,13 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 		mp_clear(&p);
 		mp_clear(&lhs);
 		mp_clear(&rhs);
+		return false;
+	}
+
+	// 檢查公鑰是否在合理範圍內
+	if (mp_cmp(&x, &p) != LTC_MP_LT || mp_cmp(&y, &p) != LTC_MP_LT || mp_cmp_d(&x, 0) != LTC_MP_GT || mp_cmp_d(&y, 0) != LTC_MP_GT) {
+		printf("Invalid public key: x or y out of range\n");
+		mp_clear_multi(&x, &y, &a, &b, &p, &lhs, &rhs, NULL);
 		return false;
 	}
 
