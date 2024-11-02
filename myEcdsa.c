@@ -526,7 +526,7 @@ int ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* qy
 
 	/*嘗試利用r,s組回sig*/
 	unsigned char sig[512];
-	unsigned long siglen;
+	unsigned long siglen = sizeof(sig);
 
 	
 
@@ -628,6 +628,7 @@ int ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* qy
 	free(qxBytes);
 	free(qyBytes);
 	free(messageBytes);
+	ecc_free(&key);
 	return verifyStatus;
 	
 }
