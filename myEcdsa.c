@@ -14,17 +14,7 @@ void ecdsaKeyPair(int keypairCurve)
 	prng_state prng;
 	int err;
 	const ltc_ecc_curve* curve;
-	//unsigned char qx[32], qy[32], d[32];
 	unsigned char* qx, * qy, * d;
-
-
-	int keysize = (keypairCurve == ECDSA_CURVE_P256) ? 32 : (keypairCurve == ECDSA_CURVE_P384) ? 48 : (keypairCurve == ECDSA_CURVE_P521) ? 66 : 0;
-
-	qx = (unsigned char*)malloc(keysize);
-	qy = (unsigned char*)malloc(keysize);
-	d = (unsigned char*)malloc(keysize);
-
-
 	int i;
 	crypt_mp_init("ltm"); //使用libtommath
 
@@ -62,6 +52,7 @@ void ecdsaKeyPair(int keypairCurve)
 			printf("Error finding P-521 curve: %s\n", error_to_string(err));
 			return -1;
 		}
+		
 	}
 	else
 	{
@@ -69,38 +60,46 @@ void ecdsaKeyPair(int keypairCurve)
 		return -1;
 	}
 	
-
 	/* 產生ECC key */
 	if ((err = ecc_make_key_ex(&prng, find_prng("yarrow"), &mykey, curve)) != CRYPT_OK) {
 		printf("Error generating ECC keypair: %s\n", error_to_string(err));
 		return -1;
 	}
 
-
-
 	// 獲取公鑰的qx、qy和私鑰d
+	int qx_size = ltc_mp.unsigned_size(mykey.pubkey.x);
+	qx = malloc(qx_size);
+	ltc_mp.unsigned_write(mykey.pubkey.x, qx);
+
+	int qy_size = ltc_mp.unsigned_size(mykey.pubkey.y);
+	qy = malloc(qy_size);
+	ltc_mp.unsigned_write(mykey.pubkey.y, qy);
+
+	int d_size = ltc_mp.unsigned_size(mykey.k);
+	d = malloc(d_size);
+	ltc_mp.unsigned_write(mykey.k, d);
     
     ltc_mp.unsigned_write(mykey.pubkey.x, qx);
     ltc_mp.unsigned_write(mykey.pubkey.y, qy);
     ltc_mp.unsigned_write(mykey.k, d);
 
-    // 印出qx、qy和d
+	// 印出qx、qy和d
 	printf("qx:");
-    for (i = 0; i < keysize; i++) printf("%02X", qx[i]);
-    printf("\n");
+	for (i = 0; i < qx_size; i++) printf("%02X", qx[i]);
+	printf("\n");
 	printf("qy:");
-    for (i = 0; i < keysize; i++) printf("%02X", qy[i]);
-    printf("\n");
+	for (i = 0; i < qy_size; i++) printf("%02X", qy[i]);
+	printf("\n");
 	printf("d:");
-    for (i = 0; i < keysize; i++) printf("%02X", d[i]);
-    printf("\n");
+	for (i = 0; i < d_size; i++) printf("%02X", d[i]);
+	printf("\n");
+    
 
     // 釋放key
     ecc_free(&mykey);
 	free(qx);
 	free(qy);
 	free(d);
-
 }
 
 
@@ -112,41 +111,58 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 
 
 	crypt_mp_init("ltm"); //使用libtommath
-	mp_init(&x);
-	mp_init(&y);
+	
 
+	int keysize = (keypairCurve == ECDSA_CURVE_P256) ? 32 : (keypairCurve == ECDSA_CURVE_P384) ? 48 : (keypairCurve == ECDSA_CURVE_P521) ? 66 : 0;
+
+	//檢查長度
+	/*
+	if (strlen(qx) != 2 * keysize || strlen(qy) != 2 * keysize) { //1個byte是2個hex
+		//printf("Invalid key length\n");
+		return false;
+	}*/
 
 	// 根據keypairCurve選擇對應的曲線
 	if (keypairCurve == ECDSA_CURVE_P256) {
 		if ((err = ecc_find_curve("P-256", &curve)) != CRYPT_OK) {
-			printf("Error finding P-256 curve: %s\n", error_to_string(err));
+			//printf("Error finding P-256 curve: %s\n", error_to_string(err));
 			return false;
 		}
 	}
 	else if (keypairCurve == ECDSA_CURVE_P384) {
 		if ((err = ecc_find_curve("P-384", &curve)) != CRYPT_OK) {
-			printf("Error finding P-384 curve: %s\n", error_to_string(err));
+			//printf("Error finding P-384 curve: %s\n", error_to_string(err));
 			return false;
 		}
 	}
 	else if (keypairCurve == ECDSA_CURVE_P521) {
 		if ((err = ecc_find_curve("P-521", &curve)) != CRYPT_OK) {
-			printf("Error finding P-521 curve: %s\n", error_to_string(err));
+			//printf("Error finding P-521 curve: %s\n", error_to_string(err));
 			return false;
 		}
 	}
 	else {
-		printf("Invalid curve\n");
+		//printf("Invalid curve\n");
 		return false;
 	}
 
+
+	mp_init(&x);
+	mp_init(&y);
+
 	// 將qx和qy從字串轉換為大數
-	
 	if ((err = mp_read_radix(&x, qx, 16)) != CRYPT_OK || (err = mp_read_radix(&y, qy, 16)) != CRYPT_OK) {
-		printf("Error reading qx and qy: %s\n", error_to_string(err));
+		//printf("Error reading qx and qy: %s\n", error_to_string(err));
 		mp_clear_multi(&x, &y, NULL);
 		return false;
 	}
+
+	// 檢查公鑰是否為無窮遠點
+    if (mp_iszero(&x) && mp_iszero(&y)) {
+       // printf("Public key is at infinity\n");
+        mp_clear_multi(&x, &y, NULL);
+        return false;
+    }
 
 	// 驗證公鑰: 利用公式 y^2 = x^3 + ax + b (mod p) 驗證公鑰是否在曲線上
 	mp_int a,  b,  p,  lhs,  rhs;
@@ -156,6 +172,7 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 	mp_init(&p);
 	mp_init(&lhs);
 	mp_init(&rhs);
+
 
 	// 讀取曲線參數
 	mp_read_radix(&a, curve->A, 16);
@@ -175,7 +192,7 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 
 	// 比較左側和右側
 	if (mp_cmp(&lhs, &rhs) != LTC_MP_EQ) {
-		printf("Invalid public key\n");
+		//printf("Invalid public key\n");
 		//mp_clear_multi(&x, &y, &a, &b, &p, &lhs, &rhs, NULL);
 		mp_clear(&x);
 		mp_clear(&y);
@@ -184,6 +201,13 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy) {
 		mp_clear(&p);
 		mp_clear(&lhs);
 		mp_clear(&rhs);
+		return false;
+	}
+
+	// 檢查公鑰是否在合理範圍內
+	if (mp_cmp(&x, &p) != LTC_MP_LT || mp_cmp(&y, &p) != LTC_MP_LT || mp_cmp_d(&x, 0) != LTC_MP_GT || mp_cmp_d(&y, 0) != LTC_MP_GT) {
+		//printf("Invalid public key: x or y out of range\n");
+		mp_clear_multi(&x, &y, &a, &b, &p, &lhs, &rhs, NULL);
 		return false;
 	}
 
@@ -478,8 +502,6 @@ int ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* qy
 	const ltc_ecc_curve* curve;
 	//key的長度
 	int keysize = (keypairCurve == ECDSA_CURVE_P256) ? 32 : (keypairCurve == ECDSA_CURVE_P384) ? 48 : (keypairCurve == ECDSA_CURVE_P521) ? 66 : 0;
-	unsigned long outlen; // message digest的長度
-	unsigned char out[256]; // message digest
 	unsigned char hash[512 / 8]; // 計算出的hash (最大是512 bits)
 	unsigned long hashlen; // hash的長度
 	unsigned char* messageBytes; // message的byte陣列
@@ -504,7 +526,7 @@ int ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* qy
 
 	/*嘗試利用r,s組回sig*/
 	unsigned char sig[512];
-	unsigned long siglen;
+	unsigned long siglen = sizeof(sig);
 
 	
 
@@ -606,6 +628,7 @@ int ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char* qx, char* qy
 	free(qxBytes);
 	free(qyBytes);
 	free(messageBytes);
+	ecc_free(&key);
 	return verifyStatus;
 	
 }

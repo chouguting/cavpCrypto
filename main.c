@@ -37,6 +37,34 @@ int main()
 	aesDecrypt(AES_MODE_CTR, AES_KEY_SIZE_256, key2, ciphertext2, initialVector2, plaintext2);
 	printf("plaintext: %s\n", plaintext2);
 	*/
+	
+	//ecdsaKeyPair(ECDSA_CURVE_P521);
+
+	/*
+	char* qx = "019CD7C54CE028963C0C9A5E21E6EC6170DF8E755DB357F60B4F32418553B639513444BF6438A287E4D8BCA6CDE442F9A9E479DB5C67208A9D588362A5C5FBF29B50";
+	char* qy = "01CEAD426BD796C932CC7E07BB5BD80C86DAD56D536A818EE2AC27960E94E3DD1F98C74929EC449E1B1E7E3560C7CDBAB38D6E77ECA4E563050297AF4E7023A63E35";
+
+	int result = ecdsaKeyVerify(ECDSA_CURVE_P521, qx, qy);
+	printf("result: %d\n", result);*/
+
+	
+	char* qx = "00A76876E1E5E232C57293C52CF90E70C486309B5D54BEBF2E52C97E5BE9F28DF21445B63433E57EF8428036E596E4934D8B4524443B90619D9465EC2ADCAE338C86";
+	char* qy = "00533859E5A96420E7FC13B4C731C6AEEFFB4D0852EF1D7EB46E71FEDF701CB8EA61CC0D63B82E1B62DB35CC797D41C005091EEC6CDEE80BD7070F391AE7F84840FC";
+	char* r = "001B5352331CCF95E7DE5B8CCE856079A413A6333EE762833FD78922F0DB292A395F9E4472E981B4E58AC41CD87804FE100AA9779FFC39DC6FE80A49F08B85223FDD";
+	char* s = "00A3889746E71F96AB2CA59C1E24AABE028A7619A85319E57DD25C73685452A544AFCE6B63F0CA225F6E0D0A01D795508D4D6724ECCBB5F94F6CBFE66DDBB89B935A";
+	char* message = "3A351CE9C2861860001FA45E631007D2264EFCF99A7047807547815B3004FE2C34E3E309FDD9A535E2266E0AA23177A7326E713648AC271D3E1AC368BBFB866E294690DBB83A40978545A6C28D859A38AF3C56B7732872C4BF9B433E712B7A89E8FB903C6A27E48925E45EBB71E6B98258349335846F6AB982FA029CC3667BE4";
+	int result = ecdsaSignatureVerify(ECDSA_CURVE_P521, ECDSA_HASH_SHAKE256, qx, qy, r, s, message);
+	printf("result: %d\n", result);
+	
+	
+	char* qx_2 = "009B35BF835FDBA9AAB6640A9B2D027FEC80AF12EC017D1F0C1566B5D0AD08D8E469ED34B5F77645E82683569E11128830FAC2BAD9F0ABF3FF2ADB07873399CF33C2";
+	char* qy_2 = "01044C7169A1EEC24A4EE63AA66CD5B3359ECF5DC85F5E4D7A806E8B86FDE629F84FE043129F0A12FE2C1E1878B920DCFB60778FD4DFFC8918CA0714B740D3879138";
+	char* r_2 = "0141EE21ED471A231C435BC37C080BF5742BCBF040975754BF20C82AD4DE9EA4BDD47E3370D4FD0AE9636D60CEBE2FB947563F1A5F5EEE4C8B91BFB56661ABD90A26";
+	char* s_2 = "0109D1072A22302E817A737845A5922A10AC1ADDCCA77903318F81DF4115D85E075327C0B896CD11B7EA55F8D128B4EF4C599827121391F41EA1D4A28ED26BB5EFD6";
+	char* message_2 = "17432A63FF558B84586438EF08E15C4A580086E7B6E46FC38117EB53609DD07A43D1ED2D6A2005F0FC161B7F5F42515FA024E8CFB30C08047095840546889B74E497325A41FD6F40D03AF4BEE9E058051D31DCFB12B512752B2F2BD961D52AF1D40560B7486E917C20FA85C58233339B6EE6DB717A6F7A454F7AC8D37A8F3B55";
+	int result_2 = ecdsaSignatureVerify(ECDSA_CURVE_P521, ECDSA_HASH_SHAKE256, qx_2, qy_2, r_2, s_2, message_2);
+	printf("result: %d\n", result_2); 
+	
 
 
 	//MCT test
@@ -54,52 +82,5 @@ int main()
 
 	//aesCfb128MCTDecrypt(AES_KEY_SIZE_256, mctCiphertext, mctKey2, mctInitialVector2);
 	
-	int err;
-	rsa_key key;
-	prng_state prng;
-	//ltc_mp = tfm_desc;
-	crypt_mp_init("ltm"); //使用libtommath
 	
-	unsigned long* sig_len;
-	//char* message = "0267A8B7429FBBAB3EF24B794E83BB70D9AB3A6DA947EA3585D00CBB7F152FD955A9AEF0DCAFFFCA1F32536F85D1";
-	//char* test = rsaSignMessage_pkcs1_v1_5(message, SHA3_256, &sig_len);
-	
-	/*hash test*/
-	unsigned char hash[2048];      // Buffer to hold the SHA-256 hash (32 bytes for SHA-256)
-	hash_state sha384_state;     // Hash state object
-	const char* message = "ABCD1234";  // Message to hash
-	int messageBytesLen;
-	unsigned char* messageBytes = malloc(strlen(message) / 2);
-	hex_to_bytes(message, messageBytes, &messageBytesLen);
-	// Step 1: Initialize the SHA-256 hash function
-	if ((err = sha384_init(&sha384_state)) != CRYPT_OK) {
-		printf("Error initializing SHA-384: %s\n", error_to_string(err));
-		return -1;
-	}
-
-	// Step 2: Process the message (you can call this function multiple times to process large data)
-	if ((err = sha384_process(&sha384_state, (unsigned char*)messageBytes, messageBytesLen)) != CRYPT_OK) {
-		printf("Error processing SHA-384: %s\n", error_to_string(err));
-		return -1;
-	}
-
-	// Step 3: Finalize the hash (this computes the final hash and stores it in the buffer)
-	if ((err = sha384_done(&sha384_state, hash)) != CRYPT_OK) {
-		printf("Error finalizing SHA-384: %s\n", error_to_string(err));
-		return -1;
-	}
-
-	// Step 4: Print the resulting SHA-256 hash in hexadecimal format
-	printf("SHA-384 hash of '%s':\n", message);
-	for (int i = 0; i < 384/8; i++) {
-		printf("%02x", hash[i]);
-	}
-	printf("\n");
-
-	unsigned char hash2[1025];
-	int* outhashlen;
-	shaHash(SHA2_384, message, hash2, &outhashlen);
-	printf("GORDON-SHA-384 hash of '%s':\n", message);
-	printf("GORDON-SHA-384 hash of '%s':\n", hash2);
-	printf("\n");
 }
