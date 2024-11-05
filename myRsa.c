@@ -179,43 +179,43 @@ void generateKeyPairBasedOnAuxiliaryProbablePrimes(
 	mp_invmod(e, &lcm, d_out);
 	mp_clear(&lcm);
 }
-char xP1Hex[1025];
-char xP2Hex[1025];
-char xPHex[1025];
+mp_int xP1;
+mp_int xP2;
+mp_int xP;
+mp_int xQ1;
+mp_int xQ2;
+mp_int xQ;
+mp_int e;
+mp_int p;
+mp_int q;
+mp_int n;
+mp_int d;
 
-char xQ1Hex[1025];
-char xQ2Hex[1025];
-char xQHex[1025];
-char pHex[1025];
-char qHex[1025];
-char nHex[1025];
-char dHex[1025];
-char eHex[1025];
-
-char dPHex[1025];
-char dQHex[1025];
-char qPHex[1025]; //(qInv)
+mp_int dP;
+mp_int dQ;
+mp_int qP;
 
 rsa_key rsaKeyPair()
 {
+	char xP1Hex[1025];
+	char xP2Hex[1025];
+	char xPHex[1025];
+
+	char xQ1Hex[1025];
+	char xQ2Hex[1025];
+	char xQHex[1025];
+	char pHex[1025];
+	char qHex[1025];
+	char nHex[1025];
+	char dHex[1025];
+	char eHex[1025];
+
 	rsa_key key;
 	//support RSA 4096
 	//each byte is 2 hex characters
 	//maximum 4096 bits, which is 512 bytes, so we need 1025 hex characters to store the number (with null terminator)
 
 	bool result;
-
-	mp_int xP1;
-	mp_int xP2;
-	mp_int xP;
-	mp_int xQ1;
-	mp_int xQ2;
-	mp_int xQ;
-	mp_int e;
-	mp_int p;
-	mp_int q;
-	mp_int n;
-	mp_int d;
 
 	mp_init(&xP1);
 	mp_init(&xP2);
@@ -262,152 +262,447 @@ rsa_key rsaKeyPair()
 	}
 	//return this key with the previous calculation
 	key.type = PK_PRIVATE;
-	key.e = (char*)eHex;
-	key.d = (char*)dHex;
-	key.N = (char*)nHex;
-	key.p = (char*)pHex;
-	key.q = (char*)qHex;
+	key.e = (mp_int*)&e;
+	key.d = (mp_int*)&d;
+	key.N = (mp_int*)&n;
+	key.p = (mp_int*)&p;
+	key.q = (mp_int*)&q;
 	
 	//to calculate CRT parameters
 	//calculate dP
 	mp_int tmp;
 	mp_init(&tmp);
 	mp_sub_d(&p, 1, &tmp);	//tmp = p-1
-	mp_int dP;
 	mp_init(&dP);
 	mp_mod(&d, &tmp, &dP);	//dP = d mod (p-1)
-	mp_to_radix(&dP, dPHex, sizeof(dPHex), NULL, 16);
-	key.dP = (char*)dPHex;
+	key.dP = (mp_int*)&dP;
 	
 	//calculate dQ
-	mp_int dQ;
 	mp_init(&dQ);
 	mp_sub_d(&q, 1, &tmp);	//tmp = q-1
 	mp_mod(&d, &tmp, &dQ);	//dQ = d mod (q-1)
-	mp_to_radix(&dQ, dQHex, sizeof(dQHex), NULL, 16);
-	key.dQ = (char*)dQHex;
+	key.dQ = (mp_int*)&dQ;
 
 	//calculate qInv
-	mp_int qP;
 	mp_init(&qP);
 	mp_invmod(&q, &p, &qP);	// qP = qInverse = q^(-1) mod p
-	mp_to_radix(&qP, qPHex, sizeof(qPHex), NULL, 16);
-	key.qP = (char*)qPHex;
-
-	printf("key.type = %d", key.type);
-	printf("\n");
-	printf("key.e = %s", key.e);
-	printf("\n");
-	printf("key.d = %s", key.d);
-	printf("\n");
-	printf("key.N = %s", key.N);
-	printf("\n");
-	printf("key.p = %s", key.p);
-	printf("\n");
-	printf("key.q = %s", key.q);
-	printf("\n");
-	printf("dPHex = %s", key.dP);
-	printf("\n");
-	printf("dQHex = %s", key.dQ);
-	printf("\n");
-	printf("qPHex = %s", key.qP);
-	printf("\n");
-
-	mp_clear(&xP1);
-	mp_clear(&xP2);
-	mp_clear(&xP);
-	mp_clear(&xQ1);
-	mp_clear(&xQ2);
-	mp_clear(&xQ);
-	mp_clear(&e);
-	mp_clear(&p);
-	mp_clear(&q);
-	mp_clear(&n);
-	mp_clear(&d);
-	mp_clear(&tmp);
-	mp_clear(&dP);
-	mp_clear(&dQ);
-	mp_clear(&qP);
+	key.qP = (mp_int*)&qP;
 	return key;
 }
 
-char* rsaSignMessage_pkcs1_v1_5(const char* message, const int hashAlgo, unsigned long* sig_len) {
+const int RSA_SHA2_256 = 1;
+const int RSA_SHA2_384 = 2;
+const int RSA_SHA2_512 = 3;
+const int RSA_SHA3_256 = 4;
+const int RSA_SHA3_384 = 5;
+const int RSA_SHA3_512 = 6;
+char hex_signature[4096];
+
+// rsaSignMessage_pkcs1_v1_5
+char* rsaSignMessage_pkcs1_v1_5(const char* message, const int hashAlgo) {
 	//generate rsaKey
+	crypt_mp_init("ltm");
 	rsa_key key = rsaKeyPair();
-	printf("key.type = %d", key.type);
-	printf("\n");
-	printf("key.e = %s", key.e);
-	printf("\n");
-	printf("key.d = %s", key.d);
-	printf("\n");
-	printf("key.N = %s", key.N);
-	printf("\n");
-	printf("key.p = %s", key.p);
-	printf("\n");
-	printf("key.q = %s", key.q);
-	printf("\n");
-	printf("dPHex = %s", key.dP);
-	printf("\n");
-	printf("dQHex = %s", key.dQ);
-	printf("\n");
-	printf("qPHex = %s", key.qP);
-	printf("\n");
-	//declare parameter will be used (no need of PRNG for LTC_PKCS_1_V1_5)
+	//print key.e and key.n and key.d
+	//char e_str[1024], n_str[1024], d_str[1024];
+	//mp_to_radix(key.e, e_str, sizeof(e_str), NULL, 16);
+	//mp_to_radix(key.N, n_str, sizeof(n_str), NULL, 16);
+	//mp_to_radix(key.d, d_str, sizeof(d_str), NULL, 16);
+	//printf("e: %s\n", e_str);
+	//printf("n: %s\n", n_str);
+	//printf("d: %s\n", d_str);
+
+	unsigned char sig[1024];
+	unsigned long siglen = sizeof(sig);
 	int err;
-	unsigned long outlen;
-	char out[256];
-	char hash[512 / 8];
+	unsigned char hash[1024];
 	unsigned long hashlen;
-	char* messageBytes = (char*)malloc(strlen(message) / 2);
-	unsigned long messageBytesLen;
-	char* signature;
 
-	//convert message from hex to binary
-	hex_to_bytes(message, messageBytes, &messageBytesLen);
-	hash_message(messageBytes, messageBytesLen, hashAlgo, hash, &hashlen);
-	printf("Hash: ");
-	for (int i = 0; i < hashlen; i++) {
-		printf("%02X", hash[i]);
+	//register hash
+	if (register_hash(&sha256_desc) == -1) {
+		printf("Error registering SHA-256.\n");
+		return -1;
 	}
-	printf("\n");
-	printf("\n");
-	/* 生成簽名 */
-	if ((err = rsa_sign_hash_ex(hash, hashlen, out, &outlen, LTC_PKCS_1_V1_5, NULL, 0, hashAlgo, 0, &key)) != CRYPT_OK) {
-		printf("Error signing message, %s\n", error_to_string(err));
-		return;
+	if (register_hash(&sha384_desc) == -1) {
+		printf("Error registering SHA-384.\n");
+		return -1;
+	}
+	if (register_hash(&sha512_desc) == -1) {
+		printf("Error registering SHA-512.\n");
+		return -1;
+	}
+	if (register_hash(&sha3_256_desc) == -1) {
+		printf("Error registering SHA3-256.\n");
+		return -1;
+	}
+	if (register_hash(&sha3_384_desc) == -1) {
+		printf("Error registering SHA3-384.\n");
+		return -1;
+	}
+	if (register_hash(&sha3_512_desc) == -1) {
+		printf("Error registering SHA3-512.\n");
+		return -1;
+	}
+	//hash index
+	int hash_idx = 0;
+	//hash the message
+	switch (hashAlgo) {
+	case 1:
+		shaHash(SHA2_256, message, hash, &hashlen);
+		hash_idx = find_hash("sha256");
+		break;
+	case 2:
+		shaHash(SHA2_384, message, hash, &hashlen);
+		hash_idx = find_hash("sha384");
+		break;
+	case 3:
+		shaHash(SHA2_512, message, hash, &hashlen);
+		hash_idx = find_hash("sha512");
+		break;
+	case 4:
+		shaHash(SHA3_256, message, hash, &hashlen);
+		hash_idx = find_hash("sha3-256");
+		break;
+	case 5:
+		shaHash(SHA3_384, message, hash, &hashlen);
+		hash_idx = find_hash("sha3-384");
+		break;
+	case 6:
+		shaHash(SHA3_512, message, hash, &hashlen);
+		hash_idx = find_hash("sha3-512");
+		break;
+	default:
+		printf("Invalid hash algorithm\n");
+		return NULL;
 	}
 
-	/* 輸出簽名 */
-	//unsigned char* sig = (unsigned char*)malloc(2 * outlen + 1);
-	//bytes_to_hex(out, outlen, sig);
-	//printf("Signature: %s\n", sig);
-	return "test";
+	//convert hash from hex to bytes
+	unsigned char hash_byte[512 / 8];
+	unsigned long hash_byte_len;
+	hex_to_bytes(hash, hash_byte, &hash_byte_len);
+
+	//sign the hash
+	if ((err = rsa_sign_hash_ex(hash_byte, hash_byte_len, sig, &siglen, LTC_PKCS_1_V1_5, NULL, -1, hash_idx, 0, &key)) != CRYPT_OK) {
+		printf("Error signing hash: %s\n", error_to_string(err));
+		return -1;
+	}
+
+	printf("Signature generated successfully.\n");
+	// 簽名成功，將簽名轉換為十六進制字符串
+	// 為十六進制字符串分配兩倍於簽名長度的空間
+	for (unsigned long i = 0; i < siglen; i++) {
+		sprintf_s(hex_signature + i * 2, sizeof(hex_signature) - i * 2, "%02X", sig[i]);
+	}
+	hex_signature[siglen * 2] = '\0'; // 確保字符串以空字符結尾
+	//printf("Signature: %s\n", hex_signature);
+	return hex_signature;
+	// Free the RSA key
+	rsa_free(&key);
 }
 
+// rsaSignMessage_pss
+char* rsaSignMessage_pss(const char* message, const int hashAlgo) {
+	//generate rsaKey
+	crypt_mp_init("ltm");
+	rsa_key key = rsaKeyPair();
 
-/*unsigned char* rsa_sign_message_pkcs1_v1_5(rsa_key* key, const unsigned char* message, unsigned long message_len, unsigned long* sig_len) {
-	unsigned char hash[32];
-	unsigned char* signature;
+	unsigned char sig[1024];
+	unsigned long siglen = sizeof(sig);
 	int err;
+	unsigned char hash[1024];
+	unsigned long hashlen;
 
-	// Hash the message using SHA-256
-	hash_state hs;
-	sha256_init(&hs);
-	sha256_process(&hs, message, message_len);
-	sha256_done(&hs, hash);
-
-	// Allocate memory for the signature
-	signature = (unsigned char*)malloc(MAX_RSA_SIZE);
-	if (signature == NULL) {
-		perror("Failed to allocate memory for signature");
-		exit(1);
+	//register hash
+	if (register_hash(&sha256_desc) == -1) {
+		printf("Error registering SHA-256.\n");
+		return -1;
+	}
+	if (register_hash(&sha384_desc) == -1) {
+		printf("Error registering SHA-384.\n");
+		return -1;
+	}
+	if (register_hash(&sha512_desc) == -1) {
+		printf("Error registering SHA-512.\n");
+		return -1;
+	}
+	if (register_hash(&sha3_256_desc) == -1) {
+		printf("Error registering SHA3-256.\n");
+		return -1;
+	}
+	if (register_hash(&sha3_384_desc) == -1) {
+		printf("Error registering SHA3-384.\n");
+		return -1;
+	}
+	if (register_hash(&sha3_512_desc) == -1) {
+		printf("Error registering SHA3-512.\n");
+		return -1;
+	}
+	//hash index
+	int hash_idx = 0;
+	//hash the message
+	switch (hashAlgo) {
+	case 1:
+		shaHash(SHA2_256, message, hash, &hashlen);
+		hash_idx = find_hash("sha256");
+		break;
+	case 2:
+		shaHash(SHA2_384, message, hash, &hashlen);
+		hash_idx = find_hash("sha384");
+		break;
+	case 3:
+		shaHash(SHA2_512, message, hash, &hashlen);
+		hash_idx = find_hash("sha512");
+		break;
+	case 4:
+		shaHash(SHA3_256, message, hash, &hashlen);
+		hash_idx = find_hash("sha3-256");
+		break;
+	case 5:
+		shaHash(SHA3_384, message, hash, &hashlen);
+		hash_idx = find_hash("sha3-384");
+		break;
+	case 6:
+		shaHash(SHA3_512, message, hash, &hashlen);
+		hash_idx = find_hash("sha3-512");
+		break;
+	default:
+		printf("Invalid hash algorithm\n");
+		return NULL;
 	}
 
-	// Sign the hash with the RSA private key using PKCS1 v1.5 padding
-	if ((err = rsa_sign_hash_ex(hash, 32, signature, sig_len, LTC_PKCS_1_V1_5, NULL, 0, NULL, find_hash("sha256"), 0, key)) != CRYPT_OK) {
-		handleError(err);
+	//convert hash from hex to bytes
+	unsigned char hash_byte[512 / 8];
+	unsigned long hash_byte_len;
+	hex_to_bytes(hash, hash_byte, &hash_byte_len);
+
+	//register prng
+	if (register_prng(&yarrow_desc) == -1) {
+		printf("Error registering PRNG.\n");
+		return -1;
+	}
+	//make a prng
+	prng_state prng;
+	if ((err = rng_make_prng(128, find_prng("yarrow"), &prng, NULL)) != CRYPT_OK) {
+		printf("Error making PRNG: %s\n", error_to_string(err));
+		return -1;
 	}
 
-	return signature;
-}*/
+	//sign the hash
+	if ((err = rsa_sign_hash_ex(hash_byte, hash_byte_len, sig, &siglen, LTC_PKCS_1_PSS, &prng, find_prng("yarrow"), hash_idx, 0, &key)) != CRYPT_OK) {
+		printf("Error signing hash: %s\n", error_to_string(err));
+		return -1;
+	}
 
+	printf("Signature generated successfully.\n");
+	// 簽名成功，將簽名轉換為十六進制字符串
+	// 為十六進制字符串分配兩倍於簽名長度的空間
+	for (unsigned long i = 0; i < siglen; i++) {
+		sprintf_s(hex_signature + i * 2, sizeof(hex_signature) - i * 2, "%02X", sig[i]);
+	}
+	hex_signature[siglen * 2] = '\0'; // 確保字符串以空字符結尾
+	//printf("Signature: %s\n", hex_signature);
+	return hex_signature;
+	// Free the RSA key
+	rsa_free(&key);
+}
+
+// rsaVerifyMessage_pkcs1_v1_5
+int rsaVerifyMessage_pkcs1_v1_5(const char* message, const char* signature, const int hashAlgo, rsa_key* key) {
+	crypt_mp_init("ltm");
+	printf("message: %s\n", message);
+	printf("signature: %s\n", signature);
+	//print key.e and key.n and key.d
+	char e_str[1024], n_str[1024], d_str[1024];
+	mp_to_radix(key->e, e_str, sizeof(e_str), NULL, 16);
+	mp_to_radix(key->N, n_str, sizeof(n_str), NULL, 16);
+	mp_to_radix(key->d, d_str, sizeof(d_str), NULL, 16);
+
+	//convert signature from hex to bytes
+	unsigned char sig[1024];
+	unsigned long siglen;
+	hex_to_bytes(signature, sig, &siglen);
+	unsigned char* hash[512];
+	unsigned long hashlen;
+
+	//register hash
+	if (register_hash(&sha256_desc) == -1) {
+		printf("Error registering SHA-256.\n");
+		return -1;
+	}
+	if (register_hash(&sha384_desc) == -1) {
+		printf("Error registering SHA-384.\n");
+		return -1;
+	}
+	if (register_hash(&sha512_desc) == -1) {
+		printf("Error registering SHA-512.\n");
+		return -1;
+	}
+	if (register_hash(&sha3_256_desc) == -1) {
+		printf("Error registering SHA3-256.\n");
+		return -1;
+	}
+	if (register_hash(&sha3_384_desc) == -1) {
+		printf("Error registering SHA3-384.\n");
+		return -1;
+	}
+	if (register_hash(&sha3_512_desc) == -1) {
+		printf("Error registering SHA3-512.\n");
+		return -1;
+	}
+	//hash index
+	int hash_idx = 0;
+	//hash the message
+	switch (hashAlgo) {
+	case 1:
+		shaHash(SHA2_256, message, hash, &hashlen);
+		hash_idx = find_hash("sha256");
+		break;
+	case 2:
+		shaHash(SHA2_384, message, hash, &hashlen);
+		hash_idx = find_hash("sha384");
+		break;
+	case 3:
+		shaHash(SHA2_512, message, hash, &hashlen);
+		hash_idx = find_hash("sha512");
+		break;
+	case 4:
+		shaHash(SHA3_256, message, hash, &hashlen);
+		hash_idx = find_hash("sha3-256");
+		break;
+	case 5:
+		shaHash(SHA3_384, message, hash, &hashlen);
+		hash_idx = find_hash("sha3-384");
+		break;
+	case 6:
+		shaHash(SHA3_512, message, hash, &hashlen);
+		hash_idx = find_hash("sha3-512");
+		break;
+	default:
+		printf("Invalid hash algorithm\n");
+		return NULL;
+	}
+	//print the hash
+	printf("Hash: %s\n", hash);
+
+	//convert hash from hex to bytes
+	unsigned char hash_byte[512 / 8];
+	unsigned long hash_byte_len;
+	hex_to_bytes(hash, hash_byte, &hash_byte_len);
+	
+	//key->type = PK_PUBLIC;
+
+	//verify signature
+
+	int stat;
+	int err;
+	if ((err = rsa_verify_hash_ex(sig, siglen, hash_byte, hash_byte_len, LTC_PKCS_1_V1_5, hash_idx, 0, &stat, key)) != CRYPT_OK) {
+		printf("Error verifying signature: %s\n", error_to_string(err));
+		return -1;
+	}
+	if (stat == 1) {
+		printf("Signature is valid.\n");
+		return 1;
+	}
+	else {
+		printf("Signature is invalid.\n");
+		return 0;
+	}
+}
+
+// rsaVerifyMessage_pss
+int rsaVerifyMessage_pss(const char* message, const char* signature, const int hashAlgo, rsa_key* key) {
+	crypt_mp_init("ltm");
+	printf("message: %s\n", message);
+	printf("signature: %s\n", signature);
+
+	//convert signature from hex to bytes
+	unsigned char sig[1024];
+	unsigned long siglen;
+	hex_to_bytes(signature, sig, &siglen);
+	unsigned char* hash[512];
+	unsigned long hashlen;
+
+	//register hash
+	if (register_hash(&sha256_desc) == -1) {
+		printf("Error registering SHA-256.\n");
+		return -1;
+	}
+	if (register_hash(&sha384_desc) == -1) {
+		printf("Error registering SHA-384.\n");
+		return -1;
+	}
+	if (register_hash(&sha512_desc) == -1) {
+		printf("Error registering SHA-512.\n");
+		return -1;
+	}
+	if (register_hash(&sha3_256_desc) == -1) {
+		printf("Error registering SHA3-256.\n");
+		return -1;
+	}
+	if (register_hash(&sha3_384_desc) == -1) {
+		printf("Error registering SHA3-384.\n");
+		return -1;
+	}
+	if (register_hash(&sha3_512_desc) == -1) {
+		printf("Error registering SHA3-512.\n");
+		return -1;
+	}
+	//hash index
+	int hash_idx = 0;
+	//hash the message
+	switch (hashAlgo) {
+	case 1:
+		shaHash(SHA2_256, message, hash, &hashlen);
+		hash_idx = find_hash("sha256");
+		break;
+	case 2:
+		shaHash(SHA2_384, message, hash, &hashlen);
+		hash_idx = find_hash("sha384");
+		break;
+	case 3:
+		shaHash(SHA2_512, message, hash, &hashlen);
+		hash_idx = find_hash("sha512");
+		break;
+	case 4:
+		shaHash(SHA3_256, message, hash, &hashlen);
+		hash_idx = find_hash("sha3-256");
+		break;
+	case 5:
+		shaHash(SHA3_384, message, hash, &hashlen);
+		hash_idx = find_hash("sha3-384");
+		break;
+	case 6:
+		shaHash(SHA3_512, message, hash, &hashlen);
+		hash_idx = find_hash("sha3-512");
+		break;
+	default:
+		printf("Invalid hash algorithm\n");
+		return NULL;
+	}
+	//print the hash
+	printf("Hash: %s\n", hash);
+
+	//convert hash from hex to bytes
+	unsigned char hash_byte[512 / 8];
+	unsigned long hash_byte_len;
+	hex_to_bytes(hash, hash_byte, &hash_byte_len);
+
+	//key->type = PK_PUBLIC;
+
+	//verify signature
+
+	int stat;
+	int err;
+	if ((err = rsa_verify_hash_ex(sig, siglen, hash_byte, hash_byte_len, LTC_PKCS_1_PSS, hash_idx, 0, &stat, key)) != CRYPT_OK) {
+		printf("Error verifying signature: %s\n", error_to_string(err));
+		return -1;
+	}
+	if (stat == 1) {
+		printf("Signature is valid.\n");
+		return 1;
+	}
+	else {
+		printf("Signature is invalid.\n");
+		return 0;
+	}
+}
