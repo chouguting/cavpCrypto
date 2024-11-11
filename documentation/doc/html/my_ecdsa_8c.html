@@ -126,7 +126,7 @@ Functions</h2></td></tr>
 <tr class="separator:ac4031f67a95231d0cf17a7622d36cf91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b9514a947166b0e4f3128cc44966417" id="r_a9b9514a947166b0e4f3128cc44966417"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b9514a947166b0e4f3128cc44966417">hash_message</a> (char *message, unsigned long messageLen, int hashAlgorithm, unsigned char *out, unsigned long *outlen)</td></tr>
 <tr class="separator:a9b9514a947166b0e4f3128cc44966417"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29418cad0fbdc51501d9fd8ec3714057" id="r_a29418cad0fbdc51501d9fd8ec3714057"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29418cad0fbdc51501d9fd8ec3714057">ecdsaSignatureGenerate</a> (int keypairCurve, int hashAlgorithm, char *d, char *message)</td></tr>
+<tr class="memitem:a29418cad0fbdc51501d9fd8ec3714057" id="r_a29418cad0fbdc51501d9fd8ec3714057"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29418cad0fbdc51501d9fd8ec3714057">ecdsaSignatureGenerate</a> (int keypairCurve, int hashAlgorithm, char *<a class="el" href="my_rsa_8c.html#afcb6aa5bc7810c458880d94b83c0fd76">d</a>, char *message)</td></tr>
 <tr class="memdesc:a29418cad0fbdc51501d9fd8ec3714057"><td class="mdescLeft">&#160;</td><td class="mdescRight">產生ECDSA的簽章  <br /></td></tr>
 <tr class="separator:a29418cad0fbdc51501d9fd8ec3714057"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec274ae1441e23db41a4e11daf17cb9c" id="r_aec274ae1441e23db41a4e11daf17cb9c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec274ae1441e23db41a4e11daf17cb9c">ecdsaSignatureVerify</a> (int keypairCurve, int hashAlgorithm, char *qx, char *qy, char *r, char *s, char *message)</td></tr>
@@ -217,7 +217,7 @@ Variables</h2></td></tr>
 <div class="line"><span class="keywordtype">int</span> result = <a class="code hl_function" href="#ac4031f67a95231d0cf17a7622d36cf91">ecdsaKeyVerify</a>(<a class="code hl_variable" href="#a6956a7addd483e25a43e7d3de14860d5">ECDSA_CURVE_P384</a>, qx, qy); <span class="comment">//1</span></div>
 <div class="line">printf(<span class="stringliteral">&quot;result: %d\n&quot;</span>, result);</div>
 <div class="ttc" id="amy_ecdsa_8c_html_a6956a7addd483e25a43e7d3de14860d5"><div class="ttname"><a href="#a6956a7addd483e25a43e7d3de14860d5">ECDSA_CURVE_P384</a></div><div class="ttdeci">const int ECDSA_CURVE_P384</div><div class="ttdef"><b>Definition</b> myEcdsa.c:8</div></div>
-<div class="ttc" id="amy_ecdsa_8c_html_ac4031f67a95231d0cf17a7622d36cf91"><div class="ttname"><a href="#ac4031f67a95231d0cf17a7622d36cf91">ecdsaKeyVerify</a></div><div class="ttdeci">int ecdsaKeyVerify(int keypairCurve, char *qx, char *qy)</div><div class="ttdoc">驗證ECDSA的key pair</div><div class="ttdef"><b>Definition</b> myEcdsa.c:107</div></div>
+<div class="ttc" id="amy_ecdsa_8c_html_ac4031f67a95231d0cf17a7622d36cf91"><div class="ttname"><a href="#ac4031f67a95231d0cf17a7622d36cf91">ecdsaKeyVerify</a></div><div class="ttdeci">int ecdsaKeyVerify(int keypairCurve, char *qx, char *qy)</div><div class="ttdoc">驗證ECDSA的key pair</div><div class="ttdef"><b>Definition</b> myEcdsa.c:106</div></div>
 </div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">keypairCurve</td><td>ECDSA_CURVE_P256, ECDSA_CURVE_P384, ECDSA_CURVE_P521 </td></tr>
@@ -260,16 +260,18 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>產生ECDSA的簽章 </p>
-<p>產生ECDSA的簽章，可以選擇不同的curve及hash演算法 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* d = <span class="stringliteral">&quot;419C5769809C963614837F0B90119BDB403FC71100E08235EA143B9E78C1FE42&quot;</span>;</div>
+<p>產生ECDSA的簽章，可以選擇不同的curve及hash演算法 <br  />
+ 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* <a class="code hl_variable" href="my_rsa_8c.html#afcb6aa5bc7810c458880d94b83c0fd76">d</a> = <span class="stringliteral">&quot;419C5769809C963614837F0B90119BDB403FC71100E08235EA143B9E78C1FE42&quot;</span>;</div>
 <div class="line"><span class="keywordtype">char</span>* message = <span class="stringliteral">&quot;97F4CBB1A874F3F4F87B14411F97CCC2D02A5B0DB67C5BB&quot;</span></div>
 <div class="line">                <span class="stringliteral">&quot;01557D74230A05F9578527215FF5E0020A0CA5C6E401E53&quot;</span></div>
 <div class="line">                <span class="stringliteral">&quot;BD65841AAA9EDE31090ACA0FA99494BF54E9555F7254314&quot;</span></div>
 <div class="line">                <span class="stringliteral">&quot;7EAD5F9ECE785667B25006CD6EFF549EBD7C5C6474648D5&quot;</span></div>
 <div class="line">                <span class="stringliteral">&quot;198DB1E2D4BC4454293C730FF389B6F6D05110587FAE217&quot;</span></div>
 <div class="line">                <span class="stringliteral">&quot;137BE11A3C77D6DBAFAC8&quot;</span>;</div>
-<div class="line"><a class="code hl_function" href="#a29418cad0fbdc51501d9fd8ec3714057">ecdsaSignatureGenerate</a>(<a class="code hl_variable" href="#a7a2fa9dcb619c80a472c74ff3949ef7f">ECDSA_CURVE_P256</a>, <a class="code hl_variable" href="#a41709785433d86853ebd636d1cc9582c">ECDSA_HASH_SHA2_256</a>, d, message);</div>
-<div class="ttc" id="amy_ecdsa_8c_html_a29418cad0fbdc51501d9fd8ec3714057"><div class="ttname"><a href="#a29418cad0fbdc51501d9fd8ec3714057">ecdsaSignatureGenerate</a></div><div class="ttdeci">void ecdsaSignatureGenerate(int keypairCurve, int hashAlgorithm, char *d, char *message)</div><div class="ttdoc">產生ECDSA的簽章</div><div class="ttdef"><b>Definition</b> myEcdsa.c:329</div></div>
-<div class="ttc" id="amy_ecdsa_8c_html_a41709785433d86853ebd636d1cc9582c"><div class="ttname"><a href="#a41709785433d86853ebd636d1cc9582c">ECDSA_HASH_SHA2_256</a></div><div class="ttdeci">const int ECDSA_HASH_SHA2_256</div><div class="ttdef"><b>Definition</b> myEcdsa.c:202</div></div>
+<div class="line"><a class="code hl_function" href="#a29418cad0fbdc51501d9fd8ec3714057">ecdsaSignatureGenerate</a>(<a class="code hl_variable" href="#a7a2fa9dcb619c80a472c74ff3949ef7f">ECDSA_CURVE_P256</a>, <a class="code hl_variable" href="#a41709785433d86853ebd636d1cc9582c">ECDSA_HASH_SHA2_256</a>, <a class="code hl_variable" href="my_rsa_8c.html#afcb6aa5bc7810c458880d94b83c0fd76">d</a>, message);</div>
+<div class="ttc" id="amy_ecdsa_8c_html_a29418cad0fbdc51501d9fd8ec3714057"><div class="ttname"><a href="#a29418cad0fbdc51501d9fd8ec3714057">ecdsaSignatureGenerate</a></div><div class="ttdeci">void ecdsaSignatureGenerate(int keypairCurve, int hashAlgorithm, char *d, char *message)</div><div class="ttdoc">產生ECDSA的簽章</div><div class="ttdef"><b>Definition</b> myEcdsa.c:353</div></div>
+<div class="ttc" id="amy_ecdsa_8c_html_a41709785433d86853ebd636d1cc9582c"><div class="ttname"><a href="#a41709785433d86853ebd636d1cc9582c">ECDSA_HASH_SHA2_256</a></div><div class="ttdeci">const int ECDSA_HASH_SHA2_256</div><div class="ttdef"><b>Definition</b> myEcdsa.c:226</div></div>
+<div class="ttc" id="amy_rsa_8c_html_afcb6aa5bc7810c458880d94b83c0fd76"><div class="ttname"><a href="my_rsa_8c.html#afcb6aa5bc7810c458880d94b83c0fd76">d</a></div><div class="ttdeci">mp_int d</div><div class="ttdef"><b>Definition</b> myRsa.c:192</div></div>
 </div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">keypairCurve</td><td>ECDSA_CURVE_P256, ECDSA_CURVE_P384, ECDSA_CURVE_P521 </td></tr>
@@ -338,7 +340,7 @@ Variables</h2></td></tr>
 <div class="line">                <span class="stringliteral">&quot;137BE11A3C77D6DBAFAC8&quot;</span>;</div>
 <div class="line"> </div>
 <div class="line"><a class="code hl_function" href="#aec274ae1441e23db41a4e11daf17cb9c">ecdsaSignatureVerify</a>(<a class="code hl_variable" href="#a7a2fa9dcb619c80a472c74ff3949ef7f">ECDSA_CURVE_P256</a>, <a class="code hl_variable" href="#a41709785433d86853ebd636d1cc9582c">ECDSA_HASH_SHA2_256</a>, qx, qy, r, s, message);</div>
-<div class="ttc" id="amy_ecdsa_8c_html_aec274ae1441e23db41a4e11daf17cb9c"><div class="ttname"><a href="#aec274ae1441e23db41a4e11daf17cb9c">ecdsaSignatureVerify</a></div><div class="ttdeci">int ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char *qx, char *qy, char *r, char *s, char *message)</div><div class="ttdoc">驗證ECDSA的簽章</div><div class="ttdef"><b>Definition</b> myEcdsa.c:472</div></div>
+<div class="ttc" id="amy_ecdsa_8c_html_aec274ae1441e23db41a4e11daf17cb9c"><div class="ttname"><a href="#aec274ae1441e23db41a4e11daf17cb9c">ecdsaSignatureVerify</a></div><div class="ttdeci">int ecdsaSignatureVerify(int keypairCurve, int hashAlgorithm, char *qx, char *qy, char *r, char *s, char *message)</div><div class="ttdoc">驗證ECDSA的簽章</div><div class="ttdef"><b>Definition</b> myEcdsa.c:496</div></div>
 </div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">keypairCurve</td><td>ECDSA_CURVE_P256, ECDSA_CURVE_P384, ECDSA_CURVE_P521 </td></tr>

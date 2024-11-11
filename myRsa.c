@@ -303,14 +303,6 @@ char* rsaSignMessage_pkcs1_v1_5(const char* message, const int hashAlgo) {
 	//generate rsaKey
 	crypt_mp_init("ltm");
 	rsa_key key = rsaKeyPair();
-	//print key.e and key.n and key.d
-	//char e_str[1024], n_str[1024], d_str[1024];
-	//mp_to_radix(key.e, e_str, sizeof(e_str), NULL, 16);
-	//mp_to_radix(key.N, n_str, sizeof(n_str), NULL, 16);
-	//mp_to_radix(key.d, d_str, sizeof(d_str), NULL, 16);
-	//printf("e: %s\n", e_str);
-	//printf("n: %s\n", n_str);
-	//printf("d: %s\n", d_str);
 
 	unsigned char sig[1024];
 	unsigned long siglen = sizeof(sig);

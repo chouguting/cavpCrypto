@@ -122,45 +122,70 @@ $(function(){initNavTree('my_rsa_8c.html',''); initResizable(true); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:afa391fdc7fc5359be6bdb04fcf296d55" id="r_afa391fdc7fc5359be6bdb04fcf296d55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa391fdc7fc5359be6bdb04fcf296d55">computeAProbablePrimeFactorBasedOnAuxiliaryPrimes</a> (mp_int *prime_out, mp_int *r1, mp_int *r2, mp_int *x, mp_int *e)</td></tr>
+<tr class="memitem:afa391fdc7fc5359be6bdb04fcf296d55" id="r_afa391fdc7fc5359be6bdb04fcf296d55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa391fdc7fc5359be6bdb04fcf296d55">computeAProbablePrimeFactorBasedOnAuxiliaryPrimes</a> (mp_int *prime_out, mp_int *r1, mp_int *r2, mp_int *x, mp_int *<a class="el" href="#a1a14d9bc090c2e8812a3d93bdeb43df1">e</a>)</td></tr>
 <tr class="separator:afa391fdc7fc5359be6bdb04fcf296d55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a913b6648de49b4e7e28975771099ac4a" id="r_a913b6648de49b4e7e28975771099ac4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a913b6648de49b4e7e28975771099ac4a">generateKeyPairBasedOnAuxiliaryProbablePrimes</a> (mp_int *p_out, mp_int *q_out, mp_int *n_out, mp_int *d_out, mp_int *xP1, mp_int *xP2, mp_int *xP, mp_int *xQ1, mp_int *xQ2, mp_int *xQ, mp_int *e)</td></tr>
+<tr class="memitem:a913b6648de49b4e7e28975771099ac4a" id="r_a913b6648de49b4e7e28975771099ac4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a913b6648de49b4e7e28975771099ac4a">generateKeyPairBasedOnAuxiliaryProbablePrimes</a> (mp_int *p_out, mp_int *q_out, mp_int *n_out, mp_int *d_out, mp_int *<a class="el" href="#abdfc4a809471a7d5b97e05c395125d74">xP1</a>, mp_int *<a class="el" href="#a9c6afbb38a6a4706ed6d447d39ee26e9">xP2</a>, mp_int *<a class="el" href="#ac6eb156fe98ad3c05614aebfeafce820">xP</a>, mp_int *<a class="el" href="#accbdddb9b7a54ef051f3314d1fc287ce">xQ1</a>, mp_int *<a class="el" href="#a890cfbaa01beee0d371109825ede6d3d">xQ2</a>, mp_int *<a class="el" href="#a018e6c5031470d6e89bcccc54b488b16">xQ</a>, mp_int *<a class="el" href="#a1a14d9bc090c2e8812a3d93bdeb43df1">e</a>)</td></tr>
 <tr class="separator:a913b6648de49b4e7e28975771099ac4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5df5a6a9b060f2402faaa85ee123ebc7" id="r_a5df5a6a9b060f2402faaa85ee123ebc7"><td class="memItemLeft" align="right" valign="top">rsa_key&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5df5a6a9b060f2402faaa85ee123ebc7">rsaKeyPair</a> ()</td></tr>
+<tr class="memdesc:a5df5a6a9b060f2402faaa85ee123ebc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">產生RSA的key pair  <br /></td></tr>
 <tr class="separator:a5df5a6a9b060f2402faaa85ee123ebc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05e47c76d295cf1b80e516541fb41676" id="r_a05e47c76d295cf1b80e516541fb41676"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a05e47c76d295cf1b80e516541fb41676">rsaSignMessage_pkcs1_v1_5</a> (const char *message, const int hashAlgo, unsigned long *sig_len)</td></tr>
-<tr class="separator:a05e47c76d295cf1b80e516541fb41676"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4799479eebd20e123fbc94605dad188" id="r_ad4799479eebd20e123fbc94605dad188"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4799479eebd20e123fbc94605dad188">rsaSignMessage_pkcs1_v1_5</a> (const char *message, const int hashAlgo)</td></tr>
+<tr class="memdesc:ad4799479eebd20e123fbc94605dad188"><td class="mdescLeft">&#160;</td><td class="mdescRight">產生RSA的簽章(pkcs1_v1_5)  <br /></td></tr>
+<tr class="separator:ad4799479eebd20e123fbc94605dad188"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cc5b3b4f48bef5d1105202a4fd814cf" id="r_a9cc5b3b4f48bef5d1105202a4fd814cf"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cc5b3b4f48bef5d1105202a4fd814cf">rsaSignMessage_pss</a> (const char *message, const int hashAlgo)</td></tr>
+<tr class="memdesc:a9cc5b3b4f48bef5d1105202a4fd814cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">產生RSA的簽章(pss)  <br /></td></tr>
+<tr class="separator:a9cc5b3b4f48bef5d1105202a4fd814cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a797facfd7fe1e4a27e82783edacf96bc" id="r_a797facfd7fe1e4a27e82783edacf96bc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a797facfd7fe1e4a27e82783edacf96bc">rsaVerifyMessage_pkcs1_v1_5</a> (const char *message, const char *signature, const int hashAlgo, rsa_key *key)</td></tr>
+<tr class="memdesc:a797facfd7fe1e4a27e82783edacf96bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">驗證RSA的簽章(pkcs1_v1_5)  <br /></td></tr>
+<tr class="separator:a797facfd7fe1e4a27e82783edacf96bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0454e3f9de8429a0b152bbba3e426e7b" id="r_a0454e3f9de8429a0b152bbba3e426e7b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0454e3f9de8429a0b152bbba3e426e7b">rsaVerifyMessage_pss</a> (const char *message, const char *signature, const int hashAlgo, rsa_key *key)</td></tr>
+<tr class="memdesc:a0454e3f9de8429a0b152bbba3e426e7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">驗證RSA的簽章(pss)  <br /></td></tr>
+<tr class="separator:a0454e3f9de8429a0b152bbba3e426e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a463725cb5b8d79c1b4546ae9eec88f03" id="r_a463725cb5b8d79c1b4546ae9eec88f03"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a463725cb5b8d79c1b4546ae9eec88f03">xP1Hex</a> [1025]</td></tr>
-<tr class="separator:a463725cb5b8d79c1b4546ae9eec88f03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad61f1237ceadfc7238656a219c936ce0" id="r_ad61f1237ceadfc7238656a219c936ce0"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad61f1237ceadfc7238656a219c936ce0">xP2Hex</a> [1025]</td></tr>
-<tr class="separator:ad61f1237ceadfc7238656a219c936ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeebec3bd39d2cece446f7cf15a772c17" id="r_aeebec3bd39d2cece446f7cf15a772c17"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeebec3bd39d2cece446f7cf15a772c17">xPHex</a> [1025]</td></tr>
-<tr class="separator:aeebec3bd39d2cece446f7cf15a772c17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40b349738b8571c1cb7ffbe019ce6505" id="r_a40b349738b8571c1cb7ffbe019ce6505"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40b349738b8571c1cb7ffbe019ce6505">xQ1Hex</a> [1025]</td></tr>
-<tr class="separator:a40b349738b8571c1cb7ffbe019ce6505"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f3388570d9c1f4348e4504ac9aae29c" id="r_a9f3388570d9c1f4348e4504ac9aae29c"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f3388570d9c1f4348e4504ac9aae29c">xQ2Hex</a> [1025]</td></tr>
-<tr class="separator:a9f3388570d9c1f4348e4504ac9aae29c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bc0eabc2039a4402e4281efed2cb1f3" id="r_a3bc0eabc2039a4402e4281efed2cb1f3"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3bc0eabc2039a4402e4281efed2cb1f3">xQHex</a> [1025]</td></tr>
-<tr class="separator:a3bc0eabc2039a4402e4281efed2cb1f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a487dfa5ad5cd69b15eafdbba9c7c41cb" id="r_a487dfa5ad5cd69b15eafdbba9c7c41cb"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a487dfa5ad5cd69b15eafdbba9c7c41cb">pHex</a> [1025]</td></tr>
-<tr class="separator:a487dfa5ad5cd69b15eafdbba9c7c41cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af317e623205fae31f773d6d80fe35c3f" id="r_af317e623205fae31f773d6d80fe35c3f"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af317e623205fae31f773d6d80fe35c3f">qHex</a> [1025]</td></tr>
-<tr class="separator:af317e623205fae31f773d6d80fe35c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a804f44a4f855aaf0de22519f0e837a1b" id="r_a804f44a4f855aaf0de22519f0e837a1b"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a804f44a4f855aaf0de22519f0e837a1b">nHex</a> [1025]</td></tr>
-<tr class="separator:a804f44a4f855aaf0de22519f0e837a1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad10d7395c6009a952bc70b0f47029e0d" id="r_ad10d7395c6009a952bc70b0f47029e0d"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad10d7395c6009a952bc70b0f47029e0d">dHex</a> [1025]</td></tr>
-<tr class="separator:ad10d7395c6009a952bc70b0f47029e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae989fdb1f5a344d580155f20ed23b07d" id="r_ae989fdb1f5a344d580155f20ed23b07d"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae989fdb1f5a344d580155f20ed23b07d">eHex</a> [1025]</td></tr>
-<tr class="separator:ae989fdb1f5a344d580155f20ed23b07d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a288ae07e65083d9acd617e63cd5f746a" id="r_a288ae07e65083d9acd617e63cd5f746a"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a288ae07e65083d9acd617e63cd5f746a">dPHex</a> [1025]</td></tr>
-<tr class="separator:a288ae07e65083d9acd617e63cd5f746a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6550ba5e60b479bb60b647bae2c13f7b" id="r_a6550ba5e60b479bb60b647bae2c13f7b"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6550ba5e60b479bb60b647bae2c13f7b">dQHex</a> [1025]</td></tr>
-<tr class="separator:a6550ba5e60b479bb60b647bae2c13f7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c5d169ca81c78d629061d73cc8e7e93" id="r_a2c5d169ca81c78d629061d73cc8e7e93"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c5d169ca81c78d629061d73cc8e7e93">qPHex</a> [1025]</td></tr>
-<tr class="separator:a2c5d169ca81c78d629061d73cc8e7e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdfc4a809471a7d5b97e05c395125d74" id="r_abdfc4a809471a7d5b97e05c395125d74"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abdfc4a809471a7d5b97e05c395125d74">xP1</a></td></tr>
+<tr class="separator:abdfc4a809471a7d5b97e05c395125d74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c6afbb38a6a4706ed6d447d39ee26e9" id="r_a9c6afbb38a6a4706ed6d447d39ee26e9"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c6afbb38a6a4706ed6d447d39ee26e9">xP2</a></td></tr>
+<tr class="separator:a9c6afbb38a6a4706ed6d447d39ee26e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6eb156fe98ad3c05614aebfeafce820" id="r_ac6eb156fe98ad3c05614aebfeafce820"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6eb156fe98ad3c05614aebfeafce820">xP</a></td></tr>
+<tr class="separator:ac6eb156fe98ad3c05614aebfeafce820"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accbdddb9b7a54ef051f3314d1fc287ce" id="r_accbdddb9b7a54ef051f3314d1fc287ce"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accbdddb9b7a54ef051f3314d1fc287ce">xQ1</a></td></tr>
+<tr class="separator:accbdddb9b7a54ef051f3314d1fc287ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a890cfbaa01beee0d371109825ede6d3d" id="r_a890cfbaa01beee0d371109825ede6d3d"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a890cfbaa01beee0d371109825ede6d3d">xQ2</a></td></tr>
+<tr class="separator:a890cfbaa01beee0d371109825ede6d3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a018e6c5031470d6e89bcccc54b488b16" id="r_a018e6c5031470d6e89bcccc54b488b16"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a018e6c5031470d6e89bcccc54b488b16">xQ</a></td></tr>
+<tr class="separator:a018e6c5031470d6e89bcccc54b488b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a14d9bc090c2e8812a3d93bdeb43df1" id="r_a1a14d9bc090c2e8812a3d93bdeb43df1"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a14d9bc090c2e8812a3d93bdeb43df1">e</a></td></tr>
+<tr class="separator:a1a14d9bc090c2e8812a3d93bdeb43df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9182475e94fdfb831fb2a5a6f779429" id="r_af9182475e94fdfb831fb2a5a6f779429"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9182475e94fdfb831fb2a5a6f779429">p</a></td></tr>
+<tr class="separator:af9182475e94fdfb831fb2a5a6f779429"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6be08274ffa5d150988150c6585b022" id="r_ad6be08274ffa5d150988150c6585b022"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6be08274ffa5d150988150c6585b022">q</a></td></tr>
+<tr class="separator:ad6be08274ffa5d150988150c6585b022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26d2489e79a9f2baedbcdde27875b115" id="r_a26d2489e79a9f2baedbcdde27875b115"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26d2489e79a9f2baedbcdde27875b115">n</a></td></tr>
+<tr class="separator:a26d2489e79a9f2baedbcdde27875b115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcb6aa5bc7810c458880d94b83c0fd76" id="r_afcb6aa5bc7810c458880d94b83c0fd76"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afcb6aa5bc7810c458880d94b83c0fd76">d</a></td></tr>
+<tr class="separator:afcb6aa5bc7810c458880d94b83c0fd76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a634da56ec9ed619c91899e12524c951a" id="r_a634da56ec9ed619c91899e12524c951a"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a634da56ec9ed619c91899e12524c951a">dP</a></td></tr>
+<tr class="separator:a634da56ec9ed619c91899e12524c951a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7959e5aa248687eb92b5e79a62d1ea00" id="r_a7959e5aa248687eb92b5e79a62d1ea00"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7959e5aa248687eb92b5e79a62d1ea00">dQ</a></td></tr>
+<tr class="separator:a7959e5aa248687eb92b5e79a62d1ea00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5697211a22c06732d07a8eecbd5bdef2" id="r_a5697211a22c06732d07a8eecbd5bdef2"><td class="memItemLeft" align="right" valign="top">mp_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5697211a22c06732d07a8eecbd5bdef2">qP</a></td></tr>
+<tr class="separator:a5697211a22c06732d07a8eecbd5bdef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa304562b70d1dd5b54c468f195200d3a" id="r_aa304562b70d1dd5b54c468f195200d3a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa304562b70d1dd5b54c468f195200d3a">RSA_SHA2_256</a> = 1</td></tr>
+<tr class="separator:aa304562b70d1dd5b54c468f195200d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5b74376661a8ad4113e3a421150eddf" id="r_ab5b74376661a8ad4113e3a421150eddf"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5b74376661a8ad4113e3a421150eddf">RSA_SHA2_384</a> = 2</td></tr>
+<tr class="separator:ab5b74376661a8ad4113e3a421150eddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ca9c42c2b8b2ab140c7c78c5578896b" id="r_a6ca9c42c2b8b2ab140c7c78c5578896b"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ca9c42c2b8b2ab140c7c78c5578896b">RSA_SHA2_512</a> = 3</td></tr>
+<tr class="separator:a6ca9c42c2b8b2ab140c7c78c5578896b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8af697149f119deb45880dc8cabd11a5" id="r_a8af697149f119deb45880dc8cabd11a5"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8af697149f119deb45880dc8cabd11a5">RSA_SHA3_256</a> = 4</td></tr>
+<tr class="separator:a8af697149f119deb45880dc8cabd11a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fbf641d328e0093ed1bb10ce21d0d1a" id="r_a8fbf641d328e0093ed1bb10ce21d0d1a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8fbf641d328e0093ed1bb10ce21d0d1a">RSA_SHA3_384</a> = 5</td></tr>
+<tr class="separator:a8fbf641d328e0093ed1bb10ce21d0d1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c6ecd0b8877d5746383c0a2999637dc" id="r_a2c6ecd0b8877d5746383c0a2999637dc"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c6ecd0b8877d5746383c0a2999637dc">RSA_SHA3_512</a> = 6</td></tr>
+<tr class="separator:a2c6ecd0b8877d5746383c0a2999637dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad86c2d0c4850583c7eca9429c7effd3d" id="r_ad86c2d0c4850583c7eca9429c7effd3d"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad86c2d0c4850583c7eca9429c7effd3d">hex_signature</a> [4096]</td></tr>
+<tr class="separator:ad86c2d0c4850583c7eca9429c7effd3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="afa391fdc7fc5359be6bdb04fcf296d55" name="afa391fdc7fc5359be6bdb04fcf296d55"></a>
@@ -280,10 +305,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>產生RSA的key pair </p>
+<p>產生RSA的key pair，回傳一個rsa_key struct 使用computeAProbablePrimeFactorBasedOnAuxiliaryPrimes()函數計算Probable Prime Factor Based On Auxiliary Primes 然後使用generateKeyPairBasedOnAuxiliaryProbablePrimes()函數產生key pair，以上是兩個rsaKeyPair()用到的內部函式 使用範例: </p><div class="fragment"><div class="line">rsa_key key = <a class="code hl_function" href="#a5df5a6a9b060f2402faaa85ee123ebc7">rsaKeyPair</a>();</div>
+<div class="ttc" id="amy_rsa_8c_html_a5df5a6a9b060f2402faaa85ee123ebc7"><div class="ttname"><a href="#a5df5a6a9b060f2402faaa85ee123ebc7">rsaKeyPair</a></div><div class="ttdeci">rsa_key rsaKeyPair()</div><div class="ttdoc">產生RSA的key pair</div><div class="ttdef"><b>Definition</b> myRsa.c:198</div></div>
+</div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>一組可用的rsa key pair(type: rsa_key) </dd></dl>
+
 </div>
 </div>
-<a id="a05e47c76d295cf1b80e516541fb41676" name="a05e47c76d295cf1b80e516541fb41676"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05e47c76d295cf1b80e516541fb41676">&#9670;&#160;</a></span>rsaSignMessage_pkcs1_v1_5()</h2>
+<a id="ad4799479eebd20e123fbc94605dad188" name="ad4799479eebd20e123fbc94605dad188"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4799479eebd20e123fbc94605dad188">&#9670;&#160;</a></span>rsaSignMessage_pkcs1_v1_5()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -296,209 +326,493 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>hashAlgo</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>產生RSA的簽章(pkcs1_v1_5) </p>
+<p>產生RSA的簽章(pkcs1_v1_5)，可以選擇不同的hash演算法 <br  />
+ 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* message = <span class="stringliteral">&quot;97F4CBB1A874F3F4F87B14411F97CCC2D02A5B0DB67C5BB&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;01557D74230A05F9578527215FF5E0020A0CA5C6E401E53&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;BD65841AAA9EDE31090ACA0FA99494BF54E9555F7254314&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;7EAD5F9ECE785667B25006CD6EFF549EBD7C5C6474648D5&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;198DB1E2D4BC4454293C730FF389B6F6D05110587FAE217&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;137BE11A3C77D6DBAFAC8&quot;</span>;</div>
+<div class="line"><span class="keywordtype">char</span>* signature = <a class="code hl_function" href="#ad4799479eebd20e123fbc94605dad188">rsaSignMessage_pkcs1_v1_5</a>(message, <a class="code hl_variable" href="my_sha_8c.html#ab4089ad890525a6aa037aa30983f2f80">SHA2_256</a>);</div>
+<div class="line">printf(<span class="stringliteral">&quot;signature: %s\n&quot;</span>, signature);</div>
+<div class="ttc" id="amy_rsa_8c_html_ad4799479eebd20e123fbc94605dad188"><div class="ttname"><a href="#ad4799479eebd20e123fbc94605dad188">rsaSignMessage_pkcs1_v1_5</a></div><div class="ttdeci">char * rsaSignMessage_pkcs1_v1_5(const char *message, const int hashAlgo)</div><div class="ttdoc">產生RSA的簽章(pkcs1_v1_5)</div><div class="ttdef"><b>Definition</b> myRsa.c:302</div></div>
+<div class="ttc" id="amy_sha_8c_html_ab4089ad890525a6aa037aa30983f2f80"><div class="ttname"><a href="my_sha_8c.html#ab4089ad890525a6aa037aa30983f2f80">SHA2_256</a></div><div class="ttdeci">const int SHA2_256</div><div class="ttdef"><b>Definition</b> mySha.c:8</div></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>要簽章的message </td></tr>
+    <tr><td class="paramname">hashAlgo</td><td>SHA2_256, SHA2_384, SHA2_512, SHA3_256, SHA3_384, SHA3_512, SHAKE128, SHAKE256 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pkcs1_v1_5 signature(type: char*) </dd></dl>
+
+</div>
+</div>
+<a id="a9cc5b3b4f48bef5d1105202a4fd814cf" name="a9cc5b3b4f48bef5d1105202a4fd814cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cc5b3b4f48bef5d1105202a4fd814cf">&#9670;&#160;</a></span>rsaSignMessage_pss()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * rsaSignMessage_pss </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>hashAlgo</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>產生RSA的簽章(pss) </p>
+<p>產生RSA的簽章(pss)，可以選擇不同的hash演算法 <br  />
+ 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* message = <span class="stringliteral">&quot;97F4CBB1A874F3F4F87B14411F97CCC2D02A5B0DB67C5BB&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;01557D74230A05F9578527215FF5E0020A0CA5C6E401E53&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;BD65841AAA9EDE31090ACA0FA99494BF54E9555F7254314&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;7EAD5F9ECE785667B25006CD6EFF549EBD7C5C6474648D5&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;198DB1E2D4BC4454293C730FF389B6F6D05110587FAE217&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;137BE11A3C77D6DBAFAC8&quot;</span>;</div>
+<div class="line"><span class="keywordtype">char</span>* signature = <a class="code hl_function" href="#a9cc5b3b4f48bef5d1105202a4fd814cf">rsaSignMessage_pss</a>(message, <a class="code hl_variable" href="my_sha_8c.html#ac7f83398795f8763df4bc23f1705b213">SHA3_384</a>);</div>
+<div class="line">printf(<span class="stringliteral">&quot;signature: %s\n&quot;</span>, signature);</div>
+<div class="ttc" id="amy_rsa_8c_html_a9cc5b3b4f48bef5d1105202a4fd814cf"><div class="ttname"><a href="#a9cc5b3b4f48bef5d1105202a4fd814cf">rsaSignMessage_pss</a></div><div class="ttdeci">char * rsaSignMessage_pss(const char *message, const int hashAlgo)</div><div class="ttdoc">產生RSA的簽章(pss)</div><div class="ttdef"><b>Definition</b> myRsa.c:396</div></div>
+<div class="ttc" id="amy_sha_8c_html_ac7f83398795f8763df4bc23f1705b213"><div class="ttname"><a href="my_sha_8c.html#ac7f83398795f8763df4bc23f1705b213">SHA3_384</a></div><div class="ttdeci">const int SHA3_384</div><div class="ttdef"><b>Definition</b> mySha.c:12</div></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>要簽章的message </td></tr>
+    <tr><td class="paramname">hashAlgo</td><td>SHA2_256, SHA2_384, SHA2_512, SHA3_256, SHA3_384, SHA3_512, SHAKE128, SHAKE256 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pss signature(type: char*) </dd></dl>
+
+</div>
+</div>
+<a id="a797facfd7fe1e4a27e82783edacf96bc" name="a797facfd7fe1e4a27e82783edacf96bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a797facfd7fe1e4a27e82783edacf96bc">&#9670;&#160;</a></span>rsaVerifyMessage_pkcs1_v1_5()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rsaVerifyMessage_pkcs1_v1_5 </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>signature</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>hashAlgo</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned long *</td>          <td class="paramname"><span class="paramname"><em>sig_len</em></span>&#160;)</td>
+          <td class="paramtype">rsa_key *</td>          <td class="paramname"><span class="paramname"><em>key</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>驗證RSA的簽章(pkcs1_v1_5) </p>
+<p>驗證RSA的簽章(pkcs1_v1_5)，可以選擇不同的hash演算法 <br  />
+ 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* message = <span class="stringliteral">&quot;97F4CBB1A874F3F4F87B14411F97CCC2D02A5B0DB67C5BB&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;01557D74230A05F9578527215FF5E0020A0CA5C6E401E53&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;BD65841AAA9EDE31090ACA0FA99494BF54E9555F7254314&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;7EAD5F9ECE785667B25006CD6EFF549EBD7C5C6474648D5&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;198DB1E2D4BC4454293C730FF389B6F6D05110587FAE217&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;137BE11A3C77D6DBAFAC8&quot;</span>;</div>
+<div class="line"><span class="keywordtype">char</span>* signature = <span class="stringliteral">&quot;8AA461ED87DE93708814891F394C7B1736D6ADFCD609D8C&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;2B6F89EC0C3A35EB2F8EF1A4619A0E97BCB716E58E21F65&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;559FE2FCD55278DEAAE8DA65543C9F311B9A25883B7BAEE&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;E12FBC812C2815152798DC40FDD5F88D79AFAEA583F6EAB&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;8CCD1FD69DBAE0032EAA78E45BB7956144AB2E13B831E6B&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;2CB5F3E955FD91E5FB034567024F997A8135FD835866DE7&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;7F6849D3E00AE842886329CB5735706F9C99FA2FA37D635&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;E9685395B02B1D0C64DF2B2A11E90ED4937A72783E4764C&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;BBBC56F7F418CC6E17A5CD8B195B596E77BBF81B70E027C&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;D19DEDF2352F1037AC3EF5DF632091D53C6B18FBB8497F6&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;B36589B4EB8F199B96BBB6C3A95B0AD1F4B70390CB&quot;</span>;</div>
+<div class="line"><span class="keywordtype">int</span> isValid = <a class="code hl_function" href="#a797facfd7fe1e4a27e82783edacf96bc">rsaVerifyMessage_pkcs1_v1_5</a>(message, signature, <a class="code hl_variable" href="my_sha_8c.html#ab4089ad890525a6aa037aa30983f2f80">SHA2_256</a>, &amp;key); <span class="comment">//1</span></div>
+<div class="line">printf(<span class="stringliteral">&quot;isValid: %d\n&quot;</span>, isValid);</div>
+<div class="ttc" id="amy_rsa_8c_html_a797facfd7fe1e4a27e82783edacf96bc"><div class="ttname"><a href="#a797facfd7fe1e4a27e82783edacf96bc">rsaVerifyMessage_pkcs1_v1_5</a></div><div class="ttdeci">int rsaVerifyMessage_pkcs1_v1_5(const char *message, const char *signature, const int hashAlgo, rsa_key *key)</div><div class="ttdoc">驗證RSA的簽章(pkcs1_v1_5)</div><div class="ttdef"><b>Definition</b> myRsa.c:502</div></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>要驗證的message </td></tr>
+    <tr><td class="paramname">signature</td><td>簽章 </td></tr>
+    <tr><td class="paramname">hashAlgo</td><td>SHA2_256, SHA2_384, SHA2_512, SHA3_256, SHA3_384, SHA3_512, SHAKE128, SHAKE256 </td></tr>
+    <tr><td class="paramname">key</td><td>rsa_key struct 驗證需用到的公鑰 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1:成功 0:失敗 </dd></dl>
+
+</div>
+</div>
+<a id="a0454e3f9de8429a0b152bbba3e426e7b" name="a0454e3f9de8429a0b152bbba3e426e7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0454e3f9de8429a0b152bbba3e426e7b">&#9670;&#160;</a></span>rsaVerifyMessage_pss()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rsaVerifyMessage_pss </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>signature</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>hashAlgo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">rsa_key *</td>          <td class="paramname"><span class="paramname"><em>key</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>驗證RSA的簽章(pss) </p>
+<p>驗證RSA的簽章(pss)，可以選擇不同的hash演算法 <br  />
+ 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* message = <span class="stringliteral">&quot;97F4CBB1A874F3F4F87B14411F97CCC2D02A5B0DB67C5BB&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;01557D74230A05F9578527215FF5E0020A0CA5C6E401E53&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;BD65841AAA9EDE31090ACA0FA99494BF54E9555F7254314&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;7EAD5F9ECE785667B25006CD6EFF549EBD7C5C6474648D5&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;198DB1E2D4BC4454293C730FF389B6F6D05110587FAE217&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;137BE11A3C77D6DBAFAC8&quot;</span>;</div>
+<div class="line"><span class="keywordtype">char</span>* signature = <span class="stringliteral">&quot;821CE8C4267340B6074F1695808772D379250CD14D84F72&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;0B90C1C1C887BA879A20706AB803A33DD28EDD9BC80623D&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;BA3693132098DA68C21C46A706A063F43AF91363E8D09F2&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;6B34E2CDAF8A8F5DC3254363BF70582C51B4FBDF1392A02&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;D4278AC923215948874EF554F8C4CC2D72C78C98FB2A838&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;3077C029E7628AC72091B494C1D8C2DABC903FF832CFE20&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;B97F3C8DCC64939413F33582041D9805291CCEE3D688651&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;A19711C33F6E2A3147145445A2A7B1A3ECEFFA61CD77803&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;55C63401E0E784B75D6D37B2C937E64485C39908C71382F&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;E684278CE9F1628BA5B294AF6E90C0F8FF3EE6C80CDE6B3&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;D26740A76D46759BFC04BF741261D1596BA550CAFB&quot;</span></div>
+<div class="line"><span class="keywordtype">int</span> isValid = <a class="code hl_function" href="#a0454e3f9de8429a0b152bbba3e426e7b">rsaVerifyMessage_pss</a>(message, signature, <a class="code hl_variable" href="my_sha_8c.html#ac7f83398795f8763df4bc23f1705b213">SHA3_384</a>, &amp;key); <span class="comment">//1</span></div>
+<div class="line">printf(<span class="stringliteral">&quot;isValid: %d\n&quot;</span>, isValid);</div>
+<div class="ttc" id="amy_rsa_8c_html_a0454e3f9de8429a0b152bbba3e426e7b"><div class="ttname"><a href="#a0454e3f9de8429a0b152bbba3e426e7b">rsaVerifyMessage_pss</a></div><div class="ttdeci">int rsaVerifyMessage_pss(const char *message, const char *signature, const int hashAlgo, rsa_key *key)</div><div class="ttdoc">驗證RSA的簽章(pss)</div><div class="ttdef"><b>Definition</b> myRsa.c:605</div></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>要驗證的message </td></tr>
+    <tr><td class="paramname">signature</td><td>簽章 </td></tr>
+    <tr><td class="paramname">hashAlgo</td><td>SHA2_256, SHA2_384, SHA2_512, SHA3_256, SHA3_384, SHA3_512, SHAKE128, SHAKE256 </td></tr>
+    <tr><td class="paramname">key</td><td>rsa_key struct 驗證需用到的公鑰 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1:成功 0:失敗 </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="ad10d7395c6009a952bc70b0f47029e0d" name="ad10d7395c6009a952bc70b0f47029e0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad10d7395c6009a952bc70b0f47029e0d">&#9670;&#160;</a></span>dHex</h2>
+<a id="afcb6aa5bc7810c458880d94b83c0fd76" name="afcb6aa5bc7810c458880d94b83c0fd76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcb6aa5bc7810c458880d94b83c0fd76">&#9670;&#160;</a></span>d</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char dHex[1025]</td>
+          <td class="memname">mp_int d</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a288ae07e65083d9acd617e63cd5f746a" name="a288ae07e65083d9acd617e63cd5f746a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a288ae07e65083d9acd617e63cd5f746a">&#9670;&#160;</a></span>dPHex</h2>
+<a id="a634da56ec9ed619c91899e12524c951a" name="a634da56ec9ed619c91899e12524c951a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a634da56ec9ed619c91899e12524c951a">&#9670;&#160;</a></span>dP</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char dPHex[1025]</td>
+          <td class="memname">mp_int dP</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a6550ba5e60b479bb60b647bae2c13f7b" name="a6550ba5e60b479bb60b647bae2c13f7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6550ba5e60b479bb60b647bae2c13f7b">&#9670;&#160;</a></span>dQHex</h2>
+<a id="a7959e5aa248687eb92b5e79a62d1ea00" name="a7959e5aa248687eb92b5e79a62d1ea00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7959e5aa248687eb92b5e79a62d1ea00">&#9670;&#160;</a></span>dQ</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char dQHex[1025]</td>
+          <td class="memname">mp_int dQ</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae989fdb1f5a344d580155f20ed23b07d" name="ae989fdb1f5a344d580155f20ed23b07d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae989fdb1f5a344d580155f20ed23b07d">&#9670;&#160;</a></span>eHex</h2>
+<a id="a1a14d9bc090c2e8812a3d93bdeb43df1" name="a1a14d9bc090c2e8812a3d93bdeb43df1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a14d9bc090c2e8812a3d93bdeb43df1">&#9670;&#160;</a></span>e</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char eHex[1025]</td>
+          <td class="memname">mp_int e</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a804f44a4f855aaf0de22519f0e837a1b" name="a804f44a4f855aaf0de22519f0e837a1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a804f44a4f855aaf0de22519f0e837a1b">&#9670;&#160;</a></span>nHex</h2>
+<a id="ad86c2d0c4850583c7eca9429c7effd3d" name="ad86c2d0c4850583c7eca9429c7effd3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad86c2d0c4850583c7eca9429c7effd3d">&#9670;&#160;</a></span>hex_signature</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char nHex[1025]</td>
+          <td class="memname">char hex_signature[4096]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a487dfa5ad5cd69b15eafdbba9c7c41cb" name="a487dfa5ad5cd69b15eafdbba9c7c41cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a487dfa5ad5cd69b15eafdbba9c7c41cb">&#9670;&#160;</a></span>pHex</h2>
+<a id="a26d2489e79a9f2baedbcdde27875b115" name="a26d2489e79a9f2baedbcdde27875b115"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26d2489e79a9f2baedbcdde27875b115">&#9670;&#160;</a></span>n</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char pHex[1025]</td>
+          <td class="memname">mp_int n</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="af317e623205fae31f773d6d80fe35c3f" name="af317e623205fae31f773d6d80fe35c3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af317e623205fae31f773d6d80fe35c3f">&#9670;&#160;</a></span>qHex</h2>
+<a id="af9182475e94fdfb831fb2a5a6f779429" name="af9182475e94fdfb831fb2a5a6f779429"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9182475e94fdfb831fb2a5a6f779429">&#9670;&#160;</a></span>p</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char qHex[1025]</td>
+          <td class="memname">mp_int p</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a2c5d169ca81c78d629061d73cc8e7e93" name="a2c5d169ca81c78d629061d73cc8e7e93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c5d169ca81c78d629061d73cc8e7e93">&#9670;&#160;</a></span>qPHex</h2>
+<a id="ad6be08274ffa5d150988150c6585b022" name="ad6be08274ffa5d150988150c6585b022"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6be08274ffa5d150988150c6585b022">&#9670;&#160;</a></span>q</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char qPHex[1025]</td>
+          <td class="memname">mp_int q</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a463725cb5b8d79c1b4546ae9eec88f03" name="a463725cb5b8d79c1b4546ae9eec88f03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a463725cb5b8d79c1b4546ae9eec88f03">&#9670;&#160;</a></span>xP1Hex</h2>
+<a id="a5697211a22c06732d07a8eecbd5bdef2" name="a5697211a22c06732d07a8eecbd5bdef2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5697211a22c06732d07a8eecbd5bdef2">&#9670;&#160;</a></span>qP</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char xP1Hex[1025]</td>
+          <td class="memname">mp_int qP</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ad61f1237ceadfc7238656a219c936ce0" name="ad61f1237ceadfc7238656a219c936ce0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad61f1237ceadfc7238656a219c936ce0">&#9670;&#160;</a></span>xP2Hex</h2>
+<a id="aa304562b70d1dd5b54c468f195200d3a" name="aa304562b70d1dd5b54c468f195200d3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa304562b70d1dd5b54c468f195200d3a">&#9670;&#160;</a></span>RSA_SHA2_256</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char xP2Hex[1025]</td>
+          <td class="memname">const int RSA_SHA2_256 = 1</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aeebec3bd39d2cece446f7cf15a772c17" name="aeebec3bd39d2cece446f7cf15a772c17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeebec3bd39d2cece446f7cf15a772c17">&#9670;&#160;</a></span>xPHex</h2>
+<a id="ab5b74376661a8ad4113e3a421150eddf" name="ab5b74376661a8ad4113e3a421150eddf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5b74376661a8ad4113e3a421150eddf">&#9670;&#160;</a></span>RSA_SHA2_384</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char xPHex[1025]</td>
+          <td class="memname">const int RSA_SHA2_384 = 2</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a40b349738b8571c1cb7ffbe019ce6505" name="a40b349738b8571c1cb7ffbe019ce6505"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40b349738b8571c1cb7ffbe019ce6505">&#9670;&#160;</a></span>xQ1Hex</h2>
+<a id="a6ca9c42c2b8b2ab140c7c78c5578896b" name="a6ca9c42c2b8b2ab140c7c78c5578896b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ca9c42c2b8b2ab140c7c78c5578896b">&#9670;&#160;</a></span>RSA_SHA2_512</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char xQ1Hex[1025]</td>
+          <td class="memname">const int RSA_SHA2_512 = 3</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a9f3388570d9c1f4348e4504ac9aae29c" name="a9f3388570d9c1f4348e4504ac9aae29c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f3388570d9c1f4348e4504ac9aae29c">&#9670;&#160;</a></span>xQ2Hex</h2>
+<a id="a8af697149f119deb45880dc8cabd11a5" name="a8af697149f119deb45880dc8cabd11a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8af697149f119deb45880dc8cabd11a5">&#9670;&#160;</a></span>RSA_SHA3_256</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char xQ2Hex[1025]</td>
+          <td class="memname">const int RSA_SHA3_256 = 4</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a3bc0eabc2039a4402e4281efed2cb1f3" name="a3bc0eabc2039a4402e4281efed2cb1f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3bc0eabc2039a4402e4281efed2cb1f3">&#9670;&#160;</a></span>xQHex</h2>
+<a id="a8fbf641d328e0093ed1bb10ce21d0d1a" name="a8fbf641d328e0093ed1bb10ce21d0d1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fbf641d328e0093ed1bb10ce21d0d1a">&#9670;&#160;</a></span>RSA_SHA3_384</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char xQHex[1025]</td>
+          <td class="memname">const int RSA_SHA3_384 = 5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2c6ecd0b8877d5746383c0a2999637dc" name="a2c6ecd0b8877d5746383c0a2999637dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c6ecd0b8877d5746383c0a2999637dc">&#9670;&#160;</a></span>RSA_SHA3_512</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int RSA_SHA3_512 = 6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac6eb156fe98ad3c05614aebfeafce820" name="ac6eb156fe98ad3c05614aebfeafce820"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6eb156fe98ad3c05614aebfeafce820">&#9670;&#160;</a></span>xP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">mp_int xP</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abdfc4a809471a7d5b97e05c395125d74" name="abdfc4a809471a7d5b97e05c395125d74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdfc4a809471a7d5b97e05c395125d74">&#9670;&#160;</a></span>xP1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">mp_int xP1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9c6afbb38a6a4706ed6d447d39ee26e9" name="a9c6afbb38a6a4706ed6d447d39ee26e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c6afbb38a6a4706ed6d447d39ee26e9">&#9670;&#160;</a></span>xP2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">mp_int xP2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a018e6c5031470d6e89bcccc54b488b16" name="a018e6c5031470d6e89bcccc54b488b16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a018e6c5031470d6e89bcccc54b488b16">&#9670;&#160;</a></span>xQ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">mp_int xQ</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="accbdddb9b7a54ef051f3314d1fc287ce" name="accbdddb9b7a54ef051f3314d1fc287ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accbdddb9b7a54ef051f3314d1fc287ce">&#9670;&#160;</a></span>xQ1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">mp_int xQ1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a890cfbaa01beee0d371109825ede6d3d" name="a890cfbaa01beee0d371109825ede6d3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a890cfbaa01beee0d371109825ede6d3d">&#9670;&#160;</a></span>xQ2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">mp_int xQ2</td>
         </tr>
       </table>
 </div><div class="memdoc">

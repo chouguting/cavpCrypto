@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['xp1hex_0',['xP1Hex',['../my_rsa_8c.html#a463725cb5b8d79c1b4546ae9eec88f03',1,'myRsa.c']]],
-  ['xp2hex_1',['xP2Hex',['../my_rsa_8c.html#ad61f1237ceadfc7238656a219c936ce0',1,'myRsa.c']]],
-  ['xphex_2',['xPHex',['../my_rsa_8c.html#aeebec3bd39d2cece446f7cf15a772c17',1,'myRsa.c']]],
-  ['xq1hex_3',['xQ1Hex',['../my_rsa_8c.html#a40b349738b8571c1cb7ffbe019ce6505',1,'myRsa.c']]],
-  ['xq2hex_4',['xQ2Hex',['../my_rsa_8c.html#a9f3388570d9c1f4348e4504ac9aae29c',1,'myRsa.c']]],
-  ['xqhex_5',['xQHex',['../my_rsa_8c.html#a3bc0eabc2039a4402e4281efed2cb1f3',1,'myRsa.c']]]
+  ['rsa_5fsha2_5f256_0',['RSA_SHA2_256',['../my_rsa_8c.html#aa304562b70d1dd5b54c468f195200d3a',1,'myRsa.c']]],
+  ['rsa_5fsha2_5f384_1',['RSA_SHA2_384',['../my_rsa_8c.html#ab5b74376661a8ad4113e3a421150eddf',1,'myRsa.c']]],
+  ['rsa_5fsha2_5f512_2',['RSA_SHA2_512',['../my_rsa_8c.html#a6ca9c42c2b8b2ab140c7c78c5578896b',1,'myRsa.c']]],
+  ['rsa_5fsha3_5f256_3',['RSA_SHA3_256',['../my_rsa_8c.html#a8af697149f119deb45880dc8cabd11a5',1,'myRsa.c']]],
+  ['rsa_5fsha3_5f384_4',['RSA_SHA3_384',['../my_rsa_8c.html#a8fbf641d328e0093ed1bb10ce21d0d1a',1,'myRsa.c']]],
+  ['rsa_5fsha3_5f512_5',['RSA_SHA3_512',['../my_rsa_8c.html#a2c6ecd0b8877d5746383c0a2999637dc',1,'myRsa.c']]]
 ];

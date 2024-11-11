@@ -81,6 +81,9 @@ int main()
 	//char * mctInitialVector2 = "3F3BEAC49657F44FBE44B582B4ECEB61";
 
 	//aesCfb128MCTDecrypt(AES_KEY_SIZE_256, mctCiphertext, mctKey2, mctInitialVector2);
-	
-	
+	char* message3 = "97F4CBB1A81AAA9EDE31090ACA0FA9DB1E2D4BC4454293C730FF389B6F6D05110587FAE217137BE11A3C77D6DBAFAC";
+	char* signature = rsaSignMessage_pss(message3, SHA3_384);
+	printf("signature: %s\n", signature);
+	rsa_key key = rsaKeyPair();
+	int isVerify = rsaVerifyMessage_pss(message3, signature, SHA3_384, &key);
 }

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['歡迎來到_20cavp_20crypto_20project_0',['歡迎來到 CAVP crypto Project',['../index.html',1,'']]]
+  ['sha_202_20簡介_0',['SHA 2 簡介',['../sha2_intro.html',1,'algorithm_list']]],
+  ['sha_203_20簡介_1',['SHA 3 簡介',['../sha3_intro.html',1,'algorithm_list']]],
+  ['shake_20簡介_2',['SHAKE 簡介',['../shake_intro.html',1,'algorithm_list']]]
 ];

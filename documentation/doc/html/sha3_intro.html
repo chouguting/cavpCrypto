@@ -115,24 +115,24 @@ $(function(){initNavTree('sha3_intro.html',''); initResizable(true); });
       <li class="level2 empty">
         <ul>
           <li class="level3">
-            <a href="#autotoc_md24">SHA3一共有三種模式，對應三種訊息摘要長度</a>
+            <a href="#autotoc_md32">SHA3一共有三種模式，對應三種訊息摘要長度</a>
           </li>
           <li class="level3">
-            <a href="#autotoc_md25">每一種模式要進行以下兩種測試</a>
+            <a href="#autotoc_md33">每一種模式要進行以下兩種測試</a>
           </li>
           <li class="level3">
-            <a href="#autotoc_md26">AFT測試</a>
+            <a href="#autotoc_md34">AFT測試</a>
             <ul>
               <li class="level4">
-                <a href="#autotoc_md27">雜湊函數</a>
+                <a href="#autotoc_md35">雜湊函數</a>
               </li>
             </ul>
           </li>
           <li class="level3">
-            <a href="#autotoc_md28">MCT測試</a>
+            <a href="#autotoc_md36">MCT測試</a>
             <ul>
               <li class="level4">
-                <a href="#autotoc_md29">SHA3 MCT 測試函數</a>
+                <a href="#autotoc_md37">SHA3 MCT 測試函數</a>
               </li>
             </ul>
           </li>
@@ -142,34 +142,34 @@ $(function(){initNavTree('sha3_intro.html',''); initResizable(true); });
   </li>
 </ul>
 </div>
-<div class="textblock"><h3><a class="anchor" id="autotoc_md24"></a>
+<div class="textblock"><h3><a class="anchor" id="autotoc_md32"></a>
 SHA3一共有三種模式，對應三種訊息摘要長度</h3>
 <ul>
 <li>SHA3-256</li>
 <li>SHA3-384</li>
 <li>SHA3-512 </li>
 </ul>
-<h3><a class="anchor" id="autotoc_md25"></a>
+<h3><a class="anchor" id="autotoc_md33"></a>
 每一種模式要進行以下兩種測試</h3>
 <ul>
 <li>AFT測試 (Algorithm Functional Test)</li>
 <li>MCT測試 (Monte Carlo Test)</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md26"></a>
+<h3><a class="anchor" id="autotoc_md34"></a>
 AFT測試</h3>
 <p>AFT測試是最直觀的測試，就是測試雜湊結果正不正確 <br  />
  SHA3的AFT測試只需要測試雜湊值正不正確 <br  />
 </p>
-<h4><a class="anchor" id="autotoc_md27"></a>
+<h4><a class="anchor" id="autotoc_md35"></a>
 雜湊函數</h4>
 <p><a class="el" href="my_sha_8c.html#a24836509c4d4f7bab82ed9b79f37e3cd">SHA2或SHA3的雜湊函數實作 shaHash()</a> <br  />
  </p><dl class="section remark"><dt>Remarks</dt><dd>SHA2和SHA3的雜湊函數是一樣的</dd></dl>
-<h3><a class="anchor" id="autotoc_md28"></a>
+<h3><a class="anchor" id="autotoc_md36"></a>
 MCT測試</h3>
 <p>MCT測試(Monte Carlo Test)會需要對一組初始值重複做多次雜湊，看看過程中是否都正確 <br  />
  SHA3的MCT測試流程演算法要看<a href="https://csrc.nist.gov/CSRC/media/Projects/Cryptographic-Algorithm-Validation-Program/documents/sha3/sha3vs.pdf">這份文件</a> 6.2.3節的部分<br  />
  (過程中有output的地方都要檢查) </p><dl class="section attention"><dt>Attention</dt><dd>SHA2和SHA3的MCT測試流程是不一樣的</dd></dl>
-<h4><a class="anchor" id="autotoc_md29"></a>
+<h4><a class="anchor" id="autotoc_md37"></a>
 SHA3 MCT 測試函數</h4>
 <p><a class="el" href="my_sha_8c.html#a9143d0a8090a75dc04941622fa31410a">SHA3的MCT測試函數 sha3MCTHash()</a> <br  />
  </p>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CAVP crypto: SHAKE 簡介</title>
+<title>CAVP crypto: RSA 簡介</title>
 <link rel="icon" href="LaDS_icon.ico" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -79,7 +79,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('shake_intro.html',''); initResizable(true); });
+$(function(){initNavTree('rsa_intro.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -105,7 +105,7 @@ $(function(){initNavTree('shake_intro.html',''); initResizable(true); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">SHAKE 簡介</div></div>
+  <div class="headertitle"><div class="title">RSA 簡介</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
@@ -115,34 +115,28 @@ $(function(){initNavTree('shake_intro.html',''); initResizable(true); });
       <li class="level2 empty">
         <ul>
           <li class="level3">
-            <a href="#autotoc_md38">SHAKE有兩種模式，對應兩種訊息摘要長度</a>
+            <a href="#autotoc_md18">RSA有2種模式，分別對應兩種Padding模式:</a>
           </li>
           <li class="level3">
-            <a href="#autotoc_md39">每一種模式要進行以下三種測試</a>
+            <a href="#autotoc_md19">每種模式都支援以下6種Hashing方式:</a>
           </li>
           <li class="level3">
-            <a href="#autotoc_md40">AFT測試</a>
-            <ul>
-              <li class="level4">
-                <a href="#autotoc_md41">雜湊函數</a>
-              </li>
-            </ul>
+            <a href="#autotoc_md20">每一種組合都要支援以下3種功能:</a>
           </li>
           <li class="level3">
-            <a href="#autotoc_md42">MCT測試</a>
-            <ul>
-              <li class="level4">
-                <a href="#autotoc_md43">SHAKE MCT 測試函數</a>
-              </li>
-            </ul>
+            <a href="#autotoc_md21">Key Generation</a>
           </li>
           <li class="level3">
-            <a href="#autotoc_md44">VOT測試</a>
-            <ul>
-              <li class="level4">
-                <a href="#autotoc_md45">SHAKE VOT 測試函數</a>
-              </li>
-            </ul>
+            <a href="#autotoc_md22">Signature Generation(for PKCS_1_V1_5)</a>
+          </li>
+          <li class="level3">
+            <a href="#autotoc_md23">Signature Generation(for PKCS_1_PSS)</a>
+          </li>
+          <li class="level3">
+            <a href="#autotoc_md24">Signature Verification(for PKCS_1_V1_5)</a>
+          </li>
+          <li class="level3">
+            <a href="#autotoc_md25">Signature Verification(for PKCS_1_PSS)</a>
           </li>
         </ul>
       </li>
@@ -150,48 +144,54 @@ $(function(){initNavTree('shake_intro.html',''); initResizable(true); });
   </li>
 </ul>
 </div>
-<div class="textblock"><h3><a class="anchor" id="autotoc_md38"></a>
-SHAKE有兩種模式，對應兩種訊息摘要長度</h3>
+<div class="textblock"><h3><a class="anchor" id="autotoc_md18"></a>
+RSA有2種模式，分別對應兩種Padding模式:</h3>
 <ul>
-<li>SHAKE-128</li>
-<li>SHAKE-256</li>
+<li>LTC_PKCS_1_V1_5</li>
+<li>LTC_PKCS_1_PSS</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md39"></a>
-每一種模式要進行以下三種測試</h3>
+<h3><a class="anchor" id="autotoc_md19"></a>
+每種模式都支援以下6種Hashing方式:</h3>
 <ul>
-<li>AFT測試 (Algorithm Functional Test)</li>
-<li>MCT測試 (Monte Carlo Test)</li>
-<li>VOT測試 (Variable Output Test)</li>
+<li>SHA_256</li>
+<li>SHA_384</li>
+<li>SHA_512</li>
+<li>SHA3_256</li>
+<li>SHA3_384</li>
+<li>SHA3_512</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md40"></a>
-AFT測試</h3>
-<p>AFT測試是最直觀的測試，就是測試雜湊結果正不正確 <br  />
- SHAKE的AFT測試只需要測試雜湊值正不正確 <br  />
- SHAKE-128的輸出應該要是128 bits，SHAKE-256的輸出應該要是256 bits <br  />
+<p>(因此Padding和Hashing方式總共有12種組合)</p>
+<h3><a class="anchor" id="autotoc_md20"></a>
+每一種組合都要支援以下3種功能:</h3>
+<ul>
+<li>Key Generation</li>
+<li>Signature Generation</li>
+<li>Signature Verification</li>
+</ul>
+<h3><a class="anchor" id="autotoc_md21"></a>
+Key Generation</h3>
+<p>Key Generation是產生一對公私鑰的過程，公鑰可以公開，私鑰要保密 <br  />
+ <a class="el" href="my_rsa_8c.html#a5df5a6a9b060f2402faaa85ee123ebc7">RSA的金鑰產生函數 rsaKeyPair()</a> <br  />
 </p>
-<h4><a class="anchor" id="autotoc_md41"></a>
-雜湊函數</h4>
-<p><a class="el" href="my_shake_8c.html#a5e41eccdfe067c65aabb53a2f587e75f">SHAKE的可變長度雜湊函數實作 shakeHash()</a> <br  />
- </p><dl class="section attention"><dt>Attention</dt><dd>因為是可變長度輸出，因五要記得設定正確的輸出長度</dd></dl>
-<h3><a class="anchor" id="autotoc_md42"></a>
-MCT測試</h3>
-<p>MCT測試(Monte Carlo Test)會需要對一組初始值重複做多次雜湊，看看過程中是否都正確 <br  />
- SHA3的MCT測試流程演算法要看<a href="https://csrc.nist.gov/CSRC/media/Projects/Cryptographic-Algorithm-Validation-Program/documents/sha3/sha3vs.pdf">這份文件</a> 6.3.3節的部分<br  />
- (過程中有output的地方都要檢查) </p><dl class="section remark"><dt>Remarks</dt><dd>和SHA3同一份文件，但流程不同</dd></dl>
-<h4><a class="anchor" id="autotoc_md43"></a>
-SHAKE MCT 測試函數</h4>
-<p><a class="el" href="my_shake_8c.html#ab6a08c87be252b041cd713450225a3d0">SHAKE的MCT測試函數 shakeMCTHash()</a> <br  />
+<h3><a class="anchor" id="autotoc_md22"></a>
+Signature Generation(for PKCS_1_V1_5)</h3>
+<p>Signature Generation是用私鑰對訊息做簽章的過程(PKCS_1_V1_5) <br  />
+ <a class="el" href="my_rsa_8c.html#ad4799479eebd20e123fbc94605dad188">RSA的簽章函數 rsaSignMessage_pkcs1_v1_5()</a> <br  />
 </p>
-<h3><a class="anchor" id="autotoc_md44"></a>
-VOT測試</h3>
-<p>VOT測試(Variable Output Test)是測試可變長度輸出的雜湊函數是否正確 <br  />
- 在這個測試中，我們會測試不同長度的輸出，看看是否正確 <br  />
- 用戶應該可以設定不同長度的輸出，然後看看是否正確 <br  />
+<h3><a class="anchor" id="autotoc_md23"></a>
+Signature Generation(for PKCS_1_PSS)</h3>
+<p>Signature Generation是用私鑰對訊息做簽章的過程(PSS) <br  />
+ <a class="el" href="my_rsa_8c.html#a9cc5b3b4f48bef5d1105202a4fd814cf">RSA的簽章函數 rsaSignMessage_pss()</a> <br  />
 </p>
-<h4><a class="anchor" id="autotoc_md45"></a>
-SHAKE VOT 測試函數</h4>
-<p><a class="el" href="my_shake_8c.html#a5e41eccdfe067c65aabb53a2f587e75f">SHAKE的可變長度雜湊函數實作 shakeHash()</a> <br  />
- </p>
+<h3><a class="anchor" id="autotoc_md24"></a>
+Signature Verification(for PKCS_1_V1_5)</h3>
+<p>Signature Verification是用公鑰對簽章做驗證的過程(PKCS_1_V1_5) <br  />
+ <a class="el" href="my_rsa_8c.html#a797facfd7fe1e4a27e82783edacf96bc">RSA的簽章驗證函數 rsaVerifyMessage_pkcs1_v1_5()</a> <br  />
+</p>
+<h3><a class="anchor" id="autotoc_md25"></a>
+Signature Verification(for PKCS_1_PSS)</h3>
+<p>Signature Verification是用公鑰對簽章做驗證的過程(PSS) <br  />
+ <a class="el" href="my_rsa_8c.html#a0454e3f9de8429a0b152bbba3e426e7b">RSA的簽章驗證函數 rsaVerifyMessage_pss()</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

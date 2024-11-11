@@ -43,7 +43,7 @@ int ecdsaKeyVerify(int keypairCurve, char* qx, char* qy);
 
 /// @brief 產生ECDSA的簽章
 ///
-/// 產生ECDSA的簽章，可以選擇不同的curve及hash演算法
+/// 產生ECDSA的簽章，可以選擇不同的curve及hash演算法 <br>
 /// 使用範例:
 /// @code{.c}
 /// char* d = "419C5769809C963614837F0B90119BDB403FC71100E08235EA143B9E78C1FE42";

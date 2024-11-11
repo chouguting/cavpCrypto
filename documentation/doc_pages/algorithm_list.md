@@ -4,6 +4,7 @@
 @subpage sha3_intro
 @subpage shake_intro
 @subpage ecdsa_intro
+@subpage rsa_intro
 
 @tableofcontents
 
@@ -14,8 +15,6 @@
 - @ref shake_intro "SHAKE"
 - DRBG (未實作)
 - @ref ecdsa_intro "ECDSA"
-- RSA
-
-
+- @ref rsa_intro "RSA"
 
 

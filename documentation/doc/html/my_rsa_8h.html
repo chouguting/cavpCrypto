@@ -116,10 +116,21 @@ $(function(){initNavTree('my_rsa_8h.html',''); initResizable(true); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ad4799479eebd20e123fbc94605dad188" id="r_ad4799479eebd20e123fbc94605dad188"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4799479eebd20e123fbc94605dad188">rsaSignMessage_pkcs1_v1_5</a> (const char *message, const int hashAlgo)</td></tr>
+<tr class="memdesc:ad4799479eebd20e123fbc94605dad188"><td class="mdescLeft">&#160;</td><td class="mdescRight">產生RSA的簽章(pkcs1_v1_5)  <br /></td></tr>
+<tr class="separator:ad4799479eebd20e123fbc94605dad188"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cc5b3b4f48bef5d1105202a4fd814cf" id="r_a9cc5b3b4f48bef5d1105202a4fd814cf"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cc5b3b4f48bef5d1105202a4fd814cf">rsaSignMessage_pss</a> (const char *message, const int hashAlgo)</td></tr>
+<tr class="memdesc:a9cc5b3b4f48bef5d1105202a4fd814cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">產生RSA的簽章(pss)  <br /></td></tr>
+<tr class="separator:a9cc5b3b4f48bef5d1105202a4fd814cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a797facfd7fe1e4a27e82783edacf96bc" id="r_a797facfd7fe1e4a27e82783edacf96bc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a797facfd7fe1e4a27e82783edacf96bc">rsaVerifyMessage_pkcs1_v1_5</a> (const char *message, const char *signature, const int hashAlgo, rsa_key *key)</td></tr>
+<tr class="memdesc:a797facfd7fe1e4a27e82783edacf96bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">驗證RSA的簽章(pkcs1_v1_5)  <br /></td></tr>
+<tr class="separator:a797facfd7fe1e4a27e82783edacf96bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0454e3f9de8429a0b152bbba3e426e7b" id="r_a0454e3f9de8429a0b152bbba3e426e7b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0454e3f9de8429a0b152bbba3e426e7b">rsaVerifyMessage_pss</a> (const char *message, const char *signature, const int hashAlgo, rsa_key *key)</td></tr>
+<tr class="memdesc:a0454e3f9de8429a0b152bbba3e426e7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">驗證RSA的簽章(pss)  <br /></td></tr>
+<tr class="separator:a0454e3f9de8429a0b152bbba3e426e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5df5a6a9b060f2402faaa85ee123ebc7" id="r_a5df5a6a9b060f2402faaa85ee123ebc7"><td class="memItemLeft" align="right" valign="top">rsa_key&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5df5a6a9b060f2402faaa85ee123ebc7">rsaKeyPair</a> ()</td></tr>
+<tr class="memdesc:a5df5a6a9b060f2402faaa85ee123ebc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">產生RSA的key pair  <br /></td></tr>
 <tr class="separator:a5df5a6a9b060f2402faaa85ee123ebc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05e47c76d295cf1b80e516541fb41676" id="r_a05e47c76d295cf1b80e516541fb41676"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a05e47c76d295cf1b80e516541fb41676">rsaSignMessage_pkcs1_v1_5</a> (const char *message, const int hashAlgo, unsigned long *sig_len)</td></tr>
-<tr class="separator:a05e47c76d295cf1b80e516541fb41676"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a5df5a6a9b060f2402faaa85ee123ebc7" name="a5df5a6a9b060f2402faaa85ee123ebc7"></a>
@@ -137,10 +148,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>產生RSA的key pair </p>
+<p>產生RSA的key pair，回傳一個rsa_key struct 使用computeAProbablePrimeFactorBasedOnAuxiliaryPrimes()函數計算Probable Prime Factor Based On Auxiliary Primes 然後使用generateKeyPairBasedOnAuxiliaryProbablePrimes()函數產生key pair，以上是兩個rsaKeyPair()用到的內部函式 使用範例: </p><div class="fragment"><div class="line">rsa_key key = <a class="code hl_function" href="my_rsa_8c.html#a5df5a6a9b060f2402faaa85ee123ebc7">rsaKeyPair</a>();</div>
+<div class="ttc" id="amy_rsa_8c_html_a5df5a6a9b060f2402faaa85ee123ebc7"><div class="ttname"><a href="my_rsa_8c.html#a5df5a6a9b060f2402faaa85ee123ebc7">rsaKeyPair</a></div><div class="ttdeci">rsa_key rsaKeyPair()</div><div class="ttdoc">產生RSA的key pair</div><div class="ttdef"><b>Definition</b> myRsa.c:198</div></div>
+</div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>一組可用的rsa key pair(type: rsa_key) </dd></dl>
+
 </div>
 </div>
-<a id="a05e47c76d295cf1b80e516541fb41676" name="a05e47c76d295cf1b80e516541fb41676"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05e47c76d295cf1b80e516541fb41676">&#9670;&#160;</a></span>rsaSignMessage_pkcs1_v1_5()</h2>
+<a id="ad4799479eebd20e123fbc94605dad188" name="ad4799479eebd20e123fbc94605dad188"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4799479eebd20e123fbc94605dad188">&#9670;&#160;</a></span>rsaSignMessage_pkcs1_v1_5()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -153,15 +169,201 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>hashAlgo</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>產生RSA的簽章(pkcs1_v1_5) </p>
+<p>產生RSA的簽章(pkcs1_v1_5)，可以選擇不同的hash演算法 <br  />
+ 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* message = <span class="stringliteral">&quot;97F4CBB1A874F3F4F87B14411F97CCC2D02A5B0DB67C5BB&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;01557D74230A05F9578527215FF5E0020A0CA5C6E401E53&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;BD65841AAA9EDE31090ACA0FA99494BF54E9555F7254314&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;7EAD5F9ECE785667B25006CD6EFF549EBD7C5C6474648D5&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;198DB1E2D4BC4454293C730FF389B6F6D05110587FAE217&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;137BE11A3C77D6DBAFAC8&quot;</span>;</div>
+<div class="line"><span class="keywordtype">char</span>* signature = <a class="code hl_function" href="my_rsa_8c.html#ad4799479eebd20e123fbc94605dad188">rsaSignMessage_pkcs1_v1_5</a>(message, <a class="code hl_variable" href="my_sha_8c.html#ab4089ad890525a6aa037aa30983f2f80">SHA2_256</a>);</div>
+<div class="line">printf(<span class="stringliteral">&quot;signature: %s\n&quot;</span>, signature);</div>
+<div class="ttc" id="amy_rsa_8c_html_ad4799479eebd20e123fbc94605dad188"><div class="ttname"><a href="my_rsa_8c.html#ad4799479eebd20e123fbc94605dad188">rsaSignMessage_pkcs1_v1_5</a></div><div class="ttdeci">char * rsaSignMessage_pkcs1_v1_5(const char *message, const int hashAlgo)</div><div class="ttdoc">產生RSA的簽章(pkcs1_v1_5)</div><div class="ttdef"><b>Definition</b> myRsa.c:302</div></div>
+<div class="ttc" id="amy_sha_8c_html_ab4089ad890525a6aa037aa30983f2f80"><div class="ttname"><a href="my_sha_8c.html#ab4089ad890525a6aa037aa30983f2f80">SHA2_256</a></div><div class="ttdeci">const int SHA2_256</div><div class="ttdef"><b>Definition</b> mySha.c:8</div></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>要簽章的message </td></tr>
+    <tr><td class="paramname">hashAlgo</td><td>SHA2_256, SHA2_384, SHA2_512, SHA3_256, SHA3_384, SHA3_512, SHAKE128, SHAKE256 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pkcs1_v1_5 signature(type: char*) </dd></dl>
+
+</div>
+</div>
+<a id="a9cc5b3b4f48bef5d1105202a4fd814cf" name="a9cc5b3b4f48bef5d1105202a4fd814cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cc5b3b4f48bef5d1105202a4fd814cf">&#9670;&#160;</a></span>rsaSignMessage_pss()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * rsaSignMessage_pss </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>hashAlgo</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>產生RSA的簽章(pss) </p>
+<p>產生RSA的簽章(pss)，可以選擇不同的hash演算法 <br  />
+ 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* message = <span class="stringliteral">&quot;97F4CBB1A874F3F4F87B14411F97CCC2D02A5B0DB67C5BB&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;01557D74230A05F9578527215FF5E0020A0CA5C6E401E53&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;BD65841AAA9EDE31090ACA0FA99494BF54E9555F7254314&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;7EAD5F9ECE785667B25006CD6EFF549EBD7C5C6474648D5&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;198DB1E2D4BC4454293C730FF389B6F6D05110587FAE217&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;137BE11A3C77D6DBAFAC8&quot;</span>;</div>
+<div class="line"><span class="keywordtype">char</span>* signature = <a class="code hl_function" href="my_rsa_8c.html#a9cc5b3b4f48bef5d1105202a4fd814cf">rsaSignMessage_pss</a>(message, <a class="code hl_variable" href="my_sha_8c.html#ac7f83398795f8763df4bc23f1705b213">SHA3_384</a>);</div>
+<div class="line">printf(<span class="stringliteral">&quot;signature: %s\n&quot;</span>, signature);</div>
+<div class="ttc" id="amy_rsa_8c_html_a9cc5b3b4f48bef5d1105202a4fd814cf"><div class="ttname"><a href="my_rsa_8c.html#a9cc5b3b4f48bef5d1105202a4fd814cf">rsaSignMessage_pss</a></div><div class="ttdeci">char * rsaSignMessage_pss(const char *message, const int hashAlgo)</div><div class="ttdoc">產生RSA的簽章(pss)</div><div class="ttdef"><b>Definition</b> myRsa.c:396</div></div>
+<div class="ttc" id="amy_sha_8c_html_ac7f83398795f8763df4bc23f1705b213"><div class="ttname"><a href="my_sha_8c.html#ac7f83398795f8763df4bc23f1705b213">SHA3_384</a></div><div class="ttdeci">const int SHA3_384</div><div class="ttdef"><b>Definition</b> mySha.c:12</div></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>要簽章的message </td></tr>
+    <tr><td class="paramname">hashAlgo</td><td>SHA2_256, SHA2_384, SHA2_512, SHA3_256, SHA3_384, SHA3_512, SHAKE128, SHAKE256 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pss signature(type: char*) </dd></dl>
+
+</div>
+</div>
+<a id="a797facfd7fe1e4a27e82783edacf96bc" name="a797facfd7fe1e4a27e82783edacf96bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a797facfd7fe1e4a27e82783edacf96bc">&#9670;&#160;</a></span>rsaVerifyMessage_pkcs1_v1_5()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rsaVerifyMessage_pkcs1_v1_5 </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>signature</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>hashAlgo</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned long *</td>          <td class="paramname"><span class="paramname"><em>sig_len</em></span>&#160;)</td>
+          <td class="paramtype">rsa_key *</td>          <td class="paramname"><span class="paramname"><em>key</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>驗證RSA的簽章(pkcs1_v1_5) </p>
+<p>驗證RSA的簽章(pkcs1_v1_5)，可以選擇不同的hash演算法 <br  />
+ 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* message = <span class="stringliteral">&quot;97F4CBB1A874F3F4F87B14411F97CCC2D02A5B0DB67C5BB&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;01557D74230A05F9578527215FF5E0020A0CA5C6E401E53&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;BD65841AAA9EDE31090ACA0FA99494BF54E9555F7254314&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;7EAD5F9ECE785667B25006CD6EFF549EBD7C5C6474648D5&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;198DB1E2D4BC4454293C730FF389B6F6D05110587FAE217&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;137BE11A3C77D6DBAFAC8&quot;</span>;</div>
+<div class="line"><span class="keywordtype">char</span>* signature = <span class="stringliteral">&quot;8AA461ED87DE93708814891F394C7B1736D6ADFCD609D8C&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;2B6F89EC0C3A35EB2F8EF1A4619A0E97BCB716E58E21F65&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;559FE2FCD55278DEAAE8DA65543C9F311B9A25883B7BAEE&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;E12FBC812C2815152798DC40FDD5F88D79AFAEA583F6EAB&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;8CCD1FD69DBAE0032EAA78E45BB7956144AB2E13B831E6B&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;2CB5F3E955FD91E5FB034567024F997A8135FD835866DE7&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;7F6849D3E00AE842886329CB5735706F9C99FA2FA37D635&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;E9685395B02B1D0C64DF2B2A11E90ED4937A72783E4764C&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;BBBC56F7F418CC6E17A5CD8B195B596E77BBF81B70E027C&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;D19DEDF2352F1037AC3EF5DF632091D53C6B18FBB8497F6&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;B36589B4EB8F199B96BBB6C3A95B0AD1F4B70390CB&quot;</span>;</div>
+<div class="line"><span class="keywordtype">int</span> isValid = <a class="code hl_function" href="my_rsa_8c.html#a797facfd7fe1e4a27e82783edacf96bc">rsaVerifyMessage_pkcs1_v1_5</a>(message, signature, <a class="code hl_variable" href="my_sha_8c.html#ab4089ad890525a6aa037aa30983f2f80">SHA2_256</a>, &amp;key); <span class="comment">//1</span></div>
+<div class="line">printf(<span class="stringliteral">&quot;isValid: %d\n&quot;</span>, isValid);</div>
+<div class="ttc" id="amy_rsa_8c_html_a797facfd7fe1e4a27e82783edacf96bc"><div class="ttname"><a href="my_rsa_8c.html#a797facfd7fe1e4a27e82783edacf96bc">rsaVerifyMessage_pkcs1_v1_5</a></div><div class="ttdeci">int rsaVerifyMessage_pkcs1_v1_5(const char *message, const char *signature, const int hashAlgo, rsa_key *key)</div><div class="ttdoc">驗證RSA的簽章(pkcs1_v1_5)</div><div class="ttdef"><b>Definition</b> myRsa.c:502</div></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>要驗證的message </td></tr>
+    <tr><td class="paramname">signature</td><td>簽章 </td></tr>
+    <tr><td class="paramname">hashAlgo</td><td>SHA2_256, SHA2_384, SHA2_512, SHA3_256, SHA3_384, SHA3_512, SHAKE128, SHAKE256 </td></tr>
+    <tr><td class="paramname">key</td><td>rsa_key struct 驗證需用到的公鑰 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1:成功 0:失敗 </dd></dl>
+
+</div>
+</div>
+<a id="a0454e3f9de8429a0b152bbba3e426e7b" name="a0454e3f9de8429a0b152bbba3e426e7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0454e3f9de8429a0b152bbba3e426e7b">&#9670;&#160;</a></span>rsaVerifyMessage_pss()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rsaVerifyMessage_pss </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>signature</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>hashAlgo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">rsa_key *</td>          <td class="paramname"><span class="paramname"><em>key</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>驗證RSA的簽章(pss) </p>
+<p>驗證RSA的簽章(pss)，可以選擇不同的hash演算法 <br  />
+ 使用範例: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* message = <span class="stringliteral">&quot;97F4CBB1A874F3F4F87B14411F97CCC2D02A5B0DB67C5BB&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;01557D74230A05F9578527215FF5E0020A0CA5C6E401E53&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;BD65841AAA9EDE31090ACA0FA99494BF54E9555F7254314&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;7EAD5F9ECE785667B25006CD6EFF549EBD7C5C6474648D5&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;198DB1E2D4BC4454293C730FF389B6F6D05110587FAE217&quot;</span></div>
+<div class="line">                <span class="stringliteral">&quot;137BE11A3C77D6DBAFAC8&quot;</span>;</div>
+<div class="line"><span class="keywordtype">char</span>* signature = <span class="stringliteral">&quot;821CE8C4267340B6074F1695808772D379250CD14D84F72&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;0B90C1C1C887BA879A20706AB803A33DD28EDD9BC80623D&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;BA3693132098DA68C21C46A706A063F43AF91363E8D09F2&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;6B34E2CDAF8A8F5DC3254363BF70582C51B4FBDF1392A02&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;D4278AC923215948874EF554F8C4CC2D72C78C98FB2A838&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;3077C029E7628AC72091B494C1D8C2DABC903FF832CFE20&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;B97F3C8DCC64939413F33582041D9805291CCEE3D688651&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;A19711C33F6E2A3147145445A2A7B1A3ECEFFA61CD77803&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;55C63401E0E784B75D6D37B2C937E64485C39908C71382F&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;E684278CE9F1628BA5B294AF6E90C0F8FF3EE6C80CDE6B3&quot;</span></div>
+<div class="line">                  <span class="stringliteral">&quot;D26740A76D46759BFC04BF741261D1596BA550CAFB&quot;</span></div>
+<div class="line"><span class="keywordtype">int</span> isValid = <a class="code hl_function" href="my_rsa_8c.html#a0454e3f9de8429a0b152bbba3e426e7b">rsaVerifyMessage_pss</a>(message, signature, <a class="code hl_variable" href="my_sha_8c.html#ac7f83398795f8763df4bc23f1705b213">SHA3_384</a>, &amp;key); <span class="comment">//1</span></div>
+<div class="line">printf(<span class="stringliteral">&quot;isValid: %d\n&quot;</span>, isValid);</div>
+<div class="ttc" id="amy_rsa_8c_html_a0454e3f9de8429a0b152bbba3e426e7b"><div class="ttname"><a href="my_rsa_8c.html#a0454e3f9de8429a0b152bbba3e426e7b">rsaVerifyMessage_pss</a></div><div class="ttdeci">int rsaVerifyMessage_pss(const char *message, const char *signature, const int hashAlgo, rsa_key *key)</div><div class="ttdoc">驗證RSA的簽章(pss)</div><div class="ttdef"><b>Definition</b> myRsa.c:605</div></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>要驗證的message </td></tr>
+    <tr><td class="paramname">signature</td><td>簽章 </td></tr>
+    <tr><td class="paramname">hashAlgo</td><td>SHA2_256, SHA2_384, SHA2_512, SHA3_256, SHA3_384, SHA3_512, SHAKE128, SHAKE256 </td></tr>
+    <tr><td class="paramname">key</td><td>rsa_key struct 驗證需用到的公鑰 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1:成功 0:失敗 </dd></dl>
 
 </div>
 </div>
