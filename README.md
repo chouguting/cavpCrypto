@@ -1,4 +1,4 @@
-### GitHub 專案位置
+### 官方文件
 本專案的官方文件網址位址為:
 [https://cavp.chouguting.com/](https://cavp.chouguting.com/)
 <br>
