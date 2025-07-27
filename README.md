@@ -1,6 +1,6 @@
 ### GitHub 專案位置
 本專案的官方文件網址位址為:
-[https://github.com/chouguting/cavpCrypto](https://github.com/chouguting/cavpCrypto)
+[https://cavp.chouguting.com/](https://cavp.chouguting.com/)
 <br>
 <br>
 
